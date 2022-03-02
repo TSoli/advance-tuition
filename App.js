@@ -1,20 +1,53 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import { useEffect, useState, useMemo } from 'react';
+
+import RootStackScreen from './screens/RootStackScreen';
+import { AuthContext  } from './components/context';
+import HomeScreen from './screens/HomeScreen';
 
 export default function App() {
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [userToken, setUserToken] = useState(null);
+
+  const authContext = useMemo(() => ({
+    Login: () => {
+      setUserToken('default_user');
+      setIsLoading(false);
+    },
+    Logout: () => {
+      setUserToken(null);
+      setIsLoading(false);
+    },
+    Signup: () => {
+      setUserToken('default_user');
+      setIsLoading(false);
+    },
+  }));
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+        <ActivityIndicator size="large" color="#004ba0" />
+      </View>
+    )
+  }
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AuthContext.Provider value={authContext}>
+      <NavigationContainer>
+        { (userToken != null) ? 
+          <HomeScreen/>
+        :
+          <RootStackScreen/>
+        }
+      </NavigationContainer>
+    </AuthContext.Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
