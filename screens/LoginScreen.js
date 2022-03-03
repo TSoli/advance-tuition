@@ -6,11 +6,47 @@ import { Ionicons } from '@expo/vector-icons';
 import { AuthContext } from '../components/context';
 
 export default function LoginScreen({navigation}) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordHidden, setPasswordHidden] = useState(true);
+  const [data, setData] = useState({
+    email: '',
+    password: '',
+    check_textInputChange: false,
+    secureTextEntry: true
+  });
 
   const { Login } = useContext(AuthContext);
+
+  const textInputChange = (val) => {
+    if (val.length != 0) {
+      setData({
+        ...data,
+        email: val,
+        check_textInputChange: true
+      });
+    } else {
+      setData({
+        ...data,
+        check_textInputChange: false
+      });
+    }
+  }
+
+  const handlePasswordChange = (val) => {
+    setData({
+      ...data,
+      password: val
+    });
+  }
+
+  const updateSecureTextEntry = () => {
+    setData({
+      ...data,
+      secureTextEntry: !data.secureTextEntry
+    });
+  }
+
+  const loginHandle = (user, pass) => {
+    Login(user, pass);
+  }
 
   return (
     <View style={styles.container}>
@@ -22,7 +58,7 @@ export default function LoginScreen({navigation}) {
           style={styles.TextInput}
           placeholder="Email"
           placeholderTextColor="white"
-          onChangeText={(email) => setEmail(email)}
+          onChangeText={(email) => textInputChange(email)}
           color="white"
           autoCapitalize='none'
         />
@@ -33,15 +69,15 @@ export default function LoginScreen({navigation}) {
           style={styles.TextInput}
           placeholder="Password"
           placeholderTextColor="white"
-          secureTextEntry={passwordHidden ? true : false}
-          onChangeText={(password) => setPassword(password)}
+          secureTextEntry={data.secureTextEntry ? true : false}
+          onChangeText={(password) => handlePasswordChange(password)}
           color="white"
           autoCapitalize='none'
         />
-        <TouchableOpacity onPress={() => setPasswordHidden(!passwordHidden)}>
+        <TouchableOpacity onPress={updateSecureTextEntry}>
           <Ionicons 
             style={styles.icons}
-            name={passwordHidden ? "eye-off" : "eye"}
+            name={data.secureTextEntry ? "eye-off" : "eye"}
             color="white"
             size={20}
           />
@@ -52,7 +88,7 @@ export default function LoginScreen({navigation}) {
         <Text style={styles.forgot_button}>Forgot Password?</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.loginBtn} onPress={() => {Login()}}>
+      <TouchableOpacity style={styles.loginBtn} onPress={() => {loginHandle(data.email, data.password)}}>
         <Text style={styles.loginText}>LOGIN</Text>
       </TouchableOpacity>
 
