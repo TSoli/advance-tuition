@@ -1,6 +1,7 @@
-import { NavigationContainer } from '@react-navigation/native';
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 import { useEffect, useState, useMemo, useReducer } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import RootStackScreen from './screens/RootStackScreen';
 import { AuthContext  } from './components/context';
@@ -48,19 +49,31 @@ export default function App() {
   const [loginState, dispatch] = useReducer(loginReducer, initialLoginState);
 
   const authContext = useMemo(() => ({
-    Login: (userName, password) => {
+    Login: async(userName, password) => {
       let userToken;
       userToken = null;
       if (userName == 'user' && password == 'pass') {
-        userToken = 'abc123';
+        try {
+          userToken = 'abc123';
+          await AsyncStorage.setItem('userToken', userToken);
+        } catch (e) {
+          console.log(e);
+        }
       }
 
       // console.log('user token: ', userToken);
       dispatch({ type: 'LOGIN', id: userName, token: userToken });
     },
-    Logout: () => {
+    Logout: async() => {
+      try {
+        await AsyncStorage.removeItem('userToken');
+      } catch (e) {
+        console.log(e);
+      }
+
       dispatch({ type: 'LOGOUT' });
     },
+    
     Signup: () => {
       setUserToken('default_user');
       setIsLoading(false);
@@ -68,9 +81,14 @@ export default function App() {
   }), []);
 
   useEffect(() => {
-    setTimeout(() => {
-      let userToken;
-      userToken = 'def456';
+    setTimeout(async() => {
+      let userToken = null;
+      try {
+        userToken = await AsyncStorage.getItem('userToken');
+      } catch (e) {
+        console.log(e);
+      }
+
       // console.log('user token: ', userToken);
       dispatch({ type: 'RETRIEVE_TOKEN', token: userToken });
     }, 1000);
