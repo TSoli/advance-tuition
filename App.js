@@ -49,20 +49,18 @@ export default function App() {
   const [loginState, dispatch] = useReducer(loginReducer, initialLoginState);
 
   const authContext = useMemo(() => ({
-    Login: async(userName, password) => {
-      let userToken;
-      userToken = null;
-      if (userName == 'user' && password == 'pass') {
-        try {
-          userToken = 'abc123';
-          await AsyncStorage.setItem('userToken', userToken);
-        } catch (e) {
-          console.log(e);
-        }
+    Login: async(foundUser) => {
+      const userToken = String(foundUser[0].userToken);
+      const email = foundUser[0].email;
+
+      try {
+        await AsyncStorage.setItem('userToken', userToken);
+      } catch (e) {
+        console.log(e);
       }
 
       // console.log('user token: ', userToken);
-      dispatch({ type: 'LOGIN', id: userName, token: userToken });
+      dispatch({ type: 'LOGIN', id: email, token: userToken });
     },
     Logout: async() => {
       try {

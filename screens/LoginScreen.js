@@ -1,33 +1,27 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { useState, useContext } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 
 import { AuthContext } from '../components/context';
+import Users from '../model/Users';
 
 export default function LoginScreen({navigation}) {
   const [data, setData] = useState({
     email: '',
     password: '',
     check_textInputChange: false,
-    secureTextEntry: true
+    secureTextEntry: true,
   });
 
   const { Login } = useContext(AuthContext);
 
   const textInputChange = (val) => {
-    if (val.length != 0) {
-      setData({
-        ...data,
-        email: val,
-        check_textInputChange: true
-      });
-    } else {
-      setData({
-        ...data,
-        check_textInputChange: false
-      });
-    }
+    setData({
+      ...data,
+      email: val,
+      check_textInputChange: true
+    });
   }
 
   const handlePasswordChange = (val) => {
@@ -44,8 +38,25 @@ export default function LoginScreen({navigation}) {
     });
   }
 
-  const loginHandle = (user, pass) => {
-    Login(user, pass);
+  const loginHandle = (email, pass) => {
+    const foundUser = Users.filter(item => {
+      return email == item.email && pass == item.password;
+    })
+
+    if (data.email.length == 0 || data.password.length == 0) {
+      Alert.alert("Invalid Input!",
+      "Email or password cannot be empty.",
+      [{text: "Ok"}]);
+      return;
+    }
+
+    if (foundUser.length == 0) {
+      Alert.alert("Invalid User!",
+      "Email or password is incorrect.",
+      [{text: "Ok"}]);
+      return;
+    }
+    Login(foundUser);
   }
 
   return (
@@ -83,6 +94,7 @@ export default function LoginScreen({navigation}) {
           />
         </TouchableOpacity>
       </View>
+      
 
       <TouchableOpacity onPress={() => navigation.navigate("ForgotPasswordScreen")}>
         <Text style={styles.forgot_button}>Forgot Password?</Text>
