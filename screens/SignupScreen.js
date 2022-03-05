@@ -1,10 +1,34 @@
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
-import { useState } from 'react';
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { useState, useContext } from 'react';
+
+import { AuthContext } from '../components/context';
+import Users from '../model/Users';
 
 export default function SignupScreen({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPass, setConfirmPass] = useState('');
+
+  const { Signup } = useContext(AuthContext);
+
+  const handleSignup = (email, pass, confirmPass) => {
+    if (pass == confirmPass && pass != '' && email != '') {
+      Signup();
+      // Add user to database
+      Users.push(
+        {
+          id: 4,
+          email: email,
+          password: pass,
+          userToken: 'signupToken',
+        })
+      navigation.navigate('LoginScreen');
+    } else if (pass == '' || email == '') {
+      Alert.alert("Invalid Details", "Email or password cannot be empty.");
+    } else {
+      Alert.alert("Passwords do not match", "Check that your passwords match.");
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -42,8 +66,12 @@ export default function SignupScreen({navigation}) {
           autoCapitalize='none'
         />
       </View>
+      {password == confirmPass ? 
+        <Text>Please check your email for confirmation after signing up.</Text>
+      :
+        <Text style={styles.warningText}>Passwords do not match!</Text>}
       
-      <TouchableOpacity style={styles.signupBtn} onPress={() => navigation.goBack()}>
+      <TouchableOpacity style={styles.signupBtn} onPress={() => {handleSignup(email, password, confirmPass)}}>
         <Text style={styles.signupText}>Sign Up</Text>
       </TouchableOpacity>
     </View>
@@ -89,5 +117,9 @@ const styles = StyleSheet.create({
   signupText: {
     color: 'white',
     fontWeight: "bold",
+  },
+
+  warningText: {
+    color: 'red',
   },
 });

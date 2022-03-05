@@ -52,8 +52,7 @@ export default function LoginScreen({navigation}) {
 
     if (foundUser.length == 0) {
       Alert.alert("Invalid User!",
-      "Email or password is incorrect.",
-      [{text: "Ok"}]);
+      "Email or password is incorrect.");
       return;
     }
     Login(foundUser);
@@ -122,7 +121,7 @@ const styles = StyleSheet.create({
   image: {
     height: 125,
     width: 125,
-    marginBottom: 20,
+    marginBottom: 40,
   },
 
   inputView: {

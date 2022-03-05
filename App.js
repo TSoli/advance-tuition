@@ -26,7 +26,7 @@ export default function App() {
       case 'LOGIN':
         return {
           ...prevState,
-          userName: action.id,
+          userName: action.email,
           userToken: action.token,
           isLoading: false,
         };
@@ -39,8 +39,8 @@ export default function App() {
       case 'REGISTER':
         return {
           ...prevState,
-          userName: action.id,
-          userToken: action.token,
+          userName: null,
+          userToken: null,
           isLoading: false,
         };
     }
@@ -50,7 +50,7 @@ export default function App() {
 
   const authContext = useMemo(() => ({
     Login: async(foundUser) => {
-      const userToken = String(foundUser[0].userToken);
+      const userToken = foundUser[0].userToken;
       const email = foundUser[0].email;
 
       try {
@@ -60,7 +60,7 @@ export default function App() {
       }
 
       // console.log('user token: ', userToken);
-      dispatch({ type: 'LOGIN', id: email, token: userToken });
+      dispatch({ type: 'LOGIN', email: email, token: userToken });
     },
     Logout: async() => {
       try {
@@ -72,9 +72,8 @@ export default function App() {
       dispatch({ type: 'LOGOUT' });
     },
     
-    Signup: () => {
-      setUserToken('default_user');
-      setIsLoading(false);
+    Signup: (email, token) => {
+      dispatch({ type: 'REGISTER' })
     },
   }), []);
 

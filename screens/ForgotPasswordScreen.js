@@ -1,8 +1,20 @@
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
 
+import Users from '../model/Users';
+
 export default function ForgotPasswordScreen({navigation}) {
   const [email, setEmail] = useState('');
+  const [sent, setSent] = useState(null);
+
+  const resetPassword = (email) => {
+    // send an email with a reset link or something
+    if (Users.some(user => user.email == email)) {
+      setSent(true);
+    } else {
+      setSent(false);
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -16,8 +28,12 @@ export default function ForgotPasswordScreen({navigation}) {
           autoCapitalize='none'
         />
       </View>
+      {sent == null && <Text> </Text>
+      || sent && <Text>A reset email has been sent.</Text>
+      || sent == false && <Text style={{color: "red"}}>No account exists for that email.</Text>
+      }
 
-      <TouchableOpacity style={styles.loginBtn} onPress={() => navigation.goBack()}>
+      <TouchableOpacity style={styles.loginBtn} onPress={() => {resetPassword(email)}}>
         <Text style={styles.loginText}>Send Email</Text>
       </TouchableOpacity>
     </View>
@@ -66,7 +82,7 @@ const styles = StyleSheet.create({
     height: 45,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 30,
+    marginTop: 20,
     backgroundColor: "#004ba0",
   },
 
