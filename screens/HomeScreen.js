@@ -16,7 +16,7 @@ export default function HomeScreen({navigation}) {
       { label: 'Gerogia', value: 'georgia'},
       { label: 'Alex', value: 'alex' },
     ]
-  }
+  };
 
   // Date time picker
   const [date, setDate] = useState(new Date());
@@ -38,6 +38,12 @@ export default function HomeScreen({navigation}) {
   const showMode = (currentMode) => {
     setShow(true);
     setMode(currentMode);
+  };
+
+  const submitDetails = () => {
+    // Add logic here to check details are all valid
+    // Then submit details to database for confirmation
+    console.log('submitted details');
   };
 
   return (
@@ -69,8 +75,16 @@ export default function HomeScreen({navigation}) {
         </Pressable>
         
       </View>
+
+      <View style={[styles.itemContainer, {flexDirection: 'row'}]}>
+        <Text style={styles.itemLabel}>Duration:</Text>
+        <TextInput keyboardType='numeric' maxLength={3} placeholder={'Minutes'} />
+      </View>
       
-      <Button title="Logout" onPress={() => {Logout()}} />
+      <View style={[styles.itemContainer, {flexDirection: 'row', justifyContent: 'space-around'}]}>
+        <Button title="Logout" onPress={() => {Logout()}} />
+        <Button title="Submit" onPress={() => {submitDetails()}} />
+      </View>
 
       {show && (
         <DateTimePicker
