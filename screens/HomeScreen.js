@@ -18,20 +18,26 @@ export default function HomeScreen({navigation}) {
     ]
   };
 
+  const getFormattedDate = (selectedDate) => {
+    return selectedDate.getDate() + '/' + selectedDate.getMonth() + '/' + selectedDate.getFullYear();
+  }
+
+  const getFormattedTime = (selectedTime) => {
+    return selectedTime.getHours() + ':' + selectedTime.getMinutes();
+  }
+
   // Date time picker
   const [date, setDate] = useState(new Date());
+  const [student, setStudent] = useState(null);
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
+  const [duration, setDuration] = useState(null);
 
   // handle change date
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === 'ios');
     setDate(currentDate);
-
-    // let tempDate = new Date(currentDate)
-    // let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear();
-    // let fTime
   };
 
   // Show the picker using currentMode
@@ -43,7 +49,11 @@ export default function HomeScreen({navigation}) {
   const submitDetails = () => {
     // Add logic here to check details are all valid
     // Then submit details to database for confirmation
-    console.log('submitted details');
+    console.log('submitted details:');
+    console.log(`student: ${student}`);
+    console.log(`date: ${getFormattedDate(date)}`);
+    console.log(`time: ${getFormattedTime(date)}`);
+    console.log(`duration: ${duration}`);
   };
 
   return (
@@ -52,8 +62,9 @@ export default function HomeScreen({navigation}) {
 
       <View style={styles.itemContainer}>
         <RNPickerSelect
-          onValueChange={(value) => console.log(value)}
-          placeholder={{label: 'Select a Student...', value: null,}}
+          style={{ inputAndroid: { color: 'black'} }}
+          onValueChange={(student) => { setStudent(student) }}
+          placeholder={{label: 'Select a Student...', value: null}}
           items={getStudents()}
         />
       </View>
@@ -62,7 +73,7 @@ export default function HomeScreen({navigation}) {
         <Text style={styles.itemLabel}>Date:</Text>
 
         <Pressable onPress={() => showMode('date')}>
-          <TextInput editable={false} defaultValue={'DATE'} />
+          <Text style={styles.itemLabel} > {getFormattedDate(date)} </Text>
         </Pressable>
 
       </View>
@@ -71,14 +82,15 @@ export default function HomeScreen({navigation}) {
         <Text style={styles.itemLabel}>Time:</Text>
 
         <Pressable onPress={() => showMode('time')}>
-          <TextInput editable={false} defaultValue={'TIME'} />
+          <Text style={styles.itemLabel} > {getFormattedTime(date)} </Text>
         </Pressable>
         
       </View>
 
       <View style={[styles.itemContainer, {flexDirection: 'row'}]}>
         <Text style={styles.itemLabel}>Duration:</Text>
-        <TextInput keyboardType='numeric' maxLength={3} placeholder={'Minutes'} />
+        <TextInput keyboardType='numeric' maxLength={3} placeholder={'Minutes'}
+          onChangeText={(selectedDuration) => {setDuration(parseInt(selectedDuration))}} />
       </View>
       
       <View style={[styles.itemContainer, {flexDirection: 'row', justifyContent: 'space-around'}]}>
