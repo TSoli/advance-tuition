@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert } fro
 import { useState, useContext } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 
+import { Colors, Buttons } from '../styles'
 import { AuthContext } from '../components/context';
 import Users from '../model/Users';
 
@@ -113,7 +114,7 @@ export default function LoginScreen({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.palette.white,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -152,24 +153,16 @@ const styles = StyleSheet.create({
   },
 
   loginBtn: {
-    width: "70%",
-    borderRadius: 25,
-    height: 45,
-    alignItems: "center",
-    justifyContent: "center",
+    ...Buttons.largeRounded,
     marginTop: 10,
-    backgroundColor: "#004ba0",
+    backgroundColor: Colors.palette.darkBlue,
   },
 
   signupBtn: {
-    width: "70%",
-    borderRadius: 25,
-    height:50,
-    alignItems: "center",
-    justifyContent: "center",
+    ...Buttons.largeRounded,
+    ...Buttons.outlined,
     backgroundColor: "white",
-    borderColor: "#1976d2",
-    borderWidth: 2,
+    borderColor: Colors.palette.darkBlue, // old colour was "1976d2"
     marginTop: 10,
   },
 
