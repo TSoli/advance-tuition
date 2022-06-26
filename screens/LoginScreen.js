@@ -62,6 +62,7 @@ export default function LoginScreen({navigation}) {
 
   return (
     <View style={styles.container}>
+
       <Image style={styles.image} source={require("../assets//logo.jpg")}/>
       <StatusBar style="auto" />
 
@@ -95,7 +96,6 @@ export default function LoginScreen({navigation}) {
           />
         </TouchableOpacity>
       </View>
-      
 
       <TouchableOpacity onPress={() => navigation.navigate("ForgotPasswordScreen")}>
         <Text style={styles.forgot_button}>Forgot Password?</Text>
@@ -103,9 +103,13 @@ export default function LoginScreen({navigation}) {
 
       <LargeButton text="LOGIN" onPress={() => loginHandle(data.email, data.password)} />
 
-      <TouchableOpacity style={styles.signupBtn} onPress={() => navigation.navigate("SignupScreen")}>
-        <Text style={styles.signupText}>Sign Up</Text>
-      </TouchableOpacity>
+      <LargeButton
+        text="Sign Up"
+        textStyle={styles.signupText}
+        onPress={() => navigation.navigate("SignupScreen")}
+        style={styles.signupBtn}
+      />
+
     </View>
   );
 }

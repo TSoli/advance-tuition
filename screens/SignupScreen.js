@@ -3,6 +3,7 @@ import { useState, useContext } from 'react';
 
 import { AuthContext } from '../components/context';
 import Users from '../model/Users';
+import { LargeButton } from '../components/Buttons';
 
 export default function SignupScreen({navigation}) {
   const [email, setEmail] = useState('');
@@ -32,6 +33,9 @@ export default function SignupScreen({navigation}) {
 
   return (
     <View style={styles.container}>
+
+      <Image style={styles.image} source={require("../assets//logo.jpg")}/>
+
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
@@ -71,9 +75,7 @@ export default function SignupScreen({navigation}) {
       :
         <Text style={styles.warningText}>Passwords do not match!</Text>}
       
-      <TouchableOpacity style={styles.signupBtn} onPress={() => {handleSignup(email, password, confirmPass)}}>
-        <Text style={styles.signupText}>Sign Up</Text>
-      </TouchableOpacity>
+      <LargeButton text="Sign Up" onPress={() => {handleSignup(email, password, confirmPass)}} />
     </View>
   );
 }
@@ -84,6 +86,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+
+  image: {
+    height: 125,
+    width: 125,
+    marginBottom: 40,
   },
 
   inputView: {
@@ -102,21 +110,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     marginLeft: 10
-  },
-
-  signupBtn: {
-    width: "70%",
-    borderRadius: 25,
-    height: 45,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 30,
-    backgroundColor: "#004ba0",
-  },
-
-  signupText: {
-    color: 'white',
-    fontWeight: "bold",
   },
 
   warningText: {

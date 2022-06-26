@@ -2,6 +2,8 @@ import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'reac
 import { useState } from 'react';
 
 import Users from '../model/Users';
+import { LargeButton } from '../components/Buttons';
+import { Colors } from '../styles';
 
 export default function ForgotPasswordScreen({navigation}) {
   const [email, setEmail] = useState('');
@@ -18,6 +20,9 @@ export default function ForgotPasswordScreen({navigation}) {
 
   return (
     <View style={styles.container}>
+
+      <Image style={styles.image} source={require("../assets//logo.jpg")}/>
+
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
@@ -33,9 +38,7 @@ export default function ForgotPasswordScreen({navigation}) {
       || sent == false && <Text style={{color: "red"}}>No account exists for that email.</Text>
       }
 
-      <TouchableOpacity style={styles.loginBtn} onPress={() => {resetPassword(email)}}>
-        <Text style={styles.loginText}>Send Email</Text>
-      </TouchableOpacity>
+      <LargeButton text="Send Email" onPress={() => {resetPassword(email)}} />
     </View>
   )
 }
@@ -49,8 +52,8 @@ const styles = StyleSheet.create({
   },
 
   image: {
-    height: 200,
-    width: 200,
+    height: 125,
+    width: 125,
     marginBottom: 40,
   },
 
@@ -74,36 +77,5 @@ const styles = StyleSheet.create({
 
   forgot_button: {
     height: 30,
-  },
-
-  loginBtn: {
-    width: "70%",
-    borderRadius: 25,
-    height: 45,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 20,
-    backgroundColor: "#004ba0",
-  },
-
-  signupBtn: {
-    width: "70%",
-    borderRadius: 25,
-    height:50,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "white",
-    borderColor: "#1976d2",
-    borderWidth: 2,
-    marginTop: 10,
-  },
-
-  loginText: {
-    color: 'white',
-    fontWeight: "bold",
-  },
-
-  signupText: {
-    color: 'black',
   },
 });

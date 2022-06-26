@@ -5,6 +5,13 @@ import { TouchableOpacity, StyleSheet, Text } from "react-native";
 
 import { Colors, Spacing, Buttons } from '../styles';
 
+/* A standard large button component.
+  Props:
+    style: Applied to the TouchableOpacity surrounding the Text.
+    onPress: The onPress function for the Button.
+    text: The text for the button.
+    textStyle: The style props for the text inside the TouchableOpacity.
+*/
 const LargeButton = (props) => {
   return(
     <TouchableOpacity 
