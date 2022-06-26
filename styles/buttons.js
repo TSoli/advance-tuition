@@ -1,15 +1,15 @@
 // Defines some general buttons to use
 
 export const large = {
-    width: "70%",
-    height: 45,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 10,
+  width: "70%",
+  height: 45,
+  alignItems: "center",
+  justifyContent: "center",
+  marginTop: 10,
 };
 
 export const rounded = {
-    borderRadius: 25,
+  borderRadius: 25,
 };
 
 export const outlined = {
@@ -17,6 +17,6 @@ export const outlined = {
 };
 
 export const largeRounded = {
-    ...large,
-    ...rounded,
+  ...large,
+  ...rounded,
 };

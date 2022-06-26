@@ -3,7 +3,8 @@ import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert } fro
 import { useState, useContext } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 
-import { Colors, Buttons } from '../styles'
+import { Colors, Spacing, Buttons } from '../styles'
+import { LargeButton } from '../components/Buttons'
 import { AuthContext } from '../components/context';
 import Users from '../model/Users';
 
@@ -100,9 +101,7 @@ export default function LoginScreen({navigation}) {
         <Text style={styles.forgot_button}>Forgot Password?</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.loginBtn} onPress={() => {loginHandle(data.email, data.password)}}>
-        <Text style={styles.loginText}>LOGIN</Text>
-      </TouchableOpacity>
+      <LargeButton text="LOGIN" onPress={() => loginHandle(data.email, data.password)} />
 
       <TouchableOpacity style={styles.signupBtn} onPress={() => navigation.navigate("SignupScreen")}>
         <Text style={styles.signupText}>Sign Up</Text>
@@ -114,7 +113,7 @@ export default function LoginScreen({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.palette.white,
+    backgroundColor: Colors.white,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -126,11 +125,11 @@ const styles = StyleSheet.create({
   },
 
   inputView: {
-    backgroundColor: "#63a4ff",
+    backgroundColor: Colors.blue,
     borderRadius: 30,
     width: "80%",
     height: 45,
-    marginBottom: 20,
+    marginBottom: Spacing.margin.base,
     alignItems: "center",
     flexDirection: "row",
   },
@@ -139,12 +138,12 @@ const styles = StyleSheet.create({
     height: 50,
     width: "100%",
     flex: 1,
-    padding: 10,
-    marginLeft: 10
+    padding: Spacing.padding.base,
+    marginLeft: Spacing.margin.base,
   },
 
   icons: {
-    padding: 10,
+    padding: Spacing.padding.base,
     marginRight: 3,
   },
 
@@ -154,24 +153,24 @@ const styles = StyleSheet.create({
 
   loginBtn: {
     ...Buttons.largeRounded,
-    marginTop: 10,
-    backgroundColor: Colors.palette.darkBlue,
+    marginTop: Spacing.margin.base,
+    backgroundColor: Colors.darkBlue,
   },
 
   signupBtn: {
     ...Buttons.largeRounded,
     ...Buttons.outlined,
-    backgroundColor: "white",
-    borderColor: Colors.palette.darkBlue, // old colour was "1976d2"
-    marginTop: 10,
+    backgroundColor: Colors.white,
+    borderColor: Colors.darkBlue, // old colour was "1976d2"
+    marginTop: Spacing.margin.base,
   },
 
   loginText: {
-    color: 'white',
+    color: Colors.white,
     fontWeight: "bold",
   },
 
   signupText: {
-    color: 'black',
+    color: Colors.black,
   },
 });

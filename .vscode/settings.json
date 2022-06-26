@@ -1,0 +1,14 @@
+{
+    "[python]": {
+        "gitlens.codeLens.symbolScopes": [
+            "!Module"
+        ],
+        "editor.wordBasedSuggestions": false,
+        "editor.tabSize": 4,
+    },
+
+    "[javascript]": {
+        "editor.maxTokenizationLineLength": 2500
+    },
+    "editor.tabSize": 2,
+}

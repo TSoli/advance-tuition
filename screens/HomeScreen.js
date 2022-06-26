@@ -4,6 +4,7 @@ import RNPickerSelect from 'react-native-picker-select';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { AuthContext  } from '../components/context';
+import { Colors, Spacing } from '../styles';
 
 export default function HomeScreen({navigation}) {
 
@@ -115,19 +116,19 @@ export default function HomeScreen({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.white,
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   itemContainer: {
     width: "80%",
-    marginBottom: 10,
+    marginBottom: Spacing.margin.base,
   },
 
   itemLabel: {
     alignSelf: 'flex-start',
-    marginHorizontal: 10,
+    marginHorizontal: Spacing.margin.base,
     marginTop: 3,
   },
 });
