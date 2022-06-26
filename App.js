@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import RootStackScreen from './screens/RootStackScreen';
-import { AuthContext  } from './components/context';
+import { AuthContext  } from './components/Context';
 import HomeScreen from './screens/HomeScreen';
 
 export default function App() {

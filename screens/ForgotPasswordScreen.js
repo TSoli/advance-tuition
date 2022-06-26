@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import Users from '../model/Users';
 import { LargeButton } from '../components/Buttons';
-import { Colors } from '../styles';
+import { Colors, UserInput } from '../styles';
 
 export default function ForgotPasswordScreen({navigation}) {
   const [email, setEmail] = useState('');
@@ -23,9 +23,9 @@ export default function ForgotPasswordScreen({navigation}) {
 
       <Image style={styles.image} source={require("../assets//logo.jpg")}/>
 
-      <View style={styles.inputView}>
+      <View style={UserInput.view}>
         <TextInput
-          style={styles.TextInput}
+          style={UserInput.text}
           placeholder="Email"
           placeholderTextColor="white"
           onChangeText={(email) => setEmail(email)}
@@ -55,24 +55,6 @@ const styles = StyleSheet.create({
     height: 125,
     width: 125,
     marginBottom: 40,
-  },
-
-  inputView: {
-    backgroundColor: "#63a4ff",
-    borderRadius: 30,
-    width: "80%",
-    height: 45,
-    marginBottom: 20,
-    alignItems: "center",
-    flexDirection: "row",
-  },
-
-  TextInput: {
-    height: 50,
-    width: "100%",
-    flex: 1,
-    padding: 10,
-    marginLeft: 10
   },
 
   forgot_button: {

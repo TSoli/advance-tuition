@@ -3,9 +3,9 @@ import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert } fro
 import { useState, useContext } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 
-import { Colors, Spacing, Buttons } from '../styles'
+import { Colors, Spacing, Buttons, UserInput } from '../styles'
 import { LargeButton } from '../components/Buttons'
-import { AuthContext } from '../components/context';
+import { AuthContext } from '../components/Context';
 import Users from '../model/Users';
 
 export default function LoginScreen({navigation}) {
@@ -66,9 +66,9 @@ export default function LoginScreen({navigation}) {
       <Image style={styles.image} source={require("../assets//logo.jpg")}/>
       <StatusBar style="auto" />
 
-      <View style={styles.inputView}>
+      <View style={UserInput.view}>
         <TextInput
-          style={styles.TextInput}
+          style={UserInput.text}
           placeholder="Email"
           placeholderTextColor="white"
           onChangeText={(email) => textInputChange(email)}
@@ -77,9 +77,9 @@ export default function LoginScreen({navigation}) {
         />
       </View>
 
-      <View style={styles.inputView}>
+      <View style={UserInput.view}>
         <TextInput
-          style={styles.TextInput}
+          style={UserInput.text}
           placeholder="Password"
           placeholderTextColor="white"
           secureTextEntry={data.secureTextEntry ? true : false}
@@ -128,24 +128,6 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
 
-  inputView: {
-    backgroundColor: Colors.blue,
-    borderRadius: 30,
-    width: "80%",
-    height: 45,
-    marginBottom: Spacing.margin.base,
-    alignItems: "center",
-    flexDirection: "row",
-  },
-
-  TextInput: {
-    height: 50,
-    width: "100%",
-    flex: 1,
-    padding: Spacing.padding.base,
-    marginLeft: Spacing.margin.base,
-  },
-
   icons: {
     padding: Spacing.padding.base,
     marginRight: 3,
@@ -169,12 +151,7 @@ const styles = StyleSheet.create({
     marginTop: Spacing.margin.base,
   },
 
-  loginText: {
-    color: Colors.white,
-    fontWeight: "bold",
-  },
-
   signupText: {
-    color: Colors.black,
+    color: Colors.darkBlue,
   },
 });

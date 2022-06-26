@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, Platform, 
 import RNPickerSelect from 'react-native-picker-select';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-import { AuthContext  } from '../components/context';
+import { AuthContext  } from '../components/Context';
 import { Colors, Spacing } from '../styles';
 
 export default function HomeScreen({navigation}) {

@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { useState, useContext } from 'react';
 
-import { AuthContext } from '../components/context';
+import { AuthContext } from '../components/Context';
 import Users from '../model/Users';
 import { LargeButton } from '../components/Buttons';
+import { UserInput } from '../styles';
 
 export default function SignupScreen({navigation}) {
   const [email, setEmail] = useState('');
@@ -36,9 +37,9 @@ export default function SignupScreen({navigation}) {
 
       <Image style={styles.image} source={require("../assets//logo.jpg")}/>
 
-      <View style={styles.inputView}>
+      <View style={UserInput.view}>
         <TextInput
-          style={styles.TextInput}
+          style={UserInput.text}
           placeholder="Email"
           placeholderTextColor="white"
           onChangeText={(email) => setEmail(email)}
@@ -47,9 +48,9 @@ export default function SignupScreen({navigation}) {
         />
       </View>
 
-      <View style={styles.inputView}>
+      <View style={UserInput.view}>
         <TextInput
-          style={styles.TextInput}
+          style={UserInput.text}
           placeholder="Password"
           placeholderTextColor="white"
           secureTextEntry={true}
@@ -59,9 +60,9 @@ export default function SignupScreen({navigation}) {
         />
       </View>
 
-      <View style={styles.inputView}>
+      <View style={UserInput.view}>
         <TextInput
-          style={styles.TextInput}
+          style={UserInput.text}
           placeholder="Confirm Password"
           placeholderTextColor="white"
           secureTextEntry={true}
@@ -92,24 +93,6 @@ const styles = StyleSheet.create({
     height: 125,
     width: 125,
     marginBottom: 40,
-  },
-
-  inputView: {
-    backgroundColor: "#63a4ff",
-    borderRadius: 30,
-    width: "80%",
-    height: 45,
-    marginBottom: 20,
-    alignItems: "center",
-    flexDirection: "row",
-  },
-
-  TextInput: {
-    height: 50,
-    width: "100%",
-    flex: 1,
-    padding: 10,
-    marginLeft: 10
   },
 
   warningText: {

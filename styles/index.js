@@ -1,5 +1,6 @@
-import * as Colors from './colors'
-import * as Spacing from './spacing'
-import * as Buttons from './buttons'
+import * as Colors from './Colors'
+import * as Spacing from './Spacing'
+import * as Buttons from './Buttons'
+import * as UserInput from './UserInput'
 
-export { Colors, Spacing, Buttons }
+export { Colors, Spacing, Buttons, UserInput }
