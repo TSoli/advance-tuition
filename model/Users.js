@@ -1,3 +1,5 @@
+// Used to test authentication
+
 export default Users = [
   {
     id: 1,

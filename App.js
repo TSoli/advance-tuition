@@ -31,7 +31,8 @@ export default function App() {
           isLoading: false,
         };
       case 'LOGOUT':
-        return {...prevState,
+        return {
+          ...prevState,
           userName: null,
           userToken: null,
           isLoading: false,
@@ -102,7 +103,7 @@ export default function App() {
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
         { (loginState.userToken != null) ? 
-          <HomeScreen/>
+          <HomeScreen />
         :
           <RootStackScreen/>
         }

@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert, KeyboardAvoidingView, Button } from 'react-native';
 import { useState, useContext } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -109,6 +109,8 @@ export default function LoginScreen({navigation}) {
         onPress={() => navigation.navigate("SignupScreen")}
         style={styles.signupBtn}
       />
+
+      <Button title="Timesheets" onPress={() => navigation.navigate("TimesheetScreen")} />
 
     </View>
   );
