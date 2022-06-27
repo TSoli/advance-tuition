@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert, KeyboardAvoidingView } from 'react-native';
 import { useState, useContext } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -66,7 +66,7 @@ export default function LoginScreen({navigation}) {
       <Image style={styles.image} source={require("../assets//logo.jpg")}/>
       <StatusBar style="auto" />
 
-      <View style={UserInput.view}>
+      <KeyboardAvoidingView style={UserInput.view} behavior="padding">
         <TextInput
           style={UserInput.text}
           placeholder="Email"
@@ -75,9 +75,9 @@ export default function LoginScreen({navigation}) {
           color="white"
           autoCapitalize='none'
         />
-      </View>
+      </KeyboardAvoidingView>
 
-      <View style={UserInput.view}>
+      <KeyboardAvoidingView style={UserInput.view} behavior="padding">
         <TextInput
           style={UserInput.text}
           placeholder="Password"
@@ -95,7 +95,7 @@ export default function LoginScreen({navigation}) {
             size={20}
           />
         </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
 
       <TouchableOpacity onPress={() => navigation.navigate("ForgotPasswordScreen")}>
         <Text style={styles.forgot_button}>Forgot Password?</Text>

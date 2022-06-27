@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert, KeyboardAvoidingView } from 'react-native';
 import { useState, useContext } from 'react';
 
 import { AuthContext } from '../components/Context';
@@ -37,7 +37,7 @@ export default function SignupScreen({navigation}) {
 
       <Image style={styles.image} source={require("../assets//logo.jpg")}/>
 
-      <View style={UserInput.view}>
+      <KeyboardAvoidingView style={UserInput.view} behavior="padding">
         <TextInput
           style={UserInput.text}
           placeholder="Email"
@@ -46,9 +46,9 @@ export default function SignupScreen({navigation}) {
           color="white"
           autoCapitalize='none'
         />
-      </View>
+      </KeyboardAvoidingView>
 
-      <View style={UserInput.view}>
+      <KeyboardAvoidingView style={UserInput.view} behavior="padding">
         <TextInput
           style={UserInput.text}
           placeholder="Password"
@@ -58,9 +58,9 @@ export default function SignupScreen({navigation}) {
           color="white"
           autoCapitalize='none'
         />
-      </View>
+      </KeyboardAvoidingView>
 
-      <View style={UserInput.view}>
+      <KeyboardAvoidingView style={UserInput.view} behavior="padding">
         <TextInput
           style={UserInput.text}
           placeholder="Confirm Password"
@@ -70,7 +70,7 @@ export default function SignupScreen({navigation}) {
           color="white"
           autoCapitalize='none'
         />
-      </View>
+      </KeyboardAvoidingView>
       {password == confirmPass ? 
         <Text>Please check your email for confirmation after signing up.</Text>
       :

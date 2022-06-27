@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import { useState } from 'react';
 
 import Users from '../model/Users';
@@ -23,7 +23,7 @@ export default function ForgotPasswordScreen({navigation}) {
 
       <Image style={styles.image} source={require("../assets//logo.jpg")}/>
 
-      <View style={UserInput.view}>
+      <KeyboardAvoidingView style={UserInput.view}>
         <TextInput
           style={UserInput.text}
           placeholder="Email"
@@ -32,7 +32,7 @@ export default function ForgotPasswordScreen({navigation}) {
           color="white"
           autoCapitalize='none'
         />
-      </View>
+      </KeyboardAvoidingView>
       {sent == null && <Text> </Text>
       || sent && <Text>A reset email has been sent.</Text>
       || sent == false && <Text style={{color: "red"}}>No account exists for that email.</Text>

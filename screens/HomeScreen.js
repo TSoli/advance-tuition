@@ -1,10 +1,10 @@
 import { useContext, useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, Platform, Pressable } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, Platform, Pressable, KeyboardAvoidingView } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { AuthContext  } from '../components/Context';
-import { Colors, Spacing } from '../styles';
+import { Colors, Spacing, UserInput } from '../styles';
 
 export default function HomeScreen({navigation}) {
 
@@ -19,22 +19,33 @@ export default function HomeScreen({navigation}) {
     ]
   };
 
+  // Take a Date object and return it formatted as a string.
   const getFormattedDate = (selectedDate) => {
+    if (!selectedDate) {
+      return null;
+    }
     return selectedDate.getDate() + '/' + selectedDate.getMonth() + '/' + selectedDate.getFullYear();
   }
 
+  // Take a Date object and return the time formatted as a string.
   const getFormattedTime = (selectedTime) => {
-    return selectedTime.getHours() + ':' + selectedTime.getMinutes();
+    if (!selectedTime) {
+      return null;
+    }
+    // Check the number of minutes is two digits
+    let minutes = (selectedTime.getMinutes() > 9) ? 
+      selectedTime.getMinutes() : '0' + selectedTime.getMinutes();
+    return selectedTime.getHours() + ':' + minutes;
   }
 
   // Date time picker
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(null);
   const [student, setStudent] = useState(null);
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
   const [duration, setDuration] = useState(null);
 
-  // handle change date
+  // handle change date/time
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === 'ios');
@@ -70,30 +81,44 @@ export default function HomeScreen({navigation}) {
         />
       </View>
 
-      <View style={[styles.itemContainer, {flexDirection: 'row'}]}>
-        <Text style={styles.itemLabel}>Date:</Text>
-
-        <Pressable onPress={() => showMode('date')}>
-          <Text style={styles.itemLabel} > {getFormattedDate(date)} </Text>
+      <View style={UserInput.view}>
+        <Pressable onPress={() => showMode('date')} >
+          <TextInput
+            style={UserInput.text}
+            editable={false}
+            value={getFormattedDate(date)}
+            placeholder="Date"
+            placeholderTextColor={Colors.white}
+            color={Colors.white}
+          />
         </Pressable>
-
       </View>
 
-      <View style={[styles.itemContainer, {flexDirection: 'row'}]}>
-        <Text style={styles.itemLabel}>Time:</Text>
-
-        <Pressable onPress={() => showMode('time')}>
-          <Text style={styles.itemLabel} > {getFormattedTime(date)} </Text>
+      <View style={UserInput.view}>
+        <Pressable onPress={() => showMode('time')} >
+          <TextInput
+            style={UserInput.text}
+            editable={false}
+            value={getFormattedTime(date)}
+            placeholder="Start Time"
+            placeholderTextColor={Colors.white}
+            color={Colors.white}
+          />
         </Pressable>
-        
       </View>
 
-      <View style={[styles.itemContainer, {flexDirection: 'row'}]}>
-        <Text style={styles.itemLabel}>Duration:</Text>
-        <TextInput keyboardType='numeric' maxLength={3} placeholder={'Minutes'}
-          onChangeText={(selectedDuration) => {setDuration(parseInt(selectedDuration))}} />
-      </View>
-      
+      <KeyboardAvoidingView style={UserInput.view} behavior="padding">
+        <TextInput
+          style={UserInput.text}
+          placeholder="Duration (minutes)"
+          placeholderTextColor={Colors.white}
+          color={Colors.white}
+          keyboardType='numeric'
+          maxLength={3}
+          onChangeText={(selectedDuration) => {setDuration(parseInt(selectedDuration))}}
+        />
+      </KeyboardAvoidingView>
+
       <View style={[styles.itemContainer, {flexDirection: 'row', justifyContent: 'space-around'}]}>
         <Button title="Logout" onPress={() => {Logout()}} />
         <Button title="Submit" onPress={() => {submitDetails()}} />
@@ -102,7 +127,7 @@ export default function HomeScreen({navigation}) {
       {show && (
         <DateTimePicker
         testID='dateTimePicker'
-        value={date}
+        value={date || new Date()}
         mode={mode}
         is24Hour={true}
         display='default'
