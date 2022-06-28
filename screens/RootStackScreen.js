@@ -13,7 +13,6 @@ export default function RootStackScreen ({navigation}) {
       <RootStack.Screen name="LoginScreen" component={LoginScreen} />
       <RootStack.Screen name="SignupScreen" component={SignupScreen} />
       <RootStack.Screen name="ForgotPasswordScreen" component={ForgotPasswordScreen} />
-      <RootStack.Screen name="TimesheetScreen" component={TimesheetScreen} />
     </RootStack.Navigator>
   )
 }

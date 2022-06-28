@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import RootStackScreen from './screens/RootStackScreen';
 import { AuthContext  } from './components/Context';
 import HomeScreen from './screens/HomeScreen';
+import MainNavigation from './screens/MainNavigation';
 
 export default function App() {
 
@@ -103,7 +104,7 @@ export default function App() {
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
         { (loginState.userToken != null) ? 
-          <HomeScreen />
+          <MainNavigation/>
         :
           <RootStackScreen/>
         }

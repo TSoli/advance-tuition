@@ -110,8 +110,6 @@ export default function LoginScreen({navigation}) {
         style={styles.signupBtn}
       />
 
-      <Button title="Timesheets" onPress={() => navigation.navigate("TimesheetScreen")} />
-
     </View>
   );
 }
