@@ -1,13 +1,13 @@
 // A screen used to display recent timesheets for the tutor
 
-import { FlatList, StatusBar, StyleSheet, Text, View } from "react-native";
-import Timesheets from "../model/Timesheets";
-import { Colors } from "../styles";
+import { FlatList, Text, SafeAreaView } from "react-native";
+import Timesheets from "../../model/Timesheets";
+import { Colors, ViewContainer } from "../../styles";
 
 
 export default function TimesheetScreen() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={ViewContainer.base}>
 
       <FlatList
         data={Timesheets}
@@ -18,15 +18,6 @@ export default function TimesheetScreen() {
           </Text>
         )}
       />
-    </View>
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.white,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

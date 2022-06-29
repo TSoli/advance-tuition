@@ -1,9 +1,9 @@
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, Image, TextInput, KeyboardAvoidingView } from 'react-native';
 import { useState } from 'react';
 
-import Users from '../model/Users';
-import { LargeButton } from '../components/Buttons';
-import { Colors, UserInput } from '../styles';
+import Users from '../../model/Users';
+import { LargeButton } from '../../components/Buttons';
+import { Colors, UserInput, ViewContainer } from '../../styles';
 
 export default function ForgotPasswordScreen({navigation}) {
   const [email, setEmail] = useState('');
@@ -19,9 +19,9 @@ export default function ForgotPasswordScreen({navigation}) {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={ViewContainer.base}>
 
-      <Image style={styles.image} source={require("../assets//logo.jpg")}/>
+      <Image style={styles.image} source={require("../../assets//logo.jpg")}/>
 
       <KeyboardAvoidingView style={UserInput.view}>
         <TextInput
@@ -39,18 +39,11 @@ export default function ForgotPasswordScreen({navigation}) {
       }
 
       <LargeButton text="Send Email" onPress={() => {resetPassword(email)}} />
-    </View>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
   image: {
     height: 125,
     width: 125,

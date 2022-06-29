@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Text, Image, TextInput, Alert, KeyboardAvoidingView, SafeAreaView } from 'react-native';
 import { useState, useContext } from 'react';
 
-import { AuthContext } from '../components/Context';
-import Users from '../model/Users';
-import { LargeButton } from '../components/Buttons';
-import { UserInput } from '../styles';
+import { AuthContext } from '../../components/Context';
+import Users from '../../model/Users';
+import { LargeButton } from '../../components/Buttons';
+import { UserInput, ViewContainer } from '../../styles';
 
 export default function SignupScreen({navigation}) {
   const [email, setEmail] = useState('');
@@ -33,9 +33,9 @@ export default function SignupScreen({navigation}) {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={ViewContainer.base}>
 
-      <Image style={styles.image} source={require("../assets//logo.jpg")}/>
+      <Image style={styles.image} source={require("../../assets//logo.jpg")}/>
 
       <KeyboardAvoidingView style={UserInput.view} behavior="padding">
         <TextInput
@@ -77,18 +77,11 @@ export default function SignupScreen({navigation}) {
         <Text style={styles.warningText}>Passwords do not match!</Text>}
       
       <LargeButton text="Sign Up" onPress={() => {handleSignup(email, password, confirmPass)}} />
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
   image: {
     height: 125,
     width: 125,

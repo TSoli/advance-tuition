@@ -1,12 +1,12 @@
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
-import { useEffect, useState, useMemo, useReducer } from 'react';
+import { View, ActivityIndicator } from 'react-native';
+import { useEffect, useMemo, useReducer } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import RootStackScreen from './screens/RootStackScreen';
+import RootStackScreen from './screens/navigation/RootStackScreen';
 import { AuthContext  } from './components/Context';
-import HomeScreen from './screens/HomeScreen';
-import MainNavigation from './screens/MainNavigation';
+import MainNavigation from './screens/navigation/MainNavigation';
+import { Colors, ViewContainer } from './styles';
 
 export default function App() {
 
@@ -95,8 +95,8 @@ export default function App() {
 
   if (loginState.isLoading) {
     return (
-      <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-        <ActivityIndicator size="large" color="#004ba0" />
+      <View style={ViewContainer.base}>
+        <ActivityIndicator size="large" color={Colors.darkBlue} />
       </View>
     )
   }

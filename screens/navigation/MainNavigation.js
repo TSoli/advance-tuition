@@ -4,10 +4,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
-import HomeScreen from "./HomeScreen";
-import TimesheetScreen from "./TimesheetScreen";
-import StudentListScreen from "./StudentListScreen";
-import { Colors, Spacing } from "../styles";
+import HomeScreen from "../homeStack/HomeScreen";
+import TimesheetScreen from "../payrollStack/TimesheetScreen";
+import StudentListScreen from "../studentStack/StudentListScreen";
+import { Colors, Spacing } from "../../styles";
 import { StatusBar } from "react-native";
 
 const Tab = createBottomTabNavigator();

@@ -1,12 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert, KeyboardAvoidingView, Button } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, Image, TextInput, TouchableOpacity, Alert, KeyboardAvoidingView } from 'react-native';
 import { useState, useContext } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 
-import { Colors, Spacing, Buttons, UserInput } from '../styles'
-import { LargeButton } from '../components/Buttons'
-import { AuthContext } from '../components/Context';
-import Users from '../model/Users';
+import { Colors, Spacing, Buttons, UserInput, ViewContainer } from '../../styles'
+import { LargeButton } from '../../components/Buttons'
+import { AuthContext } from '../../components/Context';
+import Users from '../../model/Users';
 
 export default function LoginScreen({navigation}) {
   const [data, setData] = useState({
@@ -61,10 +60,9 @@ export default function LoginScreen({navigation}) {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={ViewContainer.base}>
 
-      <Image style={styles.image} source={require("../assets//logo.jpg")}/>
-      <StatusBar style="auto" />
+      <Image style={styles.image} source={require("../../assets//logo.jpg")}/>
 
       <KeyboardAvoidingView style={UserInput.view} behavior="padding">
         <TextInput
@@ -112,18 +110,11 @@ export default function LoginScreen({navigation}) {
         style={styles.signupBtn}
       />
 
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.white,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
   image: {
     height: 125,
     width: 125,

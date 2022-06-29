@@ -1,10 +1,10 @@
 import { useContext, useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, Platform, Pressable, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, Platform, Pressable, KeyboardAvoidingView, SafeAreaView } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-import { AuthContext  } from '../components/Context';
-import { Colors, Spacing, UserInput } from '../styles';
+import { AuthContext  } from '../../components/Context';
+import { Colors, Spacing, UserInput, ViewContainer } from '../../styles';
 
 export default function HomeScreen({navigation}) {
 
@@ -69,7 +69,7 @@ export default function HomeScreen({navigation}) {
   };
 
   return (
-    <View style={styles.container} >
+    <SafeAreaView style={ViewContainer.base} >
       <Text style={{marginBottom: 30, fontSize: 20, fontWeight: 'bold',}}>Record your hours</Text>
 
       <View style={styles.itemContainer}>
@@ -134,18 +134,11 @@ export default function HomeScreen({navigation}) {
         onChange={onChange}
         />
       )}
-    </View>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.white,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
   itemContainer: {
     width: "80%",
     marginBottom: Spacing.margin.base,
