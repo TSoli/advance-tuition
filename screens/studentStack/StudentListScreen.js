@@ -1,5 +1,5 @@
-import { View, StyleSheet, Text, FlatList } from "react-native";
-import { Colors, ViewContainer } from "../../styles";
+import { View, Text, FlatList } from "react-native";
+import { ViewContainer } from "../../styles";
 
 // import the students from the model file
 const studentData = require('../../model/students.json');

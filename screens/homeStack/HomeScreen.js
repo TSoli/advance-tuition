@@ -1,5 +1,7 @@
 import { useContext, useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, Platform, Pressable, KeyboardAvoidingView, SafeAreaView } from 'react-native';
+import {
+  StyleSheet, Text, View, Button, TextInput, Platform, Pressable, KeyboardAvoidingView, SafeAreaView
+} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import DateTimePicker from '@react-native-community/datetimepicker';
 

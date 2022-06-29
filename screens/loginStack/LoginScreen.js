@@ -1,4 +1,7 @@
-import { StyleSheet, Text, SafeAreaView, Image, TextInput, TouchableOpacity, Alert, KeyboardAvoidingView } from 'react-native';
+import { 
+  StyleSheet, Text, SafeAreaView, Image, TextInput, TouchableOpacity, Alert,
+  KeyboardAvoidingView
+} from 'react-native';
 import { useState, useContext } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 

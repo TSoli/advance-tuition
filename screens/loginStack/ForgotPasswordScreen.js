@@ -1,4 +1,6 @@
-import { StyleSheet, Text, SafeAreaView, Image, TextInput, KeyboardAvoidingView } from 'react-native';
+import {
+  StyleSheet, Text, SafeAreaView, Image, TextInput, KeyboardAvoidingView
+} from 'react-native';
 import { useState } from 'react';
 
 import Users from '../../model/Users';

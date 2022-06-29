@@ -1,4 +1,6 @@
-import { StyleSheet, Text, Image, TextInput, Alert, KeyboardAvoidingView, SafeAreaView } from 'react-native';
+import {
+  StyleSheet, Text, Image, TextInput, Alert, KeyboardAvoidingView, SafeAreaView
+} from 'react-native';
 import { useState, useContext } from 'react';
 
 import { AuthContext } from '../../components/Context';
