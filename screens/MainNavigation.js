@@ -6,13 +6,49 @@ import { Ionicons } from '@expo/vector-icons';
 
 import HomeScreen from "./HomeScreen";
 import TimesheetScreen from "./TimesheetScreen";
-import { Text, View } from "react-native";
+import StudentListScreen from "./StudentListScreen";
 import { Colors, Spacing } from "../styles";
+import { StatusBar } from "react-native";
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+// The screens that can be navigated to from the Home tab
+function HomeStackScreen() {
+  return (
+    <Stack.Navigator screenOptions={{
+      headerShown: false,
+    }}>
+      <Stack.Screen name="HomeScreen" component={HomeScreen} />
+    </Stack.Navigator>
+  );
+}
+
+// The screens that can be navigated to from the Payroll tab
+function PayrollStackScreen() {
+  return (
+    <Stack.Navigator screenOptions={{
+      headerShown: false,
+    }}>
+      <Stack.Screen name="PayrollScreen" component={TimesheetScreen} />
+    </Stack.Navigator>
+  );
+}
+
+// The screens that can be navigated to from the Students tab
+function StudentStackScreen() {
+  return (
+    <Stack.Navigator screenOptions={{
+      headerShown: false,
+    }}>
+      <Stack.Screen name="StudentsScreen" component={StudentListScreen} />
+    </Stack.Navigator>
+  )
+}
 
 export default function MainNavigation() {
   return (
+
     <Tab.Navigator
       initialRouteName="Home"
       screenOptions={({ route }) => ({
@@ -21,20 +57,24 @@ export default function MainNavigation() {
 
           if (route.name === "Home") {
             iconName = focused ? 'home' : 'home-outline';
-          } else if (route.name === 'Timesheets') {
+          } else if (route.name === "Students") {
+          iconName = focused ? 'people' : 'people-outline';
+          } else if (route.name === 'Payroll') {
             iconName = focused ? 'list' : 'list-outline';
           }
 
           return < Ionicons name={iconName} size={size} color={color} />
         },
         tabBarActiveTintColor: Colors.blue,
-        tabBarInactiveTintColor: 'grey',
+        tabBarInactiveTintColor: Colors.grey,
         tabBarLabelStyle: { paddingBottom: Spacing.padding.base, },
-        tabBarStyle: { padding: Spacing.padding.base, height: 70 }
-      })}
-    >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Timesheets" component={TimesheetScreen} />
+        tabBarStyle: { padding: Spacing.padding.base, height: 70 },
+        headerShown: false,
+      })}>
+
+      <Tab.Screen name="Home" component={HomeStackScreen} />
+      <Tab.Screen name="Students" component={StudentStackScreen} />
+      <Tab.Screen name="Payroll" component={PayrollStackScreen} />
 
     </Tab.Navigator>
   );

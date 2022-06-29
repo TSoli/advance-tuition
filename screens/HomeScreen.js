@@ -81,8 +81,8 @@ export default function HomeScreen({navigation}) {
         />
       </View>
 
-      <View style={UserInput.view}>
-        <Pressable onPress={() => showMode('date')} >
+      <Pressable onPress={() => showMode('date')} >
+        <View style={UserInput.view}>
           <TextInput
             style={UserInput.text}
             editable={false}
@@ -90,12 +90,12 @@ export default function HomeScreen({navigation}) {
             placeholder="Date"
             placeholderTextColor={Colors.white}
             color={Colors.white}
-          />
-        </Pressable>
+        />
       </View>
+      </Pressable>
 
-      <View style={UserInput.view}>
-        <Pressable onPress={() => showMode('time')} >
+      <Pressable onPress={() => showMode('time')} >
+        <View style={UserInput.view}>
           <TextInput
             style={UserInput.text}
             editable={false}
@@ -104,8 +104,8 @@ export default function HomeScreen({navigation}) {
             placeholderTextColor={Colors.white}
             color={Colors.white}
           />
-        </Pressable>
-      </View>
+        </View>
+      </Pressable>
 
       <KeyboardAvoidingView style={UserInput.view} behavior="padding">
         <TextInput

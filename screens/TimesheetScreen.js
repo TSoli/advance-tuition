@@ -1,6 +1,6 @@
 // A screen used to display recent timesheets for the tutor
 
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, StatusBar, StyleSheet, Text, View } from "react-native";
 import Timesheets from "../model/Timesheets";
 import { Colors } from "../styles";
 
@@ -8,6 +8,7 @@ import { Colors } from "../styles";
 export default function TimesheetScreen() {
   return (
     <View style={styles.container}>
+
       <FlatList
         data={Timesheets}
         keyExtractor={(item) => item.id}

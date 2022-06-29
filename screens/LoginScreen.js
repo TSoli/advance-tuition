@@ -74,6 +74,7 @@ export default function LoginScreen({navigation}) {
           onChangeText={(email) => textInputChange(email)}
           color="white"
           autoCapitalize='none'
+          textContentType='username' // Or should it be email?
         />
       </KeyboardAvoidingView>
 
@@ -86,6 +87,7 @@ export default function LoginScreen({navigation}) {
           onChangeText={(password) => handlePasswordChange(password)}
           color="white"
           autoCapitalize='none'
+          textContentType='password'
         />
         <TouchableOpacity onPress={updateSecureTextEntry}>
           <Ionicons 
