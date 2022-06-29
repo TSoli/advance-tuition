@@ -76,7 +76,7 @@ export default function HomeScreen({navigation}) {
 
       <View style={styles.itemContainer}>
         <RNPickerSelect
-          style={{ inputAndroid: { color: 'black'} }}
+          style={{ inputAndroid: { color: Colors.black } }}
           onValueChange={(student) => { setStudent(student) }}
           placeholder={{label: 'Select a Student...', value: null}}
           items={getStudents()}

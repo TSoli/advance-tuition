@@ -12,7 +12,7 @@ export const text = {
 };
 
 export const view = {
-  backgroundColor: Colors.blue,
+  backgroundColor: Colors.primary,
   borderRadius: 30,
   width: "80%",
   height: 45,

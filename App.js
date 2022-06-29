@@ -96,7 +96,7 @@ export default function App() {
   if (loginState.isLoading) {
     return (
       <View style={ViewContainer.base}>
-        <ActivityIndicator size="large" color={Colors.darkBlue} />
+        <ActivityIndicator size="large" color={Colors.primaryDark} />
       </View>
     )
   }

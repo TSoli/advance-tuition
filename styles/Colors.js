@@ -9,3 +9,8 @@ export const green = "green";
 export const red = "red";
 export const yellow = "yellow";
 export const orange = "orange";
+
+// Some default colors
+export const primary = blue;
+export const primaryDark = darkBlue;
+export const secondary = "purple";

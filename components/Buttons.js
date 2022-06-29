@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   largeButton: {
     ...Buttons.largeRounded,
     marginTop: Spacing.margin.base,
-    backgroundColor: Colors.darkBlue,
+    backgroundColor: Colors.primaryDark,
   },
   largeButtonText: {
     color: Colors.white,

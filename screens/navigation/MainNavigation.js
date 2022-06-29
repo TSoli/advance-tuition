@@ -65,7 +65,7 @@ export default function MainNavigation() {
 
           return < Ionicons name={iconName} size={size} color={color} />
         },
-        tabBarActiveTintColor: Colors.blue,
+        tabBarActiveTintColor: Colors.primary,
         tabBarInactiveTintColor: Colors.grey,
         tabBarLabelStyle: { paddingBottom: Spacing.padding.base, },
         tabBarStyle: { padding: Spacing.padding.base, height: 70 },

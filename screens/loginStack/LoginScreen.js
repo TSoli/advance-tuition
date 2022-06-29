@@ -136,18 +136,18 @@ const styles = StyleSheet.create({
   loginBtn: {
     ...Buttons.largeRounded,
     marginTop: Spacing.margin.base,
-    backgroundColor: Colors.darkBlue,
+    backgroundColor: Colors.primaryDark,
   },
 
   signupBtn: {
     ...Buttons.largeRounded,
     ...Buttons.outlined,
     backgroundColor: Colors.white,
-    borderColor: Colors.darkBlue, // old colour was "1976d2"
+    borderColor: Colors.primaryDark, // old colour was "1976d2"
     marginTop: Spacing.margin.base,
   },
 
   signupText: {
-    color: Colors.darkBlue,
+    color: Colors.primaryDark,
   },
 });
