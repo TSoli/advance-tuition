@@ -7,4 +7,5 @@ export const padding = {
 
 export const margin = {
   base: 10,
+  medium: 15,
 };
