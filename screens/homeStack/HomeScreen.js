@@ -6,7 +6,7 @@ import RNPickerSelect from 'react-native-picker-select';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { AuthContext  } from '../../components/Context';
-import { Colors, Spacing, UserInput, ViewContainer } from '../../styles';
+import { Colors, Spacing, TextStyle, UserInput, ViewContainer } from '../../styles';
 
 export default function HomeScreen({navigation}) {
 
@@ -72,7 +72,7 @@ export default function HomeScreen({navigation}) {
 
   return (
     <SafeAreaView style={ViewContainer.base} >
-      <Text style={{marginBottom: 30, fontSize: 20, fontWeight: 'bold',}}>Record your hours</Text>
+      <Text style={TextStyle.title}>Record your hours</Text>
 
       <View style={styles.itemContainer}>
         <RNPickerSelect

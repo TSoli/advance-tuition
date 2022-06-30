@@ -14,3 +14,4 @@ export const orange = "orange";
 export const primary = blue;
 export const primaryDark = darkBlue;
 export const secondary = "purple";
+export const background = white;

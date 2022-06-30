@@ -5,10 +5,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
 import HomeScreen from "../homeStack/HomeScreen";
+import TimesheetListScreen from "../payrollStack/TimesheetListScreen";
 import TimesheetScreen from "../payrollStack/TimesheetScreen";
 import StudentListScreen from "../studentStack/StudentListScreen";
+import StudentDetailsScreen from "../studentStack/StudentDetailsScreen";
 import { Colors, Spacing } from "../../styles";
-import { StatusBar } from "react-native";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -25,23 +26,25 @@ function HomeStackScreen() {
 }
 
 // The screens that can be navigated to from the Payroll tab
-function PayrollStackScreen() {
+function PayrollStackScreen({ navigation }) {
   return (
     <Stack.Navigator screenOptions={{
       headerShown: false,
     }}>
-      <Stack.Screen name="PayrollScreen" component={TimesheetScreen} />
+      <Stack.Screen name="TimesheetListScreen" component={TimesheetListScreen} />
+      <Stack.Screen name="TimesheetScreen" component={TimesheetScreen} />
     </Stack.Navigator>
   );
 }
 
 // The screens that can be navigated to from the Students tab
-function StudentStackScreen() {
+function StudentStackScreen({ navigation }) {
   return (
     <Stack.Navigator screenOptions={{
       headerShown: false,
     }}>
-      <Stack.Screen name="StudentsScreen" component={StudentListScreen} />
+      <Stack.Screen name="StudentListScreen" component={StudentListScreen} />
+      <Stack.Screen name="StudentDetailsScreen" component={StudentDetailsScreen} />
     </Stack.Navigator>
   )
 }
