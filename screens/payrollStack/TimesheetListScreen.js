@@ -26,7 +26,7 @@ export default function TimesheetListScreen({ navigation }) {
         data={Timesheets}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <Pressable onPress={() => navigation.navigate("TimesheetScreen")}>
+          <Pressable onPress={() => navigation.navigate("TimesheetScreen", item)}>
             <View style={styles.rowContainer}>
 
               <View>

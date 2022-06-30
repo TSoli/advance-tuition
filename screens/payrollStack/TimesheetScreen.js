@@ -1,11 +1,12 @@
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
-import { FlatList, ScrollView } from "react-native-gesture-handler";
+import { ScrollView } from "react-native-gesture-handler";
 import { ListRow, Spacing, TextStyle, ViewContainer } from "../../styles";
 import { getStatusColor } from "./TimesheetListScreen";
 
 
-export default function TimesheetScreen() {
-  const statusColor = getStatusColor("APPROVED"); // Change this later
+export default function TimesheetScreen({ route }) {
+  const { studentId, status, date, startTime, duration, note } = route.params;
+  const statusColor = getStatusColor(status); // Change this later
 
   const TimesheetRow = ({category, details}) => {
     return (
@@ -28,17 +29,17 @@ export default function TimesheetScreen() {
   return (
     <SafeAreaView style={ViewContainer.topLeft}>
 
-      <Text style={[ styles.statusText, {color: statusColor} ]}>APPROVED</Text>
+      <Text style={[ styles.statusText, {color: statusColor} ]}>{status}</Text>
 
       <ScrollView style={{width: "100%", padding: Spacing.padding.base}}>
-        <TimesheetRow category="Student" details="Name" />
-        <TimesheetRow category="Date" details="Date here" />
-        <TimesheetRow category="Start Time" details="Time here" />
-        <TimesheetRow category="Duration (min)" details={60} />
-        <TimesheetRow category="Amount Owed ($)" details={40.13} />
-        <TimesheetRow category="Additional Notes" details={"A long message that goes over" +
-      " multiple lines and just keeps going for some reason"} />
+        <TimesheetRow category="Student" details={studentId} />
+        <TimesheetRow category="Date" details={date} />
+        <TimesheetRow category="Start Time" details={startTime} />
+        <TimesheetRow category="Duration (min)" details={duration} />
+        <TimesheetRow category="Amount Owed ($)" details={duration*40/60} />
+        <TimesheetRow category="Additional Notes" details={note} />
       </ScrollView>
+
     </SafeAreaView>
   );
 }
