@@ -1,9 +1,8 @@
 // A screen used to display recent timesheets for the tutor
 
-import { FlatList, Text, SafeAreaView, StyleSheet, View } from "react-native";
-import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
+import { FlatList, Text, SafeAreaView, StyleSheet, View, Pressable } from "react-native";
 import Timesheets from "../../model/Timesheets";
-import { Colors, ListRow, Spacing, TextStyle, ViewContainer } from "../../styles";
+import { Colors, ListStyle, Spacing, TextStyle, ViewContainer } from "../../styles";
 
 export const getStatusColor = (status) => {
   if (status.toUpperCase() === "APPROVED") {
@@ -40,7 +39,7 @@ export default function TimesheetListScreen({ navigation }) {
               </View>
 
               <View style={{justifyContent: "center"}}>
-                <Text style={{ ...styles.text, opacity: 0.5, color: getStatusColor(item.status) }}> 
+                <Text style={[styles.text, { opacity: 0.5, color: getStatusColor(item.status) }]}> 
                   {item.status}
                 </Text>
               </View>
@@ -55,13 +54,11 @@ export default function TimesheetListScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   list: {
-    width: "100%",
-    paddingHorizontal: Spacing.padding.base,
-    paddingTop: Spacing.padding.base,
+    ...ListStyle.list.base,
   },
 
   rowContainer: {
-    ...ListRow.listItem,
+    ...ListStyle.listItem,
     justifyContent: "space-between",
   },
 

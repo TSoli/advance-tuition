@@ -1,6 +1,6 @@
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { ListRow, Spacing, TextStyle, ViewContainer } from "../../styles";
+import { ListStyle, Spacing, TextStyle, ViewContainer } from "../../styles";
 import { getStatusColor } from "./TimesheetListScreen";
 
 
@@ -25,13 +25,13 @@ export default function TimesheetScreen({ route }) {
   }
 
   // Used ScrollView instead of Flatlist because there is a small number of rows in the list and the
-  // data is not stored in an array
+  // data is not stored in an array - so FlatList hard here
   return (
     <SafeAreaView style={ViewContainer.topLeft}>
 
       <Text style={[ styles.statusText, {color: statusColor} ]}>{status}</Text>
 
-      <ScrollView style={{width: "100%", padding: Spacing.padding.base}}>
+      <ScrollView style={styles.list}>
         <TimesheetRow category="Student" details={studentId} />
         <TimesheetRow category="Date" details={date} />
         <TimesheetRow category="Start Time" details={startTime} />
@@ -46,6 +46,10 @@ export default function TimesheetScreen({ route }) {
 
 
 const styles = StyleSheet.create({
+  list: {
+    ...ListStyle.list.base,
+  },
+
   statusText: {
     ...TextStyle.titleNoMargin,
     marginHorizontal: Spacing.margin.medium,
@@ -53,7 +57,7 @@ const styles = StyleSheet.create({
   },
 
   rowContainer: {
-    ...ListRow.listItem,
+    ...ListStyle.listItem,
   },
 
   categoryContainer: {

@@ -10,3 +10,10 @@ export const listItem = {
   borderBottomColor: Colors.grey,
   width: "100%",
 };
+
+export const list = {
+  base: {
+    width: "100%",
+    padding: Spacing.padding.base,
+  },
+}
