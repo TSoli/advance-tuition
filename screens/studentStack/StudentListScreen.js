@@ -1,4 +1,4 @@
-import { View, SafeAreaView, Text, FlatList, StyleSheet, Pressable } from "react-native";
+import { View, SafeAreaView, Text, FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import UserAvatar from 'react-native-user-avatar';
 
 import { ViewContainer, ListStyle, TextStyle, Spacing } from "../../styles";
@@ -17,7 +17,7 @@ export default function StudentListScreen({ navigation }) {
         keyExtractor={(student) => student.id}
         renderItem={({ item }) => (
 
-          <Pressable onPress={() => navigation.navigate("StudentDetailsScreen")} >
+          <TouchableOpacity onPress={() => navigation.navigate("StudentDetailsScreen")} >
             <View style={styles.rowContainer}>
               <UserAvatar 
                 style={styles.avatar}
@@ -26,7 +26,7 @@ export default function StudentListScreen({ navigation }) {
               />
               <Text style={styles.text}>{item.first_name} {item.last_name}</Text>
             </View>
-          </Pressable>
+          </TouchableOpacity>
 
         )}
       />

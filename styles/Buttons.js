@@ -20,3 +20,11 @@ export const largeRounded = {
   ...large,
   ...rounded,
 };
+
+export const action = {
+  height: 75,
+  width: 75,
+  justifyContent: "center",
+  alignItems: "center",
+  borderRadius: 25, // Maybe try 100?
+};

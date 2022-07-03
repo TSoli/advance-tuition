@@ -108,7 +108,7 @@ export default function LoginScreen({navigation}) {
 
       <LargeButton
         text="Sign Up"
-        textStyle={styles.signupText}
+        textProps={{style: styles.signupText}}
         onPress={() => navigation.navigate("SignupScreen")}
         style={styles.signupBtn}
       />

@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import {
-  StyleSheet, Text, View, Button, TextInput, Platform, Pressable, KeyboardAvoidingView, SafeAreaView
+  StyleSheet, Text, View, Button, TextInput, Platform, KeyboardAvoidingView,
+  SafeAreaView, TouchableOpacity
 } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -83,7 +84,7 @@ export default function HomeScreen({navigation}) {
         />
       </View>
 
-      <Pressable onPress={() => showMode('date')} >
+      <TouchableOpacity onPress={() => showMode('date')} >
         <View style={UserInput.view}>
           <TextInput
             style={UserInput.text}
@@ -94,9 +95,9 @@ export default function HomeScreen({navigation}) {
             color={Colors.white}
         />
       </View>
-      </Pressable>
+      </TouchableOpacity>
 
-      <Pressable onPress={() => showMode('time')} >
+      <TouchableOpacity onPress={() => showMode('time')} >
         <View style={UserInput.view}>
           <TextInput
             style={UserInput.text}
@@ -107,7 +108,7 @@ export default function HomeScreen({navigation}) {
             color={Colors.white}
           />
         </View>
-      </Pressable>
+      </TouchableOpacity>
 
       <KeyboardAvoidingView style={UserInput.view} behavior="padding">
         <TextInput
@@ -118,6 +119,18 @@ export default function HomeScreen({navigation}) {
           keyboardType='numeric'
           maxLength={3}
           onChangeText={(selectedDuration) => {setDuration(parseInt(selectedDuration))}}
+        />
+      </KeyboardAvoidingView>
+
+      <KeyboardAvoidingView style={UserInput.mediumView} behavior="padding">
+        <TextInput
+          style={UserInput.text}
+          multiline={true}
+          textAlignVertical="center"
+          placeholder="Additional Notes..."
+          placeholderTextColor={Colors.white}
+          color={Colors.white}
+          // Add an onChangeText here
         />
       </KeyboardAvoidingView>
 

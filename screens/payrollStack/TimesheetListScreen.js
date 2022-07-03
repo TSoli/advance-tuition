@@ -1,8 +1,10 @@
 // A screen used to display recent timesheets for the tutor
 
-import { FlatList, Text, SafeAreaView, StyleSheet, View, Pressable } from "react-native";
+import { FlatList, Text, SafeAreaView, StyleSheet, View, TouchableOpacity } from "react-native";
+import { AntDesign } from '@expo/vector-icons';
+import { Colors, ListStyle, TextStyle, ViewContainer } from "../../styles";
 import Timesheets from "../../model/Timesheets";
-import { Colors, ListStyle, Spacing, TextStyle, ViewContainer } from "../../styles";
+import { FloatingActionButton } from "../../components/Buttons";
 
 export const getStatusColor = (status) => {
   if (status.toUpperCase() === "APPROVED") {
@@ -17,6 +19,7 @@ export const getStatusColor = (status) => {
 };
 
 export default function TimesheetListScreen({ navigation }) {
+  const plusIcon = <AntDesign name="plus" size={42} color={Colors.white} />
   return (
     <SafeAreaView style={ViewContainer.base}>
 
@@ -25,7 +28,7 @@ export default function TimesheetListScreen({ navigation }) {
         data={Timesheets}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <Pressable onPress={() => navigation.navigate("TimesheetScreen", item)}>
+          <TouchableOpacity onPress={() => navigation.navigate("TimesheetScreen", item)}>
             <View style={styles.rowContainer}>
 
               <View>
@@ -45,9 +48,12 @@ export default function TimesheetListScreen({ navigation }) {
               </View>
 
             </View>
-          </Pressable>
+          </TouchableOpacity>
         )}
       />
+
+      <FloatingActionButton text="+" textProps={{style: styles.actionButtonText}} component={plusIcon}/>
+
     </SafeAreaView>
   );
 }
@@ -65,5 +71,9 @@ const styles = StyleSheet.create({
   text: {
     fontSize: TextStyle.fontSize.medium,
     fontWeight: 'bold',
+  },
+
+  actionButtonText: {
+    fontSize: TextStyle.fontSize.extraLarge,
   },
 })
