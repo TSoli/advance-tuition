@@ -52,7 +52,13 @@ export default function TimesheetListScreen({ navigation }) {
         )}
       />
 
-      <FloatingActionButton text="+" textProps={{style: styles.actionButtonText}} component={plusIcon}/>
+      <FloatingActionButton
+        // style={styles.floatingActionButton}
+        // text="+"
+        textProps={{style: styles.actionButtonText}}
+        component={plusIcon}
+        onPress={() => navigation.navigate("AddTimesheetScreen")}
+      />
 
     </SafeAreaView>
   );
@@ -76,4 +82,8 @@ const styles = StyleSheet.create({
   actionButtonText: {
     fontSize: TextStyle.fontSize.extraLarge,
   },
-})
+
+  floatingActionButton: {
+    opacity: 0.8,
+  },
+});

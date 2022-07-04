@@ -7,6 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import HomeScreen from "../homeStack/HomeScreen";
 import TimesheetListScreen from "../payrollStack/TimesheetListScreen";
 import TimesheetScreen from "../payrollStack/TimesheetScreen";
+import AddTimesheetScreen from "../payrollStack/AddTimesheetScreen";
 import StudentListScreen from "../studentStack/StudentListScreen";
 import StudentDetailsScreen from "../studentStack/StudentDetailsScreen";
 import { Colors, Spacing } from "../../styles";
@@ -33,6 +34,7 @@ function PayrollStackScreen({ navigation }) {
     }}>
       <Stack.Screen name="TimesheetListScreen" component={TimesheetListScreen} />
       <Stack.Screen name="TimesheetScreen" component={TimesheetScreen} />
+      <Stack.Screen name="AddTimesheetScreen" component={AddTimesheetScreen} />
     </Stack.Navigator>
   );
 }
