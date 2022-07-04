@@ -1,11 +1,19 @@
 // Defines some general buttons to use
 
+import * as Spacing from "./Spacing";
+
+export const medium = {
+  width: "40%",
+  height: 45,
+  alignItems: "center",
+  justifyContent: "center",
+};
+
 export const large = {
   width: "70%",
   height: 45,
   alignItems: "center",
   justifyContent: "center",
-  marginTop: 10,
 };
 
 export const rounded = {
@@ -14,6 +22,11 @@ export const rounded = {
 
 export const outlined = {
   borderWidth: 2,
+};
+
+export const mediumRounded = {
+  ...medium,
+  ...rounded,
 };
 
 export const largeRounded = {

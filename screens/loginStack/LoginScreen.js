@@ -140,10 +140,9 @@ const styles = StyleSheet.create({
   },
 
   signupBtn: {
-    ...Buttons.largeRounded,
     ...Buttons.outlined,
     backgroundColor: Colors.white,
-    borderColor: Colors.primaryDark, // old colour was "1976d2"
+    borderColor: Colors.primaryDark,
     marginTop: Spacing.margin.base,
   },
 

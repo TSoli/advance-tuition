@@ -3,9 +3,12 @@
 export const padding = {
   base: 10,
   medium: 15,
+  large: 30,
 };
 
 export const margin = {
   base: 10,
   medium: 15,
+  large: 30,
+  extraLarge: 60,
 };

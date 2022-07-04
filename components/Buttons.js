@@ -19,7 +19,21 @@ const LargeButton = ({ text, textProps, ...rest }) => {
     <TouchableOpacity
       style={ [styles.largeButton, {...pressStyle}] } {...restPress}
     >
-      <Text style={ [styles.largeButtonText, textStyle] } {...restText}>
+      <Text style={ [styles.buttonText, textStyle] } {...restText}>
+        {text}
+      </Text>
+    </TouchableOpacity>
+  );
+};
+
+const MediumButton = ({ text, textProps, ...rest }) => {
+  const { style: textStyle, ...restText } = textProps || {};
+  const { style: pressStyle, ...restPress } = {...rest} || {};
+  return(
+    <TouchableOpacity
+      style={ [styles.mediumButton, {...pressStyle}] } {...restPress}
+    >
+      <Text style={ [styles.buttonText, textStyle] } {...restText}>
         {text}
       </Text>
     </TouchableOpacity>
@@ -77,7 +91,13 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primaryDark,
   },
 
-  largeButtonText: {
+  mediumButton: {
+    ...Buttons.mediumRounded,
+    marginTop: Spacing.margin.base,
+    backgroundColor: Colors.primaryDark,
+  },
+
+  buttonText: {
     color: Colors.white,
     fontWeight: "bold",
   },
@@ -98,4 +118,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export { LargeButton, ActionButton, FloatingActionButton };
+export { LargeButton, MediumButton, ActionButton, FloatingActionButton };
