@@ -14,9 +14,11 @@ export default function HomeScreen({navigation}) {
 
       <Image style={styles.image} source={require("../../assets//logo.jpg")}/>
 
-      <Text>Welcome!</Text>
+      <View style={styles.msgContainer} >
+        <Text>Welcome!</Text>
+      </View>
 
-      <View style={styles.itemContainer}>
+      <View style={styles.btnContainer}>
         <MediumButton 
           style={styles.logoutBtn}
           textProps={{style: styles.logoutBtnText}}
@@ -46,11 +48,18 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
 
-  itemContainer: {
+  btnContainer: {
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-around",
     paddingVertical: Spacing.padding.large,
+  },
+
+  msgContainer: {
+    flex: 1,
+    width: "100%",
+    flexDirection: "row",
+    padding: Spacing.padding.medium,
   },
 
   logoutBtn: {

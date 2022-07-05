@@ -17,7 +17,7 @@ export default function StudentListScreen({ navigation }) {
         keyExtractor={(student) => student.id}
         renderItem={({ item }) => (
 
-          <TouchableOpacity onPress={() => navigation.navigate("StudentDetailsScreen")} >
+          <TouchableOpacity onPress={() => navigation.navigate("StudentDetailsScreen", item)} >
             <View style={styles.rowContainer}>
               <UserAvatar 
                 style={styles.avatar}
