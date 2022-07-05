@@ -1,26 +1,11 @@
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import UserAvatar from 'react-native-user-avatar';
-import { Colors, Spacing, TextStyle, ViewContainer, ListStyle } from "../../styles";
+import { DetailsRow } from "../../components/CustomList";
+import { Spacing, TextStyle, ViewContainer, ListStyle } from "../../styles";
 
 export default function StudentDetailsScreen({ route }) {
   const { first_name, last_name, email, phone_number, street_address, subject, year_level } = route.params;
-  
-  const DetailsRow = ({category, details}) => {
-    return (
-      <View style={styles.rowContainer}>
-
-        <View style={styles.categoryContainer}>
-          <Text style={styles.categoryText}>{category}:</Text>
-        </View>
-
-        <View style={styles.detailContainer}>
-          <Text style={styles.detailText}>{details}</Text>
-        </View>
-
-      </View>
-    );
-  }
   return (
     <SafeAreaView style={styles.viewContainer}>
       <View style={styles.topContainer}>
@@ -64,31 +49,9 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
   
-  rowContainer: {
-    ...ListStyle.listItem,
-  },
-
   list: {
     ...ListStyle.list.base,
     paddingTop: 0,
-  },
-
-  categoryContainer: {
-    width: "40%",
-  },
-
-  categoryText: {
-    fontWeight: "bold",
-    fontSize: TextStyle.fontSize.medium,
-  },
-
-  detailContainer: {
-    justifyContent: "center",
-    flex: 1,
-  },
-
-  detailText: {
-    fontSize: TextStyle.fontSize.small,
   },
 
   name: {
