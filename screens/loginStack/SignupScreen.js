@@ -13,13 +13,13 @@ export default function SignupScreen({navigation}) {
   const [confirmPass, setConfirmPass] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const { signUp } = useAuth();
+  const { signup, user } = useAuth();
 
   const handleSignup = async(email, pass, confirmPass) => {
     if (pass == confirmPass && pass != '' && email != '') {
       try {
         setLoading(true);
-        await signUp(email, pass);
+        await signup(email, pass);
         navigation.navigate('LoginScreen');
       } catch(e) {
         Alert.alert("Sign Up Failed", "Failed to create an account");
@@ -27,6 +27,7 @@ export default function SignupScreen({navigation}) {
       }
 
       setLoading(false);
+      console.log(user)
     } else if (pass == '' || email == '') {
       Alert.alert("Invalid Details", "Email or password cannot be empty.");
     } else {

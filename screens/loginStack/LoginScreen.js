@@ -2,64 +2,42 @@ import {
   StyleSheet, Text, SafeAreaView, Image, TextInput, TouchableOpacity, Alert,
   KeyboardAvoidingView
 } from 'react-native';
-import { useState, useContext } from 'react';
+import { useState} from 'react';
 import { Ionicons } from '@expo/vector-icons';
 
 import { Colors, Spacing, Buttons, UserInput, ViewContainer } from '../../styles'
 import { LargeButton } from '../../components/Buttons'
-import { AuthContext } from '../../components/Context';
-import Users from '../../model/Users';
+import { useAuth } from '../../context/AuthContext';
 
 export default function LoginScreen({navigation}) {
-  const [data, setData] = useState({
-    email: '',
-    password: '',
-    check_textInputChange: false,
-    secureTextEntry: true,
-  });
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [secureText, setSecureText] = useState(true);
 
-  // const { Login } = useContext(AuthContext);
-
-  const textInputChange = (val) => {
-    setData({
-      ...data,
-      email: val,
-      check_textInputChange: true
-    });
-  }
-
-  const handlePasswordChange = (val) => {
-    setData({
-      ...data,
-      password: val
-    });
-  }
-
-  const updateSecureTextEntry = () => {
-    setData({
-      ...data,
-      secureTextEntry: !data.secureTextEntry
-    });
-  }
+  const { login } = useAuth();
+  const [loading, setLoading] = useState(false);
 
   const loginHandle = (email, pass) => {
-    const foundUser = Users.filter(item => {
-      return email == item.email && pass == item.password;
-    })
-
-    if (data.email.length == 0 || data.password.length == 0) {
+    if (email.length == 0 || pass.length == 0) {
       Alert.alert("Invalid Input!",
       "Email or password cannot be empty.",
       [{text: "Ok"}]);
       return;
     }
 
-    if (foundUser.length == 0) {
-      Alert.alert("Invalid User!",
-      "Email or password is incorrect.");
-      return;
-    }
-    // Login(foundUser);
+    setLoading(true);
+    login(email, pass)
+    .then(userCredentials => {
+      const user = userCredentials.user;
+      console.log(user.email);
+    })
+    .catch((e) => {
+      Alert.alert("Unable to login", "Please check your email and password.",
+      [{text: "Ok"}]);
+      console.log(e.message);
+      console.log(`email=${email}`)
+    })
+    setLoading(false);
   }
 
   return (
@@ -72,7 +50,7 @@ export default function LoginScreen({navigation}) {
           style={UserInput.text}
           placeholder="Email"
           placeholderTextColor="white"
-          onChangeText={(email) => textInputChange(email)}
+          onChangeText={(email) => setEmail(email)}
           color="white"
           autoCapitalize='none'
           textContentType='username' // Or should it be email?
@@ -84,16 +62,16 @@ export default function LoginScreen({navigation}) {
           style={UserInput.text}
           placeholder="Password"
           placeholderTextColor="white"
-          secureTextEntry={data.secureTextEntry ? true : false}
-          onChangeText={(password) => handlePasswordChange(password)}
+          secureTextEntry={secureText? true : false}
+          onChangeText={(password) => setPassword(password)}
           color="white"
           autoCapitalize='none'
           textContentType='password'
         />
-        <TouchableOpacity onPress={updateSecureTextEntry}>
+        <TouchableOpacity onPress={() => setSecureText(!secureText)}>
           <Ionicons 
             style={styles.icons}
-            name={data.secureTextEntry ? "eye-off" : "eye"}
+            name={secureText ? "eye-off" : "eye"}
             color="white"
             size={20}
           />
@@ -104,7 +82,11 @@ export default function LoginScreen({navigation}) {
         <Text style={styles.forgot_button}>Forgot Password?</Text>
       </TouchableOpacity>
 
-      <LargeButton text="LOGIN" onPress={() => loginHandle(data.email, data.password)} />
+      <LargeButton
+        text="LOGIN"
+        onPress={() => loginHandle(email, password)}
+        disabled={loading}
+      />
 
       <LargeButton
         text="Sign Up"
