@@ -18,7 +18,7 @@ export default function LoginScreen({navigation}) {
     secureTextEntry: true,
   });
 
-  const { Login } = useContext(AuthContext);
+  // const { Login } = useContext(AuthContext);
 
   const textInputChange = (val) => {
     setData({
@@ -59,7 +59,7 @@ export default function LoginScreen({navigation}) {
       "Email or password is incorrect.");
       return;
     }
-    Login(foundUser);
+    // Login(foundUser);
   }
 
   return (

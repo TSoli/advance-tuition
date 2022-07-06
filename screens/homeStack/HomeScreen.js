@@ -1,21 +1,39 @@
-import { useContext } from 'react';
-import { StyleSheet, View, Text, Image, SafeAreaView, } from 'react-native';
+import { StyleSheet, View, Text, Image, SafeAreaView, Alert  } from 'react-native';
 import { MediumButton } from '../../components/Buttons';
 
-import { AuthContext  } from '../../components/Context';
-import { Buttons, Colors, Spacing, ViewContainer } from '../../styles';
+import { useAuth } from '../../context/AuthContext';
+import { Buttons, Colors, Spacing, TextStyle, ViewContainer } from '../../styles';
 
 export default function HomeScreen({navigation}) {
+  const { logout } = useAuth();
 
-  const { Logout } = useContext(AuthContext);
+  const handleLogout = async() => {
+    try {
+      await logout();
+    } catch(e) {
+      Alert.alert("Logout Failed", "Logout failed unexpectedly");
+      console.log(e);
+    }
+  }
 
   return (
     <SafeAreaView style={styles.mainContainer} >
 
       <Image style={styles.image} source={require("../../assets//logo.jpg")}/>
 
+
       <View style={styles.msgContainer} >
-        <Text>Welcome!</Text>
+        <Text style={TextStyle.title}>Welcome, Tutor!</Text>
+        <Text style={styles.msgText}>
+          Thanks for using the Advance Tuition app! We hope that this app will make it easier for
+          you to report your tutoring hours to us by enabling you to submit timesheets right from
+          your pocket.
+          {'\n\n'}
+          This app is still very much under development so if you have any problems with it or would
+          like to provide any feedback, please send a text to 0423 696 614 or email
+          advancetuitiongroup@gmail.com with the details. We would love to hear your feedback so we
+          can improve your experience. For any issues with payroll please use the above email.
+        </Text>
       </View>
 
       <View style={styles.btnContainer}>
@@ -23,7 +41,7 @@ export default function HomeScreen({navigation}) {
           style={styles.logoutBtn}
           textProps={{style: styles.logoutBtnText}}
           text="Logout"
-          onPress={() => {Logout()}}
+          onPress={() => handleLogout()}
         />
         <MediumButton
           text="Submit Timesheet"
@@ -45,7 +63,7 @@ const styles = StyleSheet.create({
 
   mainContainer: {
     ...ViewContainer.base,
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
   },
 
   btnContainer: {
@@ -56,10 +74,12 @@ const styles = StyleSheet.create({
   },
 
   msgContainer: {
-    flex: 1,
     width: "100%",
-    flexDirection: "row",
     padding: Spacing.padding.medium,
+  },
+
+  msgText: {
+    ...TextStyle.paragraph,
   },
 
   logoutBtn: {

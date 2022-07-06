@@ -16,3 +16,7 @@ export const title = {
   ...titleNoMargin,
   marginBottom: 30,
 };
+
+export const paragraph = {
+  textAlign: "justify",
+};

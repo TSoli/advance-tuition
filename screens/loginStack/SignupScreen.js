@@ -1,10 +1,9 @@
 import {
   StyleSheet, Text, Image, TextInput, Alert, KeyboardAvoidingView, SafeAreaView
 } from 'react-native';
-import { useState, useContext } from 'react';
+import { useState} from 'react';
 
-import { AuthContext } from '../../components/Context';
-import Users from '../../model/Users';
+import { useAuth } from '../../context/AuthContext';
 import { LargeButton } from '../../components/Buttons';
 import { UserInput, ViewContainer } from '../../styles';
 
@@ -12,21 +11,22 @@ export default function SignupScreen({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPass, setConfirmPass] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const { Signup } = useContext(AuthContext);
+  const { signUp } = useAuth();
 
-  const handleSignup = (email, pass, confirmPass) => {
+  const handleSignup = async(email, pass, confirmPass) => {
     if (pass == confirmPass && pass != '' && email != '') {
-      Signup();
-      // Add user to database
-      Users.push(
-        {
-          id: 4,
-          email: email,
-          password: pass,
-          userToken: 'signupToken',
-        })
-      navigation.navigate('LoginScreen');
+      try {
+        setLoading(true);
+        await signUp(email, pass);
+        navigation.navigate('LoginScreen');
+      } catch(e) {
+        Alert.alert("Sign Up Failed", "Failed to create an account");
+        console.log(e);
+      }
+
+      setLoading(false);
     } else if (pass == '' || email == '') {
       Alert.alert("Invalid Details", "Email or password cannot be empty.");
     } else {
@@ -78,7 +78,11 @@ export default function SignupScreen({navigation}) {
       :
         <Text style={styles.warningText}>Passwords do not match!</Text>}
       
-      <LargeButton text="Sign Up" onPress={() => {handleSignup(email, password, confirmPass)}} />
+      <LargeButton
+        text="Sign Up"
+        onPress={() => {handleSignup(email, password, confirmPass)}}
+        disabled={loading}
+      />
     </SafeAreaView>
   );
 }

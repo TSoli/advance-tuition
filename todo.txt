@@ -1,0 +1,28 @@
+A todo list for the Advance-Tuition app
+
+Authentication:
+    - Add more details when signing up (i.e name)
+    - Find out about persistent login state with firebase and delete the AsyncStorage
+      if it is unnecessary
+    - Add confirmation email when signing up
+    - Add useful error messages when signing up
+    - Check if confirm password text box is buggy on other phones and find out why
+    - Add ability to login, reset password
+    - Add ability to login with other accs (i.e facebook google)??
+    - Potentially update the UI for logging in
+
+Database:
+    - Add a database and structure it appropriately
+    - Add backend functionality so that admin can access invoices from the tutors
+      and invoices are sent to parents (either when approved by admin or immediately
+      with the possibility of sending a follow up cancellation email if the tutor deletes
+      the timesheet)
+
+UI:
+    - Add animations?
+    - Add a calendar that allows tutors to schedule lessons in the calendar
+    - Add a notes option in student details
+    - Add reminders to submit timesheets for scheduled lessons
+
+Misc:
+    - Investigate the AsyncStorage warning from firebase

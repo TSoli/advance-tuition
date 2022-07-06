@@ -1,12 +1,14 @@
+// Entry point to the App
+// TODO:
+//  - Look into removing the AsyncStorage stuff
+
 import { View, ActivityIndicator } from 'react-native';
 import { useEffect, useMemo, useReducer } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import RootStackScreen from './screens/navigation/RootStackScreen';
-import { AuthContext  } from './components/Context';
-import MainNavigation from './screens/navigation/MainNavigation';
 import { Colors, ViewContainer } from './styles';
+import { AuthProvider } from './context/AuthContext';
+import MainNavigationContainer from './screens/navigation/MainNavigationContainer';
 
 export default function App() {
 
@@ -101,14 +103,8 @@ export default function App() {
     )
   }
   return (
-    <AuthContext.Provider value={authContext}>
-      <NavigationContainer>
-        { (loginState.userToken != null) ? 
-          <MainNavigation/>
-        :
-          <RootStackScreen/>
-        }
-      </NavigationContainer>
-    </AuthContext.Provider>
+    <AuthProvider>
+      <MainNavigationContainer/>
+    </AuthProvider>
   );
 }
