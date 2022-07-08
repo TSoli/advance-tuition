@@ -1,94 +1,129 @@
 import {
-  StyleSheet, Text, Image, TextInput, Alert, KeyboardAvoidingView, SafeAreaView
+  StyleSheet,
+  Text,
+  Image,
+  TouchableOpacity,
+  Alert,
+  SafeAreaView,
+  ScrollView,
 } from 'react-native';
-import { useState} from 'react';
-
+import { useState } from 'react';
+import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../../context/AuthContext';
 import { LargeButton } from '../../components/Buttons';
-import { UserInput, ViewContainer } from '../../styles';
+import { UserInputStyle, ViewContainer, Spacing } from '../../styles';
+import UserInput from '../../components/UserInput';
 
-export default function SignupScreen({navigation}) {
+export default function SignupScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPass, setConfirmPass] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
-
+  const [secureText, setSecureText] = useState(true);
+  const [confirmSecureText, setConfirmSecureText] = useState(true);
   const { signup, user } = useAuth();
 
-  const handleSignup = async(email, pass, confirmPass) => {
-    if (pass == confirmPass && pass != '' && email != '') {
+  const handleSignup = async () => {
+    if (password === '' || email === '') {
+      Alert.alert('Invalid Details', 'Email or password cannot be empty.');
+    } else if (password !== confirmPassword) {
+      Alert.alert('Passwords do not match', 'Check that your passwords match.');
+    } else {
+      // Assume correct
       try {
         setLoading(true);
-        await signup(email, pass);
+        await signup(email, password);
         navigation.navigate('LoginScreen');
-      } catch(e) {
-        Alert.alert("Sign Up Failed", "Failed to create an account");
+      } catch (e) {
+        Alert.alert('Sign Up Failed', 'Failed to create an account');
         console.log(e);
+        setLoading(false);
       }
 
-      setLoading(false);
-      console.log(user)
-    } else if (pass == '' || email == '') {
-      Alert.alert("Invalid Details", "Email or password cannot be empty.");
-    } else {
-      Alert.alert("Passwords do not match", "Check that your passwords match.");
+      console.log(user);
     }
-  }
+  };
+
+  const secureTextIcon = (
+    <TouchableOpacity onPress={() => setSecureText(!secureText)}>
+      <Ionicons
+        style={UserInputStyle.icon}
+        name={secureText ? 'eye-off' : 'eye'}
+        color="white"
+        size={20}
+      />
+    </TouchableOpacity>
+  );
+
+  const confirmSecureTextIcon = (
+    <TouchableOpacity onPress={() => setConfirmSecureText(!confirmSecureText)}>
+      <Ionicons
+        style={UserInputStyle.icon}
+        name={confirmSecureText ? 'eye-off' : 'eye'}
+        color="white"
+        size={20}
+      />
+    </TouchableOpacity>
+  );
 
   return (
-    <SafeAreaView style={ViewContainer.base}>
+    <SafeAreaView style={styles.mainContainer}>
+      <ScrollView contentContainerStyle={styles.scrollContentContainer}>
+        <Image style={styles.image} source={require('../../assets/logo.jpg')} />
 
-      <Image style={styles.image} source={require("../../assets//logo.jpg")}/>
-
-      <KeyboardAvoidingView style={UserInput.view} behavior="padding">
-        <TextInput
-          style={UserInput.text}
+        <UserInput
           placeholder="Email"
-          placeholderTextColor="white"
-          onChangeText={(email) => setEmail(email)}
-          color="white"
-          autoCapitalize='none'
+          onChangeText={(text) => setEmail(text)}
+          textContentType="username" // Or should it be email?
         />
-      </KeyboardAvoidingView>
-
-      <KeyboardAvoidingView style={UserInput.view} behavior="padding">
-        <TextInput
-          style={UserInput.text}
+        <UserInput
           placeholder="Password"
-          placeholderTextColor="white"
-          secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
-          color="white"
-          autoCapitalize='none'
+          secureTextEntry={secureText}
+          onChangeText={(text) => setPassword(text)}
+          textContentType="password"
+          icon={secureTextIcon}
         />
-      </KeyboardAvoidingView>
 
-      <KeyboardAvoidingView style={UserInput.view} behavior="padding">
-        <TextInput
-          style={UserInput.text}
+        <UserInput
           placeholder="Confirm Password"
-          placeholderTextColor="white"
-          secureTextEntry={true}
-          onChangeText={(password) => setConfirmPass(password)}
-          color="white"
-          autoCapitalize='none'
+          secureTextEntry={confirmSecureText}
+          onChangeText={(text) => setConfirmPassword(text)}
+          textContentType="password"
+          icon={confirmSecureTextIcon}
         />
-      </KeyboardAvoidingView>
-      {password == confirmPass ? 
-        <Text>Please check your email for confirmation after signing up.</Text>
-      :
-        <Text style={styles.warningText}>Passwords do not match!</Text>}
-      
-      <LargeButton
-        text="Sign Up"
-        onPress={() => {handleSignup(email, password, confirmPass)}}
-        disabled={loading}
-      />
+
+        <LargeButton
+          text="Sign Up"
+          onPress={() => {
+            handleSignup();
+          }}
+          disabled={loading}
+        />
+
+        {password === confirmPassword ? (
+          <Text>Please check your email for confirmation after signing up.</Text>
+        ) : (
+          <Text style={styles.warningText}>Passwords do not match!</Text>
+        )}
+      </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    ...ViewContainer.base,
+    alignItems: 'stretch',
+    flexGrow: 1,
+  },
+
+  scrollContentContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexGrow: 1,
+    paddingBottom: Spacing.padding.medium,
+  },
+
   image: {
     height: 125,
     width: 125,

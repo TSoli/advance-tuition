@@ -2,13 +2,11 @@ A todo list for the Advance-Tuition app
 
 Authentication:
     - Add more details when signing up (i.e name)
-    - Decide whether to use .then and .catch or async try/catch/await
-    - Find out about persistent login state with firebase and delete the AsyncStorage
-      if it is unnecessary
+    - Find out about persistent login state with firebase
     - Add confirmation email when signing up
     - Add useful error messages when signing up
     - Check if confirm password text box is buggy on other phones and find out why
-    - Add ability to login, reset password
+        - Turns out you need behavior={Platform.OS == "ios" ? "padding" : "height}
     - Add ability to login with other accs (i.e facebook google)??
     - Potentially update the UI for logging in
 
@@ -20,6 +18,7 @@ Database:
       the timesheet)
 
 UI:
+    - Create a component for user input
     - Add animations?
     - Add a calendar that allows tutors to schedule lessons in the calendar
     - Add a notes option in student details

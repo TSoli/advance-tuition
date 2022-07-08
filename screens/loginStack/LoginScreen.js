@@ -1,100 +1,82 @@
-import { 
-  StyleSheet, Text, SafeAreaView, Image, TextInput, TouchableOpacity, Alert,
-  KeyboardAvoidingView
-} from 'react-native';
-import { useState} from 'react';
+import { StyleSheet, Text, SafeAreaView, Image, TouchableOpacity, Alert } from 'react-native';
+import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 
-import { Colors, Spacing, Buttons, UserInput, ViewContainer } from '../../styles'
-import { LargeButton } from '../../components/Buttons'
+import { Colors, Spacing, Buttons, UserInputStyle, ViewContainer } from '../../styles';
+import { LargeButton } from '../../components/Buttons';
 import { useAuth } from '../../context/AuthContext';
+import UserInput from '../../components/UserInput';
 
-export default function LoginScreen({navigation}) {
+export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [secureText, setSecureText] = useState(true);
-
-  const { login } = useAuth();
   const [loading, setLoading] = useState(false);
 
-  const loginHandle = (email, pass) => {
+  const { login } = useAuth();
+
+  const secureTextIcon = (
+    <TouchableOpacity onPress={() => setSecureText(!secureText)}>
+      <Ionicons
+        style={UserInputStyle.icon}
+        name={secureText ? 'eye-off' : 'eye'}
+        color="white"
+        size={20}
+      />
+    </TouchableOpacity>
+  );
+
+  const loginHandle = async (email, pass) => {
     if (email.length == 0 || pass.length == 0) {
-      Alert.alert("Invalid Input!",
-      "Email or password cannot be empty.",
-      [{text: "Ok"}]);
+      Alert.alert('Invalid Input!', 'Email or password cannot be empty.');
       return;
     }
 
     setLoading(true);
-    login(email, pass)
-    .then(userCredentials => {
+    try {
+      const userCredentials = await login(email, pass);
+
+      // Add code to execute once logged in
       const user = userCredentials.user;
       console.log(user.email);
-    })
-    .catch((e) => {
-      Alert.alert("Unable to login", "Please check your email and password.",
-      [{text: "Ok"}]);
-      console.log(e.message);
-      console.log(`email=${email}`)
-    })
-    setLoading(false);
-  }
+      console.log(`name=${user.displayName}`);
+    } catch (err) {
+      Alert.alert('Unable to login', 'Please check your email and password.');
+      console.log(err.message);
+      setLoading(false);
+    }
+  };
 
   return (
     <SafeAreaView style={ViewContainer.base}>
+      <Image style={styles.image} source={require('../../assets//logo.jpg')} />
 
-      <Image style={styles.image} source={require("../../assets//logo.jpg")}/>
+      <UserInput
+        placeholder="Email"
+        onChangeText={(text) => setEmail(text)}
+        textContentType="username" // Or should it be email?
+      />
 
-      <KeyboardAvoidingView style={UserInput.view} behavior="padding">
-        <TextInput
-          style={UserInput.text}
-          placeholder="Email"
-          placeholderTextColor="white"
-          onChangeText={(email) => setEmail(email)}
-          color="white"
-          autoCapitalize='none'
-          textContentType='username' // Or should it be email?
-        />
-      </KeyboardAvoidingView>
+      <UserInput
+        placeholder="Password"
+        secureTextEntry={secureText}
+        onChangeText={(text) => setPassword(text)}
+        textContentType="password"
+        icon={secureTextIcon}
+      />
 
-      <KeyboardAvoidingView style={UserInput.view} behavior="padding">
-        <TextInput
-          style={UserInput.text}
-          placeholder="Password"
-          placeholderTextColor="white"
-          secureTextEntry={secureText? true : false}
-          onChangeText={(password) => setPassword(password)}
-          color="white"
-          autoCapitalize='none'
-          textContentType='password'
-        />
-        <TouchableOpacity onPress={() => setSecureText(!secureText)}>
-          <Ionicons 
-            style={styles.icons}
-            name={secureText ? "eye-off" : "eye"}
-            color="white"
-            size={20}
-          />
-        </TouchableOpacity>
-      </KeyboardAvoidingView>
-
-      <TouchableOpacity onPress={() => navigation.navigate("ForgotPasswordScreen")}>
+      <TouchableOpacity onPress={() => navigation.navigate('ForgotPasswordScreen')}>
         <Text style={styles.forgot_button}>Forgot Password?</Text>
       </TouchableOpacity>
 
-      <LargeButton
-        text="LOGIN"
-        onPress={() => loginHandle(email, password)}
-        disabled={loading}
-      />
+      <LargeButton text="LOGIN" onPress={() => loginHandle(email, password)} disabled={loading} />
 
       <LargeButton
         text="Sign Up"
-        textProps={{style: styles.signupText}}
-        onPress={() => navigation.navigate("SignupScreen")}
+        textProps={{ style: styles.signupText }}
+        onPress={() => navigation.navigate('SignupScreen')}
         style={styles.signupBtn}
       />
-
     </SafeAreaView>
   );
 }
@@ -104,11 +86,6 @@ const styles = StyleSheet.create({
     height: 125,
     width: 125,
     marginBottom: 40,
-  },
-
-  icons: {
-    padding: Spacing.padding.base,
-    marginRight: 3,
   },
 
   forgot_button: {
@@ -125,7 +102,6 @@ const styles = StyleSheet.create({
     ...Buttons.outlined,
     backgroundColor: Colors.white,
     borderColor: Colors.primaryDark,
-    marginTop: Spacing.margin.base,
   },
 
   signupText: {

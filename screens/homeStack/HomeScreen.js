@@ -1,28 +1,26 @@
-import { StyleSheet, View, Text, Image, SafeAreaView, Alert  } from 'react-native';
+import { StyleSheet, View, Text, Image, SafeAreaView, Alert } from 'react-native';
 import { MediumButton } from '../../components/Buttons';
 
 import { useAuth } from '../../context/AuthContext';
 import { Buttons, Colors, Spacing, TextStyle, ViewContainer } from '../../styles';
 
-export default function HomeScreen({navigation}) {
+export default function HomeScreen({ navigation }) {
   const { logout } = useAuth();
 
-  const handleLogout = async() => {
+  const handleLogout = async () => {
     try {
       await logout();
-    } catch(e) {
-      Alert.alert("Logout Failed", "Logout failed unexpectedly");
+    } catch (e) {
+      Alert.alert('Logout Failed', 'Logout failed unexpectedly');
       console.log(e);
     }
-  }
+  };
 
   return (
-    <SafeAreaView style={styles.mainContainer} >
+    <SafeAreaView style={styles.mainContainer}>
+      <Image style={styles.image} source={require('../../assets//logo.jpg')} />
 
-      <Image style={styles.image} source={require("../../assets//logo.jpg")}/>
-
-
-      <View style={styles.msgContainer} >
+      <View style={styles.msgContainer}>
         <Text style={TextStyle.title}>Welcome, Tutor!</Text>
         <Text style={styles.msgText}>
           Thanks for using the Advance Tuition app! We hope that this app will make it easier for
@@ -37,20 +35,19 @@ export default function HomeScreen({navigation}) {
       </View>
 
       <View style={styles.btnContainer}>
-        <MediumButton 
+        <MediumButton
           style={styles.logoutBtn}
-          textProps={{style: styles.logoutBtnText}}
+          textProps={{ style: styles.logoutBtnText }}
           text="Logout"
           onPress={() => handleLogout()}
         />
         <MediumButton
           text="Submit Timesheet"
-          onPress={() => navigation.navigate("Payroll", { screen: "AddTimesheetScreen" })}
+          onPress={() => navigation.navigate('Payroll', { screen: 'AddTimesheetScreen' })}
         />
       </View>
-
     </SafeAreaView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -63,18 +60,18 @@ const styles = StyleSheet.create({
 
   mainContainer: {
     ...ViewContainer.base,
-    justifyContent: "flex-start",
+    justifyContent: 'flex-start',
   },
 
   btnContainer: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-around",
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     paddingVertical: Spacing.padding.large,
   },
 
   msgContainer: {
-    width: "100%",
+    width: '100%',
     padding: Spacing.padding.medium,
   },
 

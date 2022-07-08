@@ -1,13 +1,12 @@
 // Some useful components for a list
 
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { ListStyle, TextStyle } from "../styles";
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { ListStyle, TextStyle } from '../styles';
 
-const DetailsRow = ({category, details}) => {
+function DetailsRow({ category, details }) {
   return (
     <View style={styles.rowContainer}>
-
       <View style={styles.categoryContainer}>
         <Text style={styles.categoryText}>{category}:</Text>
       </View>
@@ -15,10 +14,9 @@ const DetailsRow = ({category, details}) => {
       <View style={styles.detailContainer}>
         <Text style={styles.detailText}>{details}</Text>
       </View>
-
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   rowContainer: {
@@ -26,16 +24,16 @@ const styles = StyleSheet.create({
   },
 
   categoryContainer: {
-    width: "40%",
+    width: '40%',
   },
 
   categoryText: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: TextStyle.fontSize.medium,
   },
 
   detailContainer: {
-    justifyContent: "center",
+    justifyContent: 'center',
     flex: 1,
   },
 

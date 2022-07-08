@@ -6,12 +6,12 @@ import ForgotPasswordScreen from '../loginStack/ForgotPasswordScreen';
 
 const LoginStack = createStackNavigator();
 
-export default function LoginStackNavigator({navigation}) {
+export default function LoginStackNavigator({ navigation }) {
   return (
-    <LoginStack.Navigator screenOptions={{ headerShown: false, }} >
+    <LoginStack.Navigator screenOptions={{ headerShown: false }}>
       <LoginStack.Screen name="LoginScreen" component={LoginScreen} />
       <LoginStack.Screen name="SignupScreen" component={SignupScreen} />
       <LoginStack.Screen name="ForgotPasswordScreen" component={ForgotPasswordScreen} />
     </LoginStack.Navigator>
-  )
+  );
 }

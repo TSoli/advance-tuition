@@ -9,7 +9,7 @@ export const fontSize = {
 
 export const titleNoMargin = {
   fontSize: fontSize.large,
-  fontWeight: "bold",
+  fontWeight: 'bold',
 };
 
 export const title = {
@@ -18,5 +18,5 @@ export const title = {
 };
 
 export const paragraph = {
-  textAlign: "justify",
+  textAlign: 'justify',
 };

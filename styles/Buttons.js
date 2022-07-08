@@ -1,19 +1,17 @@
 // Defines some general buttons to use
 
-import * as Spacing from "./Spacing";
-
 export const medium = {
-  width: "40%",
+  width: '40%',
   height: 45,
-  alignItems: "center",
-  justifyContent: "center",
+  alignItems: 'center',
+  justifyContent: 'center',
 };
 
 export const large = {
-  width: "70%",
+  width: '70%',
   height: 45,
-  alignItems: "center",
-  justifyContent: "center",
+  alignItems: 'center',
+  justifyContent: 'center',
 };
 
 export const rounded = {
@@ -37,7 +35,7 @@ export const largeRounded = {
 export const action = {
   height: 75,
   width: 75,
-  justifyContent: "center",
-  alignItems: "center",
+  justifyContent: 'center',
+  alignItems: 'center',
   borderRadius: 25, // Maybe try 100?
 };

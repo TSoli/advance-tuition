@@ -1,48 +1,41 @@
-import {
-  StyleSheet, Text, SafeAreaView, Image, TextInput, KeyboardAvoidingView
-} from 'react-native';
+import { StyleSheet, Text, SafeAreaView, Image, Alert } from 'react-native';
 import { useState } from 'react';
 
-import Users from '../../model/Users';
 import { LargeButton } from '../../components/Buttons';
-import { Colors, UserInput, ViewContainer } from '../../styles';
+import { Colors, ViewContainer } from '../../styles';
+import { useAuth } from '../../context/AuthContext';
+import UserInput from '../../components/UserInput';
 
-export default function ForgotPasswordScreen({navigation}) {
+export default function ForgotPasswordScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [sent, setSent] = useState(null);
 
-  const resetPassword = (email) => {
-    // send an email with a reset link or something
-    if (Users.some(user => user.email == email)) {
-      setSent(true);
-    } else {
-      setSent(false);
+  const { resetPassword } = useAuth();
+
+  const handleResetPassword = async (email) => {
+    try {
+      await resetPassword(email);
+    } catch (err) {
+      Alert.alert('Reset Password Failed', 'Failed to send an email to reset password');
+      console.log(err.message);
     }
-  }
+  };
 
   return (
     <SafeAreaView style={ViewContainer.base}>
+      <Image style={styles.image} source={require('../../assets//logo.jpg')} />
 
-      <Image style={styles.image} source={require("../../assets//logo.jpg")}/>
+      <UserInput placeholder="Email" onChangeText={(text) => setEmail(text)} />
 
-      <KeyboardAvoidingView style={UserInput.view}>
-        <TextInput
-          style={UserInput.text}
-          placeholder="Email"
-          placeholderTextColor="white"
-          onChangeText={(email) => setEmail(email)}
-          color="white"
-          autoCapitalize='none'
-        />
-      </KeyboardAvoidingView>
-      {sent == null && <Text> </Text>
-      || sent && <Text>A reset email has been sent.</Text>
-      || sent == false && <Text style={{color: "red"}}>No account exists for that email.</Text>
-      }
+      {(sent == null && <Text> </Text>) ||
+        (sent && <Text>A reset email has been sent.</Text>) ||
+        (sent == false && (
+          <Text style={{ color: Colors.red }}>No account exists for that email.</Text>
+        ))}
 
-      <LargeButton text="Send Email" onPress={() => {resetPassword(email)}} />
+      <LargeButton text="Send Email" onPress={() => handleResetPassword(email)} />
     </SafeAreaView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
