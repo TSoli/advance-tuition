@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Colors, Spacing, Buttons, UserInputStyle, ViewContainer } from '../../styles';
 import { LargeButton } from '../../components/Buttons';
 import { useAuth } from '../../context/AuthContext';
-import UserInput from '../../components/UserInput';
+import { UserInput } from '../../components/UserInput';
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');

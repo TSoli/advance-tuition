@@ -9,10 +9,13 @@ import {
 } from 'react-native';
 import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 import { useAuth } from '../../context/AuthContext';
 import { LargeButton } from '../../components/Buttons';
 import { UserInputStyle, ViewContainer, Spacing } from '../../styles';
-import UserInput from '../../components/UserInput';
+import { DoubleUserInput, UserInput } from '../../components/UserInput';
+
+const logoPath = require('../../assets/logo.jpg');
 
 export default function SignupScreen({ navigation }) {
   const [email, setEmail] = useState('');
@@ -69,7 +72,12 @@ export default function SignupScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.mainContainer}>
       <ScrollView contentContainerStyle={styles.scrollContentContainer}>
-        <Image style={styles.image} source={require('../../assets/logo.jpg')} />
+        <Image style={styles.image} source={logoPath} />
+
+        <DoubleUserInput>
+          <UserInput title="First Name" />
+          <UserInput title="Surname" />
+        </DoubleUserInput>
 
         <UserInput
           placeholder="Email"
@@ -109,6 +117,10 @@ export default function SignupScreen({ navigation }) {
     </SafeAreaView>
   );
 }
+
+SignupScreen.propTypes = {
+  navigation: PropTypes.shape({ navigate: PropTypes.func.isRequired }).isRequired,
+};
 
 const styles = StyleSheet.create({
   mainContainer: {

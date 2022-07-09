@@ -1,5 +1,6 @@
 import { KeyboardAvoidingView, TextInput, Text, View, Platform, StyleSheet } from 'react-native';
-import React from 'react';
+import React, { Children, cloneElement } from 'react';
+import PropTypes from 'prop-types';
 import { Colors, Spacing, UserInputStyle } from '../styles';
 
 /* The default component for user text input.
@@ -57,6 +58,73 @@ function UserInput({
   );
 }
 
+UserInput.propTypes = {
+  titleProps: PropTypes.objectOf(PropTypes.object),
+  title: PropTypes.string,
+  icon: PropTypes.element, // Not sure about this one
+  error: PropTypes.string,
+  errorProps: PropTypes.objectOf(PropTypes.object),
+  inputContainerProps: PropTypes.objectOf(PropTypes.object),
+  mainContainerProps: PropTypes.objectOf(PropTypes.object),
+};
+
+UserInput.defaultProps = {
+  titleProps: null,
+  title: null,
+  icon: null,
+  error: null,
+  errorProps: null,
+  inputContainerProps: null,
+  mainContainerProps: null,
+};
+
+/* Renders the two child UserInput components in the same row. They collectively take up the same
+  width as a single UserInput component.
+  Props:
+    children: Exactly two UserInput components should be added as children.
+*/
+function DoubleUserInput({ children }) {
+  const userInputs = Children.toArray(children);
+
+  // Define the additional styling props for each of the children components
+  const leftInputProps = {
+    mainContainerProps: { style: styles.smallLeftMainContainer },
+    inputContainerProps: { style: styles.smallInputContainer },
+  };
+  const rightInputProps = {
+    mainContainerProps: { style: styles.smallRightMainContainer },
+    inputContainerProps: { style: styles.smallInputContainer },
+  };
+
+  return (
+    <View style={styles.doubleInputContainer}>
+      <View style={styles.leftContainer}>{cloneElement(userInputs[0], { ...leftInputProps })}</View>
+      <View style={styles.rightContainer}>
+        {cloneElement(userInputs[1], { ...rightInputProps })}
+      </View>
+    </View>
+  );
+}
+
+DoubleUserInput.propTypes = {
+  // eslint-disable-next-line react/require-default-props
+  children: (props, propName, componentName) => {
+    const prop = props[propName];
+    let error = null;
+
+    if (!prop.length || prop.length !== 2) {
+      error = new Error(`\`${componentName}\` should have exactly two children`);
+    } else {
+      Children.forEach(prop, (child) => {
+        if (child.type !== UserInput) {
+          error = new Error(`\`${componentName}\` children should be of type \`UserInput\`.`);
+        }
+      });
+    }
+    return error;
+  },
+};
+
 const styles = StyleSheet.create({
   title: {
     marginLeft: Spacing.margin.medium,
@@ -75,6 +143,35 @@ const styles = StyleSheet.create({
   mainContainer: {
     marginBottom: Spacing.margin.base,
   },
+
+  doubleInputContainer: {
+    width: '80%',
+    flexDirection: 'row',
+  },
+
+  leftContainer: {
+    flex: 1,
+    alignItems: 'flex-start',
+  },
+
+  rightContainer: {
+    flex: 1,
+    alignItems: 'flex-end',
+  },
+
+  smallLeftMainContainer: {
+    flex: 1,
+    marginRight: Spacing.margin.base / 2,
+  },
+
+  smallRightMainContainer: {
+    flex: 1,
+    marginLeft: Spacing.margin.base / 2,
+  },
+
+  smallInputContainer: {
+    width: '100%',
+  },
 });
 
-export default UserInput;
+export { UserInput, DoubleUserInput };

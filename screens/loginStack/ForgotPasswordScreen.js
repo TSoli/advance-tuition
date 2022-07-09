@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { LargeButton } from '../../components/Buttons';
 import { Colors, ViewContainer } from '../../styles';
 import { useAuth } from '../../context/AuthContext';
-import UserInput from '../../components/UserInput';
+import { UserInput } from '../../components/UserInput';
 
 export default function ForgotPasswordScreen({ navigation }) {
   const [email, setEmail] = useState('');
