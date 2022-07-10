@@ -1,12 +1,10 @@
 A todo list for the Advance-Tuition app
 
 Authentication:
-    - Add more details when signing up (i.e name)
+    - Add more details when signing up (i.e Address/Suburb e.t.c.)???
     - Find out about persistent login state with firebase
     - Add confirmation email when signing up
     - Add useful error messages when signing up
-    - Check if confirm password text box is buggy on other phones and find out why
-        - Turns out you need behavior={Platform.OS == "ios" ? "padding" : "height}
     - Add ability to login with other accs (i.e facebook google)??
     - Potentially update the UI for logging in
 
@@ -18,11 +16,8 @@ Database:
       the timesheet)
 
 UI:
-    - Create a component for user input
+    - Add navigation to navigate between each of the stacks
     - Add animations?
     - Add a calendar that allows tutors to schedule lessons in the calendar
     - Add a notes option in student details
     - Add reminders to submit timesheets for scheduled lessons
-
-Misc:
-    - Investigate the AsyncStorage warning from firebase

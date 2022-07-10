@@ -30,13 +30,14 @@ function UserInput({
   const { style: inputStyle, ...restInput } = { ...rest };
   const { style: inputContainerStyle, ...restInputContainer } = { ...inputContainerProps };
   const { style: mainContainerStyle, ...restMainContainer } = { ...mainContainerProps };
+  const { style: errorStyle, ...restError } = { ...errorProps };
 
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={[styles.mainContainer, mainContainerStyle]}
       {...restMainContainer}>
-      {title && (
+      {!!title && (
         <Text style={styles.title} {...titleProps}>
           {title}
         </Text>
@@ -53,7 +54,11 @@ function UserInput({
         {icon}
       </View>
 
-      {error && <Text style={styles.error}>{error}</Text>}
+      {!!error && (
+        <Text style={[styles.error, errorStyle]} {...restError}>
+          {error}
+        </Text>
+      )}
     </KeyboardAvoidingView>
   );
 }
@@ -135,13 +140,13 @@ const styles = StyleSheet.create({
   },
 
   error: {
-    marginLeft: Spacing.margin.base,
+    marginLeft: Spacing.margin.medium,
     marginTop: Spacing.margin.small,
     color: Colors.red,
   },
 
   mainContainer: {
-    marginBottom: Spacing.margin.base,
+    marginBottom: Spacing.margin.small,
   },
 
   doubleInputContainer: {

@@ -37,7 +37,7 @@ export default function LoginScreen({ navigation }) {
       const userCredentials = await login(email, pass);
 
       // Add code to execute once logged in
-      const user = userCredentials.user;
+      const { user } = userCredentials;
       console.log(user.email);
       console.log(`name=${user.displayName}`);
     } catch (err) {
@@ -55,6 +55,7 @@ export default function LoginScreen({ navigation }) {
         placeholder="Email"
         onChangeText={(text) => setEmail(text)}
         textContentType="username" // Or should it be email?
+        mainContainerProps={{ style: styles.inputMainContainer }}
       />
 
       <UserInput
@@ -63,6 +64,7 @@ export default function LoginScreen({ navigation }) {
         onChangeText={(text) => setPassword(text)}
         textContentType="password"
         icon={secureTextIcon}
+        mainContainerProps={{ style: styles.inputMainContainer }}
       />
 
       <TouchableOpacity onPress={() => navigation.navigate('ForgotPasswordScreen')}>
@@ -90,6 +92,10 @@ const styles = StyleSheet.create({
 
   forgot_button: {
     height: 30,
+  },
+
+  inputMainContainer: {
+    marginBottom: Spacing.margin.base,
   },
 
   loginBtn: {
