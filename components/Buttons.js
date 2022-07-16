@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { TouchableOpacity, StyleSheet, Text } from 'react-native';
+import PropTypes from 'prop-types';
 
 import { Colors, Spacing, Buttons } from '../styles';
 
@@ -24,6 +25,16 @@ function LargeButton({ text, textProps, ...rest }) {
   );
 }
 
+LargeButton.propTypes = {
+  text: PropTypes.string,
+  textProps: PropTypes.objectOf(PropTypes.object),
+};
+
+LargeButton.defaultProps = {
+  text: null,
+  textProps: null,
+};
+
 function MediumButton({ text, textProps, ...rest }) {
   const { style: textStyle, ...restText } = textProps || {};
   const { style: pressStyle, ...restPress } = { ...rest } || {};
@@ -35,6 +46,16 @@ function MediumButton({ text, textProps, ...rest }) {
     </TouchableOpacity>
   );
 }
+
+MediumButton.propTypes = {
+  text: PropTypes.string,
+  textProps: PropTypes.objectOf(PropTypes.object),
+};
+
+MediumButton.defaultProps = {
+  text: null,
+  textProps: null,
+};
 
 /* A rounded action button (i.e with a plus sign in it)
   Props:
@@ -49,9 +70,7 @@ function ActionButton({ text, textProps, component, ...rest }) {
   const { style: pressStyle, ...restPress } = { ...rest } || {};
   return (
     <TouchableOpacity style={[styles.actionButton, pressStyle]} {...restPress}>
-      {component ? (
-        component
-      ) : (
+      {component || (
         <Text style={[styles.actionButtonText, textStyle]} {...restText}>
           {text}
         </Text>
@@ -59,6 +78,18 @@ function ActionButton({ text, textProps, component, ...rest }) {
     </TouchableOpacity>
   );
 }
+
+ActionButton.propTypes = {
+  text: PropTypes.string,
+  textProps: PropTypes.objectOf(PropTypes.object),
+  component: PropTypes.element,
+};
+
+ActionButton.defaultProps = {
+  text: null,
+  textProps: null,
+  component: null,
+};
 
 /* A floating action button. It is positioned in the bottom right of the screen. The position may
   adjusted using the style prop.
@@ -79,6 +110,16 @@ function FloatingActionButton({ text, textProps, ...rest }) {
     />
   );
 }
+
+FloatingActionButton.propTypes = {
+  text: PropTypes.string,
+  textProps: PropTypes.objectOf(PropTypes.object),
+};
+
+FloatingActionButton.defaultProps = {
+  text: null,
+  textProps: null,
+};
 
 const styles = StyleSheet.create({
   largeButton: {

@@ -7,14 +7,13 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
-import { useReducer, useState } from 'react';
+import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import { useAuth } from '../../context/AuthContext';
 import { LargeButton } from '../../components/Buttons';
 import { UserInputStyle, ViewContainer, Spacing } from '../../styles';
 import { DoubleUserInput, UserInput } from '../../components/UserInput';
-import stateReducer from '../../utils/StateReducer';
 
 const logoPath = require('../../assets/logo.jpg');
 
@@ -38,7 +37,7 @@ export default function SignupScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [errors, setErrors] = useReducer(stateReducer, initialErrors);
+  const [errors, setErrors] = useState(initialErrors);
   const [loading, setLoading] = useState(false);
   const [secureText, setSecureText] = useState(true);
   const [confirmSecureText, setConfirmSecureText] = useState(true);
@@ -74,18 +73,19 @@ export default function SignupScreen({ navigation }) {
     // Note that state setters are asynchronous so the checks must be performed
     // synchronously rather than on the state object (errors) itself
 
-    // Must create a new object otherwise the old one will be modified - not working atm???
-    const updatedErrors = structuredClone(initialErrors);
+    // Must create a new object otherwise the old one will be modified
+    // Use structuredClone in the future when it is supported
+    const updatedErrors = JSON.parse(JSON.stringify(initialErrors));
 
-    if (!firstName || !surname) updatedErrors.nameError = 'Name cannot be empty';
+    if (!firstName || !surname) updatedErrors.nameError = 'Name is required';
 
-    if (!phone) updatedErrors.phoneError = 'Phone number cannot be empty';
+    if (!phone) updatedErrors.phoneError = 'Phone number is required';
     else if (phone.length < MIN_PHONE_LENGTH) updatedErrors.phoneError = 'Invalid phone number';
 
-    if (!email) updatedErrors.emailError = 'Email cannot be empty';
+    if (!email) updatedErrors.emailError = 'Email is required';
     else if (!email.includes('@')) updatedErrors.emailError = 'Invalid email address';
 
-    if (!password) updatedErrors.passwordError = 'Password cannot be empty';
+    if (!password) updatedErrors.passwordError = 'Password is required';
     else if (password.length < MIN_PASSWORD_LENGTH) {
       updatedErrors.passwordError = 'Password must be at least 6 characters';
     }
@@ -181,6 +181,7 @@ export default function SignupScreen({ navigation }) {
 
         <LargeButton
           text="Sign Up"
+          style={styles.signupBtn}
           onPress={() => {
             handleSignup();
           }}
@@ -223,5 +224,9 @@ const styles = StyleSheet.create({
 
   warningText: {
     color: 'red',
+  },
+
+  signupBtn: {
+    marginTop: Spacing.margin.base,
   },
 });

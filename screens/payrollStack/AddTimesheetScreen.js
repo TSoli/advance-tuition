@@ -3,19 +3,19 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   Platform,
-  KeyboardAvoidingView,
   SafeAreaView,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { Colors, Spacing, TextStyle, UserInputStyle, ViewContainer } from '../../styles';
 import { LargeButton } from '../../components/Buttons';
+import { UserInput } from '../../components/UserInput';
 
-export default function AddTimesheetScreen({ navigation }) {
+export default function AddTimesheetScreen() {
   // Get the tutor's students
   const getStudents = () => {
     return [
@@ -30,9 +30,7 @@ export default function AddTimesheetScreen({ navigation }) {
     if (!selectedDate) {
       return null;
     }
-    return (
-      selectedDate.getDate() + '/' + selectedDate.getMonth() + '/' + selectedDate.getFullYear()
-    );
+    return `${selectedDate.getDate()}/${selectedDate.getMonth()}/${selectedDate.getFullYear()}`;
   };
 
   // Take a Date object and return the time formatted as a string.
@@ -40,10 +38,16 @@ export default function AddTimesheetScreen({ navigation }) {
     if (!selectedTime) {
       return null;
     }
-    // Check the number of minutes is two digits
-    let minutes =
-      selectedTime.getMinutes() > 9 ? selectedTime.getMinutes() : '0' + selectedTime.getMinutes();
-    return selectedTime.getHours() + ':' + minutes;
+    // minutes/hours are two digits
+    const minutes =
+      selectedTime.getMinutes() > 9
+        ? selectedTime.getMinutes().toString()
+        : `0${selectedTime.getMinutes().toString()}`;
+    const hours =
+      selectedTime.getHours() > 9
+        ? selectedTime.getHours().toString()
+        : `0${selectedTime.getHours().toString()}`;
+    return `${hours}:${minutes}`;
   };
 
   // Date time picker
@@ -52,6 +56,7 @@ export default function AddTimesheetScreen({ navigation }) {
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
   const [duration, setDuration] = useState(null);
+  const [notes, setNotes] = useState(null);
 
   // handle change date/time
   const onChange = (event, selectedDate) => {
@@ -74,95 +79,92 @@ export default function AddTimesheetScreen({ navigation }) {
     console.log(`date: ${getFormattedDate(date)}`);
     console.log(`time: ${getFormattedTime(date)}`);
     console.log(`duration: ${duration}`);
+    console.log(`Notes: ${notes}`);
   };
 
   return (
-    <SafeAreaView style={ViewContainer.base}>
-      <Text style={TextStyle.title}>Record your hours</Text>
+    <SafeAreaView style={styles.mainContainer}>
+      <ScrollView contentContainerStyle={styles.scrollContentContainer}>
+        <Text style={styles.title}>Record your hours</Text>
 
-      <View style={styles.itemContainer}>
-        <RNPickerSelect
-          style={{ inputAndroid: { color: Colors.black } }}
-          onValueChange={(student) => {
-            setStudent(student);
-          }}
-          placeholder={{ label: 'Select a Student...', value: null }}
-          items={getStudents()}
-        />
-      </View>
+        <View style={styles.itemContainer}>
+          <RNPickerSelect
+            style={{ inputAndroid: { color: Colors.black } }}
+            onValueChange={(selection) => setStudent(selection)}
+            placeholder={{ label: 'Select a Student...', value: null }}
+            items={getStudents()}
+          />
+        </View>
 
-      <TouchableOpacity onPress={() => showMode('date')}>
-        <View style={UserInputStyle.view}>
-          <TextInput
-            style={UserInputStyle.text}
+        <TouchableOpacity style={styles.pressInput} onPress={() => showMode('date')}>
+          <UserInput
+            title="Date"
             editable={false}
             value={getFormattedDate(date)}
             placeholder="Date"
-            placeholderTextColor={Colors.white}
-            color={Colors.white}
           />
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => showMode('time')}>
-        <View style={UserInputStyle.view}>
-          <TextInput
-            style={UserInputStyle.text}
+        <TouchableOpacity style={styles.pressInput} onPress={() => showMode('time')}>
+          <UserInput
+            title="Start Time"
             editable={false}
             value={getFormattedTime(date)}
             placeholder="Start Time"
-            placeholderTextColor={Colors.white}
-            color={Colors.white}
           />
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
 
-      <KeyboardAvoidingView style={UserInputStyle.view} behavior="padding">
-        <TextInput
-          style={UserInputStyle.text}
+        <UserInput
+          title="Duration"
           placeholder="Duration (minutes)"
-          placeholderTextColor={Colors.white}
-          color={Colors.white}
           keyboardType="numeric"
           maxLength={3}
           onChangeText={(selectedDuration) => {
-            setDuration(parseInt(selectedDuration));
+            setDuration(parseInt(selectedDuration, 10));
           }}
         />
-      </KeyboardAvoidingView>
 
-      <KeyboardAvoidingView style={UserInputStyle.mediumView} behavior="padding">
-        <TextInput
-          style={UserInputStyle.text}
-          multiline={true}
-          textAlignVertical="center"
+        <UserInput
+          title="Notes"
+          inputContainerProps={{ style: UserInputStyle.mediumView }}
           placeholder="Additional Notes..."
-          placeholderTextColor={Colors.white}
-          color={Colors.white}
-          // Add an onChangeText here
+          multiline
+          textAlignVertical="center"
+          onChangeText={(text) => setNotes(text)}
         />
-      </KeyboardAvoidingView>
 
-      <View
-        style={[styles.itemContainer, { flexDirection: 'row', justifyContent: 'space-around' }]}>
-        <LargeButton text={'SUBMIT'} onPress={submitDetails()} />
-      </View>
+        <View
+          style={[styles.itemContainer, { flexDirection: 'row', justifyContent: 'space-around' }]}>
+          <LargeButton text="SUBMIT" onPress={submitDetails()} />
+        </View>
 
-      {show && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={date || new Date()}
-          mode={mode}
-          is24Hour={true}
-          display="default"
-          onChange={onChange}
-        />
-      )}
+        {show && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={date || new Date()}
+            mode={mode}
+            is24Hour
+            display="default"
+            onChange={onChange}
+          />
+        )}
+      </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    ...ViewContainer.base,
+    alignItems: 'stretch',
+    flexGrow: 1,
+  },
+
+  title: {
+    ...TextStyle.title,
+    margin: Spacing.margin.medium,
+  },
+
   itemContainer: {
     width: '80%',
     marginBottom: Spacing.margin.base,
@@ -172,5 +174,17 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginHorizontal: Spacing.margin.base,
     marginTop: 3,
+  },
+
+  pressInput: {
+    width: '100%',
+    alignItems: 'center',
+  },
+
+  scrollContentContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexGrow: 1,
+    paddingBottom: Spacing.padding.medium,
   },
 });

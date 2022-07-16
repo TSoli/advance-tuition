@@ -17,7 +17,11 @@ Database:
 
 UI:
     - Add navigation to navigate between each of the stacks
+    - Add an activity indicator when loading
     - Add animations?
     - Add a calendar that allows tutors to schedule lessons in the calendar
     - Add a notes option in student details
     - Add reminders to submit timesheets for scheduled lessons
+
+Misc:
+    - Add PropTypes to all components

@@ -1,6 +1,7 @@
 // Some useful components for a list
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { View, Text, StyleSheet } from 'react-native';
 import { ListStyle, TextStyle } from '../styles';
 
@@ -8,7 +9,7 @@ function DetailsRow({ category, details }) {
   return (
     <View style={styles.rowContainer}>
       <View style={styles.categoryContainer}>
-        <Text style={styles.categoryText}>{category}:</Text>
+        <Text style={styles.categoryText}>{category}</Text>
       </View>
 
       <View style={styles.detailContainer}>
@@ -17,6 +18,16 @@ function DetailsRow({ category, details }) {
     </View>
   );
 }
+
+DetailsRow.propTypes = {
+  category: PropTypes.string,
+  details: PropTypes.string,
+};
+
+DetailsRow.defaultProps = {
+  category: null,
+  details: null,
+};
 
 const styles = StyleSheet.create({
   rowContainer: {
