@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   ScrollView,
+  Alert,
 } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -15,7 +16,25 @@ import { Colors, Spacing, TextStyle, UserInputStyle, ViewContainer } from '../..
 import { LargeButton } from '../../components/Buttons';
 import { UserInput } from '../../components/UserInput';
 
+const initialErrors = {
+  dateError: '',
+  studentError: '',
+  durationError: '',
+  notesError: '',
+};
+
+const MAX_DURATION = 360; // Minutes - I can't imagine any tutoring session being more than 6hrs
+const MAX_NOTES = 1000;
+
 export default function AddTimesheetScreen() {
+  const [date, setDate] = useState(null);
+  const [student, setStudent] = useState(null);
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
+  const [duration, setDuration] = useState(null);
+  const [notes, setNotes] = useState(null);
+  const [errors, setErrors] = useState(initialErrors);
+
   // Get the tutor's students
   const getStudents = () => {
     return [
@@ -50,14 +69,6 @@ export default function AddTimesheetScreen() {
     return `${hours}:${minutes}`;
   };
 
-  // Date time picker
-  const [date, setDate] = useState(null);
-  const [student, setStudent] = useState(null);
-  const [mode, setMode] = useState('date');
-  const [show, setShow] = useState(false);
-  const [duration, setDuration] = useState(null);
-  const [notes, setNotes] = useState(null);
-
   // handle change date/time
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -71,9 +82,41 @@ export default function AddTimesheetScreen() {
     setMode(currentMode);
   };
 
+  /* Check that the form details are valid and set the error state accordingly
+    Returns true if the details are valid and false otherwise
+  */
+  const isValid = () => {
+    const updatedErrors = JSON.parse(JSON.stringify(initialErrors));
+
+    if (!student) updatedErrors.studentError = 'Please choose a student';
+    if (!date) updatedErrors.dateError = 'Please choose a date';
+    else if (date > new Date()) updatedErrors.dateError = 'Time/date cannot be in the future';
+    if (!duration) updatedErrors.durationError = 'Please set a duration';
+    else if (duration > MAX_DURATION) {
+      updatedErrors.durationError = 'Check the duration is correct (in minutes)';
+    }
+    if (notes && notes.length > MAX_NOTES) {
+      updatedErrors.notesError = `Notes may not exceed ${MAX_NOTES} characters`;
+    }
+
+    console.log(JSON.stringify(updatedErrors));
+    setErrors(updatedErrors);
+
+    if (Object.values(updatedErrors).some((value) => value)) return false;
+    return true;
+  };
+
   const submitDetails = () => {
     // Add logic here to check details are all valid
     // Then submit details to database for confirmation
+    if (!isValid()) {
+      Alert.alert(
+        'Invalid Details',
+        'Please check your details and try again. If this error persists, seek assistance.'
+      );
+      return;
+    }
+    // Submit details to the db
     console.log('submitted details:');
     console.log(`student: ${student}`);
     console.log(`date: ${getFormattedDate(date)}`);
@@ -96,6 +139,8 @@ export default function AddTimesheetScreen() {
           />
         </View>
 
+        {!!errors.studentError && <Text style={styles.errorText}>{errors.studentError}</Text>}
+
         <TouchableOpacity style={styles.pressInput} onPress={() => showMode('date')}>
           <UserInput
             title="Date"
@@ -108,6 +153,7 @@ export default function AddTimesheetScreen() {
         <TouchableOpacity style={styles.pressInput} onPress={() => showMode('time')}>
           <UserInput
             title="Start Time"
+            error={errors.dateError}
             editable={false}
             value={getFormattedTime(date)}
             placeholder="Start Time"
@@ -116,6 +162,7 @@ export default function AddTimesheetScreen() {
 
         <UserInput
           title="Duration"
+          error={errors.durationError}
           placeholder="Duration (minutes)"
           keyboardType="numeric"
           maxLength={3}
@@ -126,6 +173,7 @@ export default function AddTimesheetScreen() {
 
         <UserInput
           title="Notes"
+          error={errors.notesError}
           inputContainerProps={{ style: UserInputStyle.mediumView }}
           placeholder="Additional Notes..."
           multiline
@@ -135,7 +183,7 @@ export default function AddTimesheetScreen() {
 
         <View
           style={[styles.itemContainer, { flexDirection: 'row', justifyContent: 'space-around' }]}>
-          <LargeButton text="SUBMIT" onPress={submitDetails()} />
+          <LargeButton text="SUBMIT" onPress={() => submitDetails()} />
         </View>
 
         {show && (
@@ -163,6 +211,13 @@ const styles = StyleSheet.create({
   title: {
     ...TextStyle.title,
     margin: Spacing.margin.medium,
+  },
+
+  errorText: {
+    color: Colors.red,
+    alignSelf: 'flex-start',
+    marginLeft: '10%', // the user input has width of 20%
+    paddingLeft: Spacing.padding.medium, // And this amount of margin
   },
 
   itemContainer: {

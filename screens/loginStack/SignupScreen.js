@@ -101,23 +101,24 @@ export default function SignupScreen({ navigation }) {
   };
 
   const handleSignup = async () => {
-    if (isValid()) {
-      try {
-        setLoading(true);
-        await signup(email, password);
-        navigation.navigate('LoginScreen');
-        console.log(user);
-      } catch (e) {
-        Alert.alert(
-          'Sign Up Failed',
-          `Failed to create an account. Please check your details and try again. 
-          If the error persists seek assistance.`
-        );
-        console.log(e);
-        setLoading(false);
-      }
-    } else {
+    if (!isValid()) {
       Alert.alert('Invalid details', 'Please check your details and try again.');
+      return;
+    }
+
+    try {
+      setLoading(true);
+      await signup(email, password);
+      navigation.navigate('LoginScreen');
+      console.log(user);
+    } catch (e) {
+      Alert.alert(
+        'Sign Up Failed',
+        'Failed to create an account. Please check your details and try again. ' +
+          'If this error persists, seek assistance.'
+      );
+      console.log(e);
+      setLoading(false);
     }
   };
 
@@ -182,9 +183,7 @@ export default function SignupScreen({ navigation }) {
         <LargeButton
           text="Sign Up"
           style={styles.signupBtn}
-          onPress={() => {
-            handleSignup();
-          }}
+          onPress={() => handleSignup()}
           disabled={loading}
         />
 
