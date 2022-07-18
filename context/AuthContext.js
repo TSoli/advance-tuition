@@ -7,6 +7,7 @@ import {
   onAuthStateChanged,
   signOut,
   sendPasswordResetEmail,
+  updateProfile,
 } from 'firebase/auth';
 import { auth } from '../firebase/firebase';
 
@@ -32,6 +33,13 @@ export function AuthProvider({ children }) {
     return sendPasswordResetEmail(auth, email);
   };
 
+  // Update the displayName for the user
+  const updateDisplayName = (name) => {
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+    });
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
@@ -47,6 +55,7 @@ export function AuthProvider({ children }) {
     login,
     logout,
     resetPassword,
+    updateDisplayName,
   };
 
   return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;

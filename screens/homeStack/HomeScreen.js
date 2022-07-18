@@ -1,27 +1,29 @@
 import { StyleSheet, View, Text, Image, SafeAreaView, Alert } from 'react-native';
+import PropTypes from 'prop-types';
 import { MediumButton } from '../../components/Buttons';
-
 import { useAuth } from '../../context/AuthContext';
 import { Buttons, Colors, Spacing, TextStyle, ViewContainer } from '../../styles';
 
+const logoPath = require('../../assets/logo.jpg');
+
 export default function HomeScreen({ navigation }) {
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
 
   const handleLogout = async () => {
     try {
       await logout();
     } catch (e) {
-      Alert.alert('Logout Failed', 'Logout failed unexpectedly');
+      Alert.alert('Logout Failed', `{e}\nLogout failed unexpectedly`);
       console.log(e);
     }
   };
 
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <Image style={styles.image} source={require('../../assets//logo.jpg')} />
+      <Image style={styles.image} source={logoPath} />
 
       <View style={styles.msgContainer}>
-        <Text style={TextStyle.title}>Welcome, Tutor!</Text>
+        <Text style={TextStyle.title}>Welcome, {user.displayName}!</Text>
         <Text style={styles.msgText}>
           Thanks for using the Advance Tuition app! We hope that this app will make it easier for
           you to report your tutoring hours to us by enabling you to submit timesheets right from
@@ -49,6 +51,10 @@ export default function HomeScreen({ navigation }) {
     </SafeAreaView>
   );
 }
+
+HomeScreen.propTypes = {
+  navigation: PropTypes.shape({ navigate: PropTypes.func.isRequired }).isRequired,
+};
 
 const styles = StyleSheet.create({
   image: {

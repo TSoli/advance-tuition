@@ -42,7 +42,7 @@ export default function SignupScreen({ navigation }) {
   const [secureText, setSecureText] = useState(true);
   const [confirmSecureText, setConfirmSecureText] = useState(true);
 
-  const { signup, user } = useAuth();
+  const { signup, user, updateDisplayName } = useAuth();
 
   const secureTextIcon = (
     <TouchableOpacity onPress={() => setSecureText(!secureText)}>
@@ -109,12 +109,13 @@ export default function SignupScreen({ navigation }) {
     try {
       setLoading(true);
       await signup(email, password);
+      await updateDisplayName(`${firstName}`);
       navigation.navigate('LoginScreen');
       console.log(user);
     } catch (e) {
       Alert.alert(
         'Sign Up Failed',
-        'Failed to create an account. Please check your details and try again. ' +
+        `${e} \nFailed to create an account. Please check your details and try again. ` +
           'If this error persists, seek assistance.'
       );
       console.log(e);
