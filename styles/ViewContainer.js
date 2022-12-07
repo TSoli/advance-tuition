@@ -8,7 +8,7 @@ export const base = {
   backgroundColor: Colors.background,
   alignItems: 'center',
   justifyContent: 'center',
-  paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+  // paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
 };
 
 export const topLeft = {

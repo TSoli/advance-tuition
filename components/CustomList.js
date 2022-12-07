@@ -21,7 +21,7 @@ function DetailsRow({ category, details }) {
 
 DetailsRow.propTypes = {
   category: PropTypes.string,
-  details: PropTypes.string,
+  details: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 DetailsRow.defaultProps = {

@@ -14,14 +14,19 @@ import { Colors, Spacing } from '../../styles';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
+const screenOptions = {
+  headerStyle: {
+    backgroundColor: Colors.primary,
+  },
+  headerTintColor: Colors.white,
+  headerTitleAlign: 'center',
+};
+
 // The screens that can be navigated to from the Home tab
 function HomeStackScreen() {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}>
-      <Stack.Screen name="HomeScreen" component={HomeScreen} />
+    <Stack.Navigator screenOptions={screenOptions}>
+      <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ title: 'Home' }} />
     </Stack.Navigator>
   );
 }
@@ -29,10 +34,7 @@ function HomeStackScreen() {
 // The screens that can be navigated to from the Payroll tab
 function PayrollStackScreen({ navigation }) {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}>
+    <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen name="TimesheetListScreen" component={TimesheetListScreen} />
       <Stack.Screen name="TimesheetScreen" component={TimesheetScreen} />
       <Stack.Screen name="AddTimesheetScreen" component={AddTimesheetScreen} />
@@ -43,12 +45,17 @@ function PayrollStackScreen({ navigation }) {
 // The screens that can be navigated to from the Students tab
 function StudentStackScreen({ navigation }) {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}>
-      <Stack.Screen name="StudentListScreen" component={StudentListScreen} />
-      <Stack.Screen name="StudentDetailsScreen" component={StudentDetailsScreen} />
+    <Stack.Navigator screenOptions={screenOptions}>
+      <Stack.Screen
+        name="StudentListScreen"
+        component={StudentListScreen}
+        options={{ title: 'Students' }}
+      />
+      <Stack.Screen
+        name="StudentDetailsScreen"
+        component={StudentDetailsScreen}
+        options={{ title: 'Details' }}
+      />
     </Stack.Navigator>
   );
 }
