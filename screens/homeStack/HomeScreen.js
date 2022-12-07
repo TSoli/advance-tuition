@@ -45,7 +45,9 @@ export default function HomeScreen({ navigation }) {
         />
         <MediumButton
           text="Submit Timesheet"
-          onPress={() => navigation.navigate('Payroll', { screen: 'AddTimesheetScreen' })}
+          onPress={() =>
+            navigation.navigate('Payroll', { screen: 'AddTimesheetScreen', initial: false })
+          }
         />
       </View>
     </SafeAreaView>
