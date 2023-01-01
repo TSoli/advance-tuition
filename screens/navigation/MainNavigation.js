@@ -35,9 +35,21 @@ function HomeStackScreen() {
 function PayrollStackScreen({ navigation }) {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
-      <Stack.Screen name="TimesheetListScreen" component={TimesheetListScreen} />
-      <Stack.Screen name="TimesheetScreen" component={TimesheetScreen} />
-      <Stack.Screen name="AddTimesheetScreen" component={AddTimesheetScreen} />
+      <Stack.Screen
+        name="TimesheetListScreen"
+        component={TimesheetListScreen}
+        options={{ title: 'Timesheets' }}
+      />
+      <Stack.Screen
+        name="TimesheetScreen"
+        component={TimesheetScreen}
+        options={{ title: 'Timesheet details' }}
+      />
+      <Stack.Screen
+        name="AddTimesheetScreen"
+        component={AddTimesheetScreen}
+        options={{ title: 'Add Timesheet' }}
+      />
     </Stack.Navigator>
   );
 }
