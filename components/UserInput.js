@@ -34,7 +34,7 @@ function UserInput({
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === 'ios' ? 'padding' : null}
       style={[styles.mainContainer, mainContainerStyle]}
       {...restMainContainer}>
       {!!title && (
@@ -46,7 +46,7 @@ function UserInput({
       <View style={[UserInputStyle.view, inputContainerStyle]} {...restInputContainer}>
         <TextInput
           style={[UserInputStyle.text, inputStyle]}
-          placeholderTextColor="white"
+          placeholderTextColor="#ffffff7f" // white with 0.5 opacity
           color="white"
           autoCapitalize="none"
           {...restInput}

@@ -11,9 +11,6 @@ import StudentListScreen from '../studentStack/StudentListScreen';
 import StudentDetailsScreen from '../studentStack/StudentDetailsScreen';
 import { Colors, Spacing } from '../../styles';
 
-const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
-
 const screenOptions = {
   headerStyle: {
     backgroundColor: Colors.primary,
@@ -21,6 +18,9 @@ const screenOptions = {
   headerTintColor: Colors.white,
   headerTitleAlign: 'center',
 };
+
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 // The screens that can be navigated to from the Home tab
 function HomeStackScreen() {

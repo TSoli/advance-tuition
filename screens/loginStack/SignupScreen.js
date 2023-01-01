@@ -17,26 +17,38 @@ import { DoubleUserInput, UserInput } from '../../components/UserInput';
 
 const logoPath = require('../../assets/logo.jpg');
 
+const initialUserInfo = {
+  firstName: '',
+  surname: '',
+  phone: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+  street: '',
+  unitNumber: '',
+  suburb: '',
+  postcode: '',
+};
+
 const initialErrors = {
-  nameError: '',
-  phoneError: '',
-  emailError: '',
-  passwordError: '',
-  confirmPasswordError: '',
+  name: '',
+  phone: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+  street: '',
+  postcode: '',
 };
 
 // Landline phones are 8 digits without the area code. Maybe we want 10 for mobile?
 const MIN_PHONE_LENGTH = 8;
 // Enforced by firebase
 const MIN_PASSWORD_LENGTH = 6;
+// True for Australia
+const POSTCODE_LENGTH = 4;
 
 export default function SignupScreen({ navigation }) {
-  const [firstName, setFirstName] = useState('');
-  const [surname, setSurname] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [userInfo, setUserInfo] = useState(initialUserInfo);
   const [errors, setErrors] = useState(initialErrors);
   const [loading, setLoading] = useState(false);
   const [secureText, setSecureText] = useState(true);
@@ -77,20 +89,26 @@ export default function SignupScreen({ navigation }) {
     // Use structuredClone in the future when it is supported
     const updatedErrors = JSON.parse(JSON.stringify(initialErrors));
 
-    if (!firstName || !surname) updatedErrors.nameError = 'Name is required';
+    if (!userInfo.firstName || !userInfo.surname) updatedErrors.name = 'Name is required';
 
-    if (!phone) updatedErrors.phoneError = 'Phone number is required';
-    else if (phone.length < MIN_PHONE_LENGTH) updatedErrors.phoneError = 'Invalid phone number';
+    if (!userInfo.phone) updatedErrors.phone = 'Phone number is required';
+    else if (userInfo.phone.length < MIN_PHONE_LENGTH) updatedErrors.phone = 'Invalid phone number';
 
-    if (!email) updatedErrors.emailError = 'Email is required';
-    else if (!email.includes('@')) updatedErrors.emailError = 'Invalid email address';
+    if (!userInfo.email) updatedErrors.email = 'Email is required';
+    else if (!userInfo.email.includes('@')) updatedErrors.email = 'Invalid email address';
 
-    if (!password) updatedErrors.passwordError = 'Password is required';
-    else if (password.length < MIN_PASSWORD_LENGTH) {
-      updatedErrors.passwordError = 'Password must be at least 6 characters';
+    if (!userInfo.password) updatedErrors.password = 'Password is required';
+    else if (userInfo.password.length < MIN_PASSWORD_LENGTH) {
+      updatedErrors.password = 'Password must be at least 6 characters';
     }
 
-    if (password !== confirmPassword) updatedErrors.confirmPasswordError = 'Passwords do not match';
+    if (userInfo.password !== confirmPassword) {
+      updatedErrors.confirmPassword = 'Passwords do not match';
+    }
+
+    if (!userInfo.street) updatedErrors.street = 'Street address is required';
+
+    if (userInfo.postcode.length != POSTCODE_LENGTH) updatedErrors.postcode = 'Invalid postcode';
 
     console.log(JSON.stringify(updatedErrors));
     setErrors(updatedErrors);
@@ -108,8 +126,8 @@ export default function SignupScreen({ navigation }) {
 
     try {
       setLoading(true);
-      await signup(email, password);
-      await updateDisplayName(`${firstName}`);
+      await signup(userInfo.email, userInfo.password);
+      await updateDisplayName(`${userInfo.firstName}`);
       navigation.navigate('LoginScreen');
       console.log(user);
     } catch (e) {
@@ -132,41 +150,42 @@ export default function SignupScreen({ navigation }) {
           <UserInput
             title="First Name"
             placeholder="First Name"
-            error={errors.nameError}
+            error={errors.name}
             autoCapitalize="words"
-            onChangeText={(text) => setFirstName(text)}
+            onChangeText={(text) => setUserInfo((prevState) => ({ ...prevState, firstName: text }))}
           />
           <UserInput
             title="Surname"
             placeholder="Surname"
             autoCapitalize="words"
-            onChangeText={(text) => setSurname(text)}
+            onChangeText={(text) => setUSerInfo((prevState) => ({ ...prevState, surname: text }))}
           />
         </DoubleUserInput>
 
         <UserInput
           title="Phone Number"
           placeholder="Phone Number"
-          error={errors.phoneError}
+          error={errors.phone}
           keyboardType="numeric"
           maxLength={12}
-          onChangeText={(text) => setPhone(text)}
+          onChangeText={(text) => setUserInfo((prevState) => ({ ...prevState, phone: text }))}
         />
 
         <UserInput
           title="Email"
           placeholder="Email"
-          error={errors.emailError}
-          onChangeText={(text) => setEmail(text)}
-          textContentType="username" // Or should it be email?
+          error={errors.email}
+          keyboardType="email-address"
+          onChangeText={(text) => setUserInfo((prevState) => ({ ...prevState, email: text }))}
+          textContentType="emailAddress" // Or should it be username?
         />
 
         <UserInput
           title="Password"
           placeholder="Password"
-          error={errors.passwordError}
+          error={errors.password}
           secureTextEntry={secureText}
-          onChangeText={(text) => setPassword(text)}
+          onChangeText={(text) => setUserInfo((prevState) => ({ ...prevState, password: text }))}
           textContentType="password"
           icon={secureTextIcon}
         />
@@ -174,12 +193,40 @@ export default function SignupScreen({ navigation }) {
         <UserInput
           title="Confirm Password"
           placeholder="Confirm Password"
-          error={errors.confirmPasswordError}
+          error={errors.confirmPassword}
           secureTextEntry={confirmSecureText}
-          onChangeText={(text) => setConfirmPassword(text)}
+          onChangeText={(text) =>
+            setUserInfo((prevState) => ({ ...prevState, confirmPassword: text }))
+          }
           textContentType="password"
           icon={confirmSecureTextIcon}
         />
+
+        <UserInput
+          title="Street"
+          placeholder="1234 Waterworks Rd"
+          error={errors.street}
+          onChangeText={(text) => setUserInfo((prevState) => ({ ...prevState, street: text }))}
+          textContentType="streetAddressLine1"
+        />
+
+        <DoubleUserInput>
+          <UserInput
+            title="Unit Number"
+            placeholder="Optional"
+            onChangeText={(text) =>
+              setUserInfo((prevState) => ({ ...prevState, unitNumber: text }))
+            }
+            textContentType="streetAddressLine2"
+          />
+          <UserInput
+            title="Postcode"
+            placeholder="4061"
+            error={errors.postcode}
+            onChangeText={(text) => setUserInfo((prevState) => ({ ...prevState, postcode: text }))}
+            textContentType="postalCode"
+          />
+        </DoubleUserInput>
 
         <LargeButton
           text="Sign Up"
@@ -188,7 +235,7 @@ export default function SignupScreen({ navigation }) {
           disabled={loading}
         />
 
-        {password === confirmPassword ? (
+        {userInfo.password === userInfo.confirmPassword ? (
           <Text>Please check your email for confirmation after signing up.</Text>
         ) : (
           <Text style={styles.warningText}>Passwords do not match!</Text>

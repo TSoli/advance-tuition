@@ -8,11 +8,17 @@ import { UserInput } from '../../components/UserInput';
 
 export default function ForgotPasswordScreen({ navigation }) {
   const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
   const [sent, setSent] = useState(null);
 
   const { resetPassword } = useAuth();
 
-  const handleResetPassword = async (email) => {
+  const handleResetPassword = async () => {
+    if (!email.includes('@')) {
+      setError('Invalid email address');
+      return;
+    }
+
     try {
       await resetPassword(email);
     } catch (err) {
@@ -25,7 +31,7 @@ export default function ForgotPasswordScreen({ navigation }) {
     <SafeAreaView style={ViewContainer.base}>
       <Image style={styles.image} source={require('../../assets//logo.jpg')} />
 
-      <UserInput placeholder="Email" onChangeText={(text) => setEmail(text)} />
+      <UserInput placeholder="Email" error={error} onChangeText={(text) => setEmail(text)} />
 
       {(sent == null && <Text> </Text>) ||
         (sent && <Text>A reset email has been sent.</Text>) ||
@@ -33,7 +39,7 @@ export default function ForgotPasswordScreen({ navigation }) {
           <Text style={{ color: Colors.red }}>No account exists for that email.</Text>
         ))}
 
-      <LargeButton text="Send Email" onPress={() => handleResetPassword(email)} />
+      <LargeButton text="Send Email" onPress={() => handleResetPassword()} />
     </SafeAreaView>
   );
 }
