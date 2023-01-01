@@ -158,7 +158,7 @@ export default function SignupScreen({ navigation }) {
             title="Surname"
             placeholder="Surname"
             autoCapitalize="words"
-            onChangeText={(text) => setUSerInfo((prevState) => ({ ...prevState, surname: text }))}
+            onChangeText={(text) => setUserInfo((prevState) => ({ ...prevState, surname: text }))}
           />
         </DoubleUserInput>
 
