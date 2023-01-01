@@ -42,6 +42,7 @@ const initialErrors = {
 
 // Landline phones are 8 digits without the area code. Maybe we want 10 for mobile?
 const MIN_PHONE_LENGTH = 8;
+const MAX_PHONE_LENGTH = 12; // idk lol
 // Enforced by firebase
 const MIN_PASSWORD_LENGTH = 6;
 // True for Australia
@@ -102,7 +103,7 @@ export default function SignupScreen({ navigation }) {
       updatedErrors.password = 'Password must be at least 6 characters';
     }
 
-    if (userInfo.password !== confirmPassword) {
+    if (userInfo.password !== userInfo.confirmPassword) {
       updatedErrors.confirmPassword = 'Passwords do not match';
     }
 
@@ -166,8 +167,8 @@ export default function SignupScreen({ navigation }) {
           title="Phone Number"
           placeholder="Phone Number"
           error={errors.phone}
-          keyboardType="numeric"
-          maxLength={12}
+          keyboardType="phone-pad"
+          maxLength={MAX_PHONE_LENGTH}
           onChangeText={(text) => setUserInfo((prevState) => ({ ...prevState, phone: text }))}
         />
 
@@ -223,6 +224,7 @@ export default function SignupScreen({ navigation }) {
             title="Postcode"
             placeholder="4061"
             error={errors.postcode}
+            keyboardType="number-pad"
             onChangeText={(text) => setUserInfo((prevState) => ({ ...prevState, postcode: text }))}
             textContentType="postalCode"
           />

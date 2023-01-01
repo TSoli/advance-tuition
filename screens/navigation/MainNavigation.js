@@ -2,6 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import HomeScreen from '../homeStack/HomeScreen';
 import TimesheetListScreen from '../payrollStack/TimesheetListScreen';
@@ -73,6 +74,7 @@ function StudentStackScreen({ navigation }) {
 }
 
 export default function MainNavigation() {
+  const insets = useSafeAreaInsets();
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -93,7 +95,7 @@ export default function MainNavigation() {
         tabBarActiveTintColor: Colors.primary,
         tabBarInactiveTintColor: Colors.grey,
         tabBarLabelStyle: { paddingBottom: Spacing.padding.base },
-        tabBarStyle: { padding: Spacing.padding.base, height: 70 },
+        tabBarStyle: { padding: Spacing.padding.base, height: 70 + insets.bottom },
         headerShown: false,
       })}>
       <Tab.Screen name="Home" component={HomeStackScreen} />

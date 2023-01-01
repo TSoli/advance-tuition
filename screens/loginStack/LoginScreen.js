@@ -53,8 +53,9 @@ export default function LoginScreen({ navigation }) {
 
       <UserInput
         placeholder="Email"
+        keyboardType="email-address"
         onChangeText={(text) => setEmail(text)}
-        textContentType="username" // Or should it be email?
+        textContentType="emailAddress" // Or should it be username?
         mainContainerProps={{ style: styles.inputMainContainer }}
       />
 

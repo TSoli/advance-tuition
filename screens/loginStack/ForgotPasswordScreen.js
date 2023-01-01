@@ -31,7 +31,13 @@ export default function ForgotPasswordScreen({ navigation }) {
     <SafeAreaView style={ViewContainer.base}>
       <Image style={styles.image} source={require('../../assets//logo.jpg')} />
 
-      <UserInput placeholder="Email" error={error} onChangeText={(text) => setEmail(text)} />
+      <UserInput
+        placeholder="Email"
+        error={error}
+        keyboardType="email-address"
+        onChangeText={(text) => setEmail(text)}
+        textContentType="emailAddress"
+      />
 
       {(sent == null && <Text> </Text>) ||
         (sent && <Text>A reset email has been sent.</Text>) ||
