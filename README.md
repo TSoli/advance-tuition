@@ -43,7 +43,7 @@ scan the QR code that appears in order to open the app on your smartphone.
 You will be presented with a log in screen. To see the rest of the app you can log in with:
 
 ```
-email: test123@test.com
+email: rolihik327@chnlog.com
 password: 123456
 ```
 

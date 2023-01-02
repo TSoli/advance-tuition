@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
+  sendEmailVerification,
   sendPasswordResetEmail,
   updateProfile,
 } from 'firebase/auth';
@@ -21,8 +22,16 @@ export function AuthProvider({ children }) {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
+  const verifyEmail = () => {
+    return sendEmailVerification(auth.currentUser);
+  };
+
   const login = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  const isVerified = () => {
+    return auth.currentUser.emailVerified;
   };
 
   const logout = () => {
@@ -52,10 +61,12 @@ export function AuthProvider({ children }) {
   const value = {
     user,
     signup,
+    isVerified,
     login,
     logout,
     resetPassword,
     updateDisplayName,
+    verifyEmail,
   };
 
   return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;

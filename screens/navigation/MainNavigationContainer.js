@@ -5,8 +5,10 @@ import MainNavigation from './MainNavigation';
 import LoginStackNavigator from './LoginStackNavigator';
 
 export default function MainNavigationContainer() {
-  const { user } = useAuth();
+  const { user, isVerified } = useAuth();
   return (
-    <NavigationContainer>{user ? <MainNavigation /> : <LoginStackNavigator />}</NavigationContainer>
+    <NavigationContainer>
+      {user && isVerified() ? <MainNavigation /> : <LoginStackNavigator />}
+    </NavigationContainer>
   );
 }

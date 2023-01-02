@@ -14,6 +14,7 @@ import { useAuth } from '../../context/AuthContext';
 import { LargeButton } from '../../components/Buttons';
 import { UserInputStyle, ViewContainer, Spacing } from '../../styles';
 import { DoubleUserInput, UserInput } from '../../components/UserInput';
+import { Loading } from '../../components/Loading';
 
 const logoPath = require('../../assets/logo.jpg');
 
@@ -55,7 +56,7 @@ export default function SignupScreen({ navigation }) {
   const [secureText, setSecureText] = useState(true);
   const [confirmSecureText, setConfirmSecureText] = useState(true);
 
-  const { signup, user, updateDisplayName } = useAuth();
+  const { signup, user, updateDisplayName, verifyEmail, logout } = useAuth();
 
   const secureTextIcon = (
     <TouchableOpacity onPress={() => setSecureText(!secureText)}>
@@ -125,21 +126,35 @@ export default function SignupScreen({ navigation }) {
       return;
     }
 
+    setLoading(true);
     try {
-      setLoading(true);
       await signup(userInfo.email, userInfo.password);
-      await updateDisplayName(`${userInfo.firstName}`);
+      await updateDisplayName(`${userInfo.firstName} ${userInfo.surname}`);
+      await verifyEmail();
+      Alert.alert('Verify your Email', 'Please check your emails to verify your account.');
       navigation.navigate('LoginScreen');
       console.log(user);
-    } catch (e) {
-      Alert.alert(
-        'Sign Up Failed',
-        `${e} \nFailed to create an account. Please check your details and try again. ` +
-          'If this error persists, seek assistance.'
-      );
-      console.log(e);
-      setLoading(false);
+    } catch (error) {
+      let errorMessage =
+        `${error.message}\nFailed to create an account. ` +
+        'Please check your details and try again. If this error persists, seek assistance.';
+
+      if (error.code == 'auth/email-already-in-use') {
+        errorMessage = 'Account already exists. You can reset your password at the Login screen.';
+      }
+
+      Alert.alert('Sign Up Failed', `${errorMessage}`);
+      console.log(error.code);
+      console.log(error.message);
     }
+
+    try {
+      await logout();
+    } catch (e) {
+      console.log(e);
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -243,6 +258,7 @@ export default function SignupScreen({ navigation }) {
           <Text style={styles.warningText}>Passwords do not match!</Text>
         )}
       </ScrollView>
+      {loading && <Loading />}
     </SafeAreaView>
   );
 }
