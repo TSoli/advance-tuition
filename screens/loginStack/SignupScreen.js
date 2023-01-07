@@ -112,7 +112,6 @@ export default function SignupScreen({ navigation }) {
 
     if (userInfo.postcode.length != POSTCODE_LENGTH) updatedErrors.postcode = 'Invalid postcode';
 
-    console.log(JSON.stringify(updatedErrors));
     setErrors(updatedErrors);
 
     // Use the synchronously set updatedErrors to check for errors
@@ -120,13 +119,7 @@ export default function SignupScreen({ navigation }) {
     return true;
   };
 
-  const handleSignup = async () => {
-    if (!isValid()) {
-      Alert.alert('Invalid details', 'Please check your details and try again.');
-      return;
-    }
-
-    setLoading(true);
+  const signUpUser = async () => {
     try {
       await signup(userInfo.email, userInfo.password);
       await updateDisplayName(`${userInfo.firstName} ${userInfo.surname}`);
@@ -147,6 +140,16 @@ export default function SignupScreen({ navigation }) {
       console.log(error.code);
       console.log(error.message);
     }
+  };
+
+  const handleSignup = async () => {
+    if (!isValid()) {
+      Alert.alert('Invalid details', 'Please check your details and try again.');
+      return;
+    }
+
+    setLoading(true);
+    await signUpUser();
 
     try {
       await logout();

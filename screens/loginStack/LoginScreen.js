@@ -88,8 +88,6 @@ export default function LoginScreen({ navigation }) {
     if (!isVerified()) {
       createUnverifiedAlert();
     }
-
-    setLoading(false);
   };
 
   return (
