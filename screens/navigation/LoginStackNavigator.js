@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 
 import LoginScreen from '../loginStack/LoginScreen';
-import SignupScreen from '../loginStack/SignupScreen';
+import SignupScreen from '../loginStack/signup/SignupScreen';
 import ForgotPasswordScreen from '../loginStack/ForgotPasswordScreen';
 import { Colors } from '../../styles';
 

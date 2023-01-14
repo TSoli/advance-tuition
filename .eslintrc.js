@@ -12,8 +12,9 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react', 'react-native'],
+  plugins: ['react', 'react-native', '@typescript-eslint/eslint-plugin', 'eslint-plugin-tsdoc'],
   rules: {
+    'tsdoc/syntax': 'warn',
     'no-use-before-define': ['error', { functions: true, classes: true, variables: false }],
     'react/jsx-props-no-spreading': 'off',
     'react/react-in-jsx-scope': 0,

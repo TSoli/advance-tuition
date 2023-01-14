@@ -1,11 +1,11 @@
-import { StyleSheet, Text, SafeAreaView, Image, Alert } from 'react-native';
 import { useState } from 'react';
+import { Alert, Image, SafeAreaView, StyleSheet } from 'react-native';
 
 import { LargeButton } from '../../components/Buttons';
-import { ViewContainer } from '../../styles';
-import { useAuth } from '../../context/AuthContext';
-import { UserInput } from '../../components/UserInput';
 import { Loading } from '../../components/Loading';
+import { UserInput } from '../../components/UserInput/UserInput';
+import { useAuth } from '../../context/AuthContext';
+import { ViewContainer } from '../../styles';
 
 export default function ForgotPasswordScreen({ navigation }) {
   const [email, setEmail] = useState('');

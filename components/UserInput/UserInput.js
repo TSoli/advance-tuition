@@ -1,7 +1,7 @@
-import { KeyboardAvoidingView, TextInput, Text, View, Platform, StyleSheet } from 'react-native';
-import React, { Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
-import { Colors, Spacing, UserInputStyle } from '../styles';
+import React, { Children, cloneElement } from 'react';
+import { KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Colors, Spacing, UserInputStyle } from '../../styles';
 
 /* The default component for user text input.
   Props:

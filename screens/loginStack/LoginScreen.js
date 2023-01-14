@@ -1,12 +1,12 @@
-import { StyleSheet, Text, SafeAreaView, Image, TouchableOpacity, Alert } from 'react-native';
-import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import { useState } from 'react';
+import { Alert, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-import { Colors, Spacing, Buttons, UserInputStyle, ViewContainer } from '../../styles';
 import { LargeButton } from '../../components/Buttons';
-import { useAuth } from '../../context/AuthContext';
-import { UserInput } from '../../components/UserInput';
 import { Loading } from '../../components/Loading';
+import { UserInput } from '../../components/UserInput/UserInput';
+import { useAuth } from '../../context/AuthContext';
+import { Buttons, Colors, Spacing, UserInputStyle, ViewContainer } from '../../styles';
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');

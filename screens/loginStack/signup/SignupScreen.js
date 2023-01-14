@@ -1,22 +1,23 @@
-import {
-  StyleSheet,
-  Text,
-  Image,
-  TouchableOpacity,
-  Alert,
-  SafeAreaView,
-  ScrollView,
-} from 'react-native';
-import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
-import { useAuth } from '../../context/AuthContext';
-import { LargeButton } from '../../components/Buttons';
-import { UserInputStyle, ViewContainer, Spacing } from '../../styles';
-import { DoubleUserInput, UserInput } from '../../components/UserInput';
-import { Loading } from '../../components/Loading';
+import { useState } from 'react';
+import {
+  Alert,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
+import { LargeButton } from '../../../components/Buttons';
+import { Loading } from '../../../components/Loading';
+import SecureTextInput from '../../../components/UserInput/SecureTextInput';
+import { DoubleUserInput, UserInput } from '../../../components/UserInput/UserInput';
+import { useAuth } from '../../../context/AuthContext';
+import { Spacing, UserInputStyle, ViewContainer } from '../../../styles';
 
-const logoPath = require('../../assets/logo.jpg');
+const logoPath = require('../../../assets/logo.jpg');
 
 const initialUserInfo = {
   firstName: '',
@@ -199,26 +200,18 @@ export default function SignupScreen({ navigation }) {
           textContentType="emailAddress" // Or should it be username?
         />
 
-        <UserInput
+        <SecureTextInput
           title="Password"
-          placeholder="Password"
           error={errors.password}
-          secureTextEntry={secureText}
           onChangeText={(text) => setUserInfo((prevState) => ({ ...prevState, password: text }))}
-          textContentType="password"
-          icon={secureTextIcon}
         />
 
-        <UserInput
+        <SecureTextInput
           title="Confirm Password"
-          placeholder="Confirm Password"
           error={errors.confirmPassword}
-          secureTextEntry={confirmSecureText}
           onChangeText={(text) =>
             setUserInfo((prevState) => ({ ...prevState, confirmPassword: text }))
           }
-          textContentType="password"
-          icon={confirmSecureTextIcon}
         />
 
         <UserInput

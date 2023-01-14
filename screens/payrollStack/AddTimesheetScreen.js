@@ -1,20 +1,20 @@
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { useState } from 'react';
 import {
-  StyleSheet,
-  Text,
-  View,
+  Alert,
   Platform,
   SafeAreaView,
-  TouchableOpacity,
   ScrollView,
-  Alert,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
-import DateTimePicker from '@react-native-community/datetimepicker';
 
-import { Colors, Spacing, TextStyle, UserInputStyle, ViewContainer } from '../../styles';
 import { LargeButton } from '../../components/Buttons';
-import { UserInput } from '../../components/UserInput';
+import { UserInput } from '../../components/UserInput/UserInput';
+import { Colors, Spacing, TextStyle, UserInputStyle, ViewContainer } from '../../styles';
 
 const initialErrors = {
   dateError: '',
