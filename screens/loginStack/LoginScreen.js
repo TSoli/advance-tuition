@@ -4,9 +4,10 @@ import { Alert, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity } from '
 
 import { LargeButton } from '../../components/Buttons';
 import { Loading } from '../../components/Loading';
+import SecureTextInput from '../../components/UserInput/SecureTextInput';
 import { UserInput } from '../../components/UserInput/UserInput';
 import { useAuth } from '../../context/AuthContext';
-import { Buttons, Colors, Spacing, UserInputStyle, ViewContainer } from '../../styles';
+import { Buttons, Colors, Spacing, TextStyle, UserInputStyle, ViewContainer } from '../../styles';
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
@@ -102,17 +103,12 @@ export default function LoginScreen({ navigation }) {
         mainContainerProps={{ style: styles.inputMainContainer }}
       />
 
-      <UserInput
-        placeholder="Password"
-        secureTextEntry={secureText}
-        onChangeText={(text) => setPassword(text)}
-        textContentType="password"
-        icon={secureTextIcon}
-        mainContainerProps={{ style: styles.inputMainContainer }}
-      />
+      <SecureTextInput placeholder="Password" onChangeText={(text) => setPassword(text)} />
 
-      <TouchableOpacity onPress={() => navigation.navigate('ForgotPasswordScreen')}>
-        <Text style={styles.forgot_button}>Forgot Password?</Text>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('ForgotPasswordScreen')}
+        style={styles.forgotButton}>
+        <Text style={styles.forgotText}>Forgot Password?</Text>
       </TouchableOpacity>
 
       <LargeButton text="LOGIN" onPress={() => loginHandle()} disabled={loading} />
@@ -136,8 +132,13 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
 
-  forgot_button: {
-    height: 30,
+  forgotText: {
+    fontSize: TextStyle.fontSize.medium,
+    fontWeight: '500',
+  },
+
+  forgotButton: {
+    marginVertical: Spacing.margin.base,
   },
 
   inputMainContainer: {

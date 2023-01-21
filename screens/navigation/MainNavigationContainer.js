@@ -1,8 +1,8 @@
-import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+import React from 'react';
 import { useAuth } from '../../context/AuthContext';
+import LoginStackNavigator from './LoginStackNavigator.js';
 import MainNavigation from './MainNavigation';
-import LoginStackNavigator from './LoginStackNavigator';
 
 export default function MainNavigationContainer() {
   const { user, isVerified } = useAuth();
