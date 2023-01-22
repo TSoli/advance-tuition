@@ -1,10 +1,10 @@
 // A screen used to display recent timesheets for the tutor
 
-import { FlatList, Text, SafeAreaView, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import { Colors, ListStyle, TextStyle, ViewContainer } from '../../styles';
-import Timesheets from '../../model/Timesheets';
+import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { FloatingActionButton } from '../../components/Buttons';
+import Timesheets from '../../model/Timesheets';
+import { Colors, CustomTextStyle, ListStyle, ViewContainer } from '../../styles';
 
 export const getStatusColor = (status) => {
   if (status.toUpperCase() === 'APPROVED') {
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: TextStyle.fontSize.medium,
+    fontSize: CustomTextStyle.fontSize.medium,
     fontWeight: 'bold',
   },
 

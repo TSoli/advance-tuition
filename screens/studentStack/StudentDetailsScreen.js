@@ -2,7 +2,7 @@ import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import UserAvatar from 'react-native-user-avatar';
 import { DetailsRow } from '../../components/CustomList';
-import { Spacing, TextStyle, ViewContainer, ListStyle } from '../../styles';
+import { CustomTextStyle, ListStyle, Spacing, ViewContainer } from '../../styles';
 
 export default function StudentDetailsScreen({ route }) {
   const { first_name, last_name, email, phone_number, street_address, subject, year_level } =
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
 
   name: {
-    ...TextStyle.titleNoMargin,
+    ...CustomTextStyle.titleNoMargin,
     paddingVertical: Spacing.padding.large,
   },
 });

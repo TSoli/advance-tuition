@@ -1,8 +1,8 @@
-import { StyleSheet, View, Text, Image, SafeAreaView, Alert } from 'react-native';
 import PropTypes from 'prop-types';
+import { Alert, Image, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { MediumButton } from '../../components/Buttons';
 import { useAuth } from '../../context/AuthContext';
-import { Buttons, Colors, Spacing, TextStyle, ViewContainer } from '../../styles';
+import { Buttons, Colors, CustomTextStyle, Spacing, ViewContainer } from '../../styles';
 
 const logoPath = require('../../assets/logo.jpg');
 
@@ -23,7 +23,7 @@ export default function HomeScreen({ navigation }) {
       <Image style={styles.image} source={logoPath} />
 
       <View style={styles.msgContainer}>
-        <Text style={TextStyle.title}>Welcome, {user.displayName}!</Text>
+        <Text style={CustomTextStyle.title}>Welcome, {user.displayName}!</Text>
         <Text style={styles.msgText}>
           Thanks for using the Advance Tuition app! We hope that this app will make it easier for
           you to report your tutoring hours to us by enabling you to submit timesheets right from
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   },
 
   msgText: {
-    ...TextStyle.paragraph,
+    ...CustomTextStyle.paragraph,
   },
 
   logoutBtn: {

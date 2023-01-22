@@ -5,12 +5,18 @@ import { Loading } from '../../../components/Loading';
 import SecureTextInput from '../../../components/UserInput/SecureTextInput';
 import { DoubleUserInput, UserInput } from '../../../components/UserInput/UserInput';
 import { Spacing, ViewContainer } from '../../../styles';
-import useSignup, { MAX_PHONE_LENGTH, MAX_STATE_LENGTH } from './useSignup';
+import useSignup, { MAX_PHONE_LENGTH, MAX_STATE_LENGTH, POSTCODE_LENGTH } from './useSignup';
 
 export default function SignupScreen({ navigation }) {
-  const { logoPath, errorMessages, updateUserInfo, handleSignup, loading } = useSignup(navigation);
-
-  // TODO: Fix the setUserInfo functions
+  const {
+    logoPath,
+    errorMessages,
+    updateUserData,
+    handleSignup,
+    loading,
+    setPassword,
+    setConfirmPassword,
+  } = useSignup(navigation);
 
   return (
     <SafeAreaView style={styles.mainContainer}>
@@ -23,13 +29,13 @@ export default function SignupScreen({ navigation }) {
             placeholder="First Name"
             error={errorMessages.name}
             autoCapitalize="words"
-            onChangeText={(text) => updateUserInfo('name.first', text)}
+            onChangeText={(text) => updateUserData('name.first', text)}
           />
           <UserInput
             title="Surname"
             placeholder="Surname"
             autoCapitalize="words"
-            onChangeText={(text) => updateUserInfo('name.last', text)}
+            onChangeText={(text) => updateUserData('name.last', text)}
           />
         </DoubleUserInput>
 
@@ -39,7 +45,7 @@ export default function SignupScreen({ navigation }) {
           error={errorMessages.phone}
           keyboardType="phone-pad"
           maxLength={MAX_PHONE_LENGTH}
-          onChangeText={(text) => updateUserInfo('contact.phone', text)}
+          onChangeText={(text) => updateUserData('contact.phone', text)}
         />
 
         <UserInput
@@ -47,34 +53,34 @@ export default function SignupScreen({ navigation }) {
           placeholder="Email"
           error={errorMessages.email}
           keyboardType="email-address"
-          onChangeText={(text) => updateUserInfo('contact.email', text)}
+          onChangeText={(text) => updateUserData('contact.email', text)}
           textContentType="emailAddress" // Or should it be username?
         />
 
         <SecureTextInput
           title="Password"
           error={errorMessages.password}
-          onChangeText={(text) => updateUserInfo('password', text)}
+          onChangeText={(text) => setPassword(text)}
         />
 
         <SecureTextInput
           title="Confirm Password"
           error={errorMessages.confirmPassword}
-          onChangeText={(text) => updateUserInfo('confirmPassword', text)}
+          onChangeText={(text) => setConfirmPassword(text)}
         />
 
         <UserInput
           title="Street"
           placeholder="1234 Waterworks Rd, The Gap"
           error={errorMessages.street}
-          onChangeText={(text) => updateUserInfo('address.street', text)}
+          onChangeText={(text) => updateUserData('address.street', text)}
           textContentType="streetAddressLine1"
         />
 
         <UserInput
           title="Address Line 2"
           placeholder="Optional (i.e unit)"
-          onChangeText={(text) => updateUserInfo('address.unitNumber', text)}
+          onChangeText={(text) => updateUserData('address.line2', text)}
           textContentType="streetAddressLine2"
         />
 
@@ -82,34 +88,37 @@ export default function SignupScreen({ navigation }) {
           title="City"
           placeholder="Brisbane"
           error={errorMessages.city}
-          onChangeText={(text) => updateUserInfo('address.city', text)}
+          onChangeText={(text) => updateUserData('address.city', text)}
           textContentType="addressCity"
+          autoCapitalize="words"
         />
 
         <DoubleUserInput>
-          <UserInput
-            title="State"
-            placeholder="QLD"
-            error={errorMessages.state}
-            onChangeText={(text) => updateUserInfo('address.state', text)}
-            textContentType="addressState"
-            autoCapitalize="characters"
-            maxLength={MAX_STATE_LENGTH}
-          />
           <UserInput
             title="Postcode"
             placeholder="4061"
             error={errorMessages.postcode}
             keyboardType="number-pad"
-            onChangeText={(text) => updateUserInfo('address.postcode', text)}
+            onChangeText={(text) => updateUserData('address.postcode', text)}
             textContentType="postalCode"
+            maxLength={POSTCODE_LENGTH}
+          />
+
+          <UserInput
+            title="State"
+            placeholder="QLD"
+            error={errorMessages.state}
+            onChangeText={(text) => updateUserData('address.state', text.toUpperCase())}
+            textContentType="addressState"
+            autoCapitalize="characters"
+            maxLength={MAX_STATE_LENGTH}
           />
         </DoubleUserInput>
 
         <LargeButton
           text="Sign Up"
           style={styles.signupBtn}
-          onPress={() => handleSignup()}
+          onPress={async () => await handleSignup()}
           disabled={loading}
         />
 

@@ -1,4 +1,3 @@
-import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { Alert, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
@@ -7,26 +6,14 @@ import { Loading } from '../../components/Loading';
 import SecureTextInput from '../../components/UserInput/SecureTextInput';
 import { UserInput } from '../../components/UserInput/UserInput';
 import { useAuth } from '../../context/AuthContext';
-import { Buttons, Colors, Spacing, TextStyle, UserInputStyle, ViewContainer } from '../../styles';
+import { Buttons, Colors, CustomTextStyle, Spacing, ViewContainer } from '../../styles';
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [secureText, setSecureText] = useState(true);
   const [loading, setLoading] = useState(false);
 
   const { login, logout, isVerified, verifyEmail } = useAuth();
-
-  const secureTextIcon = (
-    <TouchableOpacity onPress={() => setSecureText(!secureText)}>
-      <Ionicons
-        style={UserInputStyle.icon}
-        name={secureText ? 'eye-off' : 'eye'}
-        color="white"
-        size={20}
-      />
-    </TouchableOpacity>
-  );
 
   const createUnverifiedAlert = () =>
     Alert.alert('Verify your Email', 'Please check your emails to verify your account.', [
@@ -87,6 +74,7 @@ export default function LoginScreen({ navigation }) {
     console.log(`name=${user.displayName}`);
 
     if (!isVerified()) {
+      setLoading(false);
       createUnverifiedAlert();
     }
   };
@@ -133,7 +121,7 @@ const styles = StyleSheet.create({
   },
 
   forgotText: {
-    fontSize: TextStyle.fontSize.medium,
+    fontSize: CustomTextStyle.fontSize.medium,
     fontWeight: '500',
   },
 

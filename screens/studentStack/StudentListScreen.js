@@ -1,7 +1,7 @@
-import { View, SafeAreaView, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import UserAvatar from 'react-native-user-avatar';
 
-import { ViewContainer, ListStyle, TextStyle, Spacing } from '../../styles';
+import { CustomTextStyle, ListStyle, Spacing, ViewContainer } from '../../styles';
 
 // import the students from the model file
 const studentData = require('../../model/students.json');
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: TextStyle.fontSize.medium,
+    fontSize: CustomTextStyle.fontSize.medium,
     fontWeight: 'bold',
   },
 

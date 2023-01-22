@@ -14,7 +14,7 @@ import RNPickerSelect from 'react-native-picker-select';
 
 import { LargeButton } from '../../components/Buttons';
 import { UserInput } from '../../components/UserInput/UserInput';
-import { Colors, Spacing, TextStyle, UserInputStyle, ViewContainer } from '../../styles';
+import { Colors, CustomTextStyle, Spacing, UserInputStyle, ViewContainer } from '../../styles';
 
 const initialErrors = {
   dateError: '',
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    ...TextStyle.title,
+    ...CustomTextStyle.title,
     margin: Spacing.margin.medium,
   },
 

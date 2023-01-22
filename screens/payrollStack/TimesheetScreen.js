@@ -1,8 +1,8 @@
-import { SafeAreaView, StyleSheet, Text, ScrollView } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import { SafeAreaView, ScrollView, StyleSheet, Text } from 'react-native';
 import { FloatingActionButton } from '../../components/Buttons';
 import { DetailsRow } from '../../components/CustomList';
-import { ListStyle, Spacing, TextStyle, ViewContainer, Colors } from '../../styles';
+import { Colors, CustomTextStyle, ListStyle, Spacing, ViewContainer } from '../../styles';
 import { getStatusColor } from './TimesheetListScreen';
 
 export default function TimesheetScreen({ route }) {
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
 
   statusText: {
-    ...TextStyle.titleNoMargin,
+    ...CustomTextStyle.titleNoMargin,
     marginHorizontal: Spacing.margin.medium,
     marginTop: Spacing.margin.medium,
   },

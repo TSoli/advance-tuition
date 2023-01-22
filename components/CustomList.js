@@ -1,9 +1,9 @@
 // Some useful components for a list
 
-import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, StyleSheet } from 'react-native';
-import { ListStyle, TextStyle } from '../styles';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { CustomTextStyle, ListStyle } from '../styles';
 
 function DetailsRow({ category, details }) {
   return (
@@ -40,16 +40,15 @@ const styles = StyleSheet.create({
 
   categoryText: {
     fontWeight: 'bold',
-    fontSize: TextStyle.fontSize.medium,
+    fontSize: CustomTextStyle.fontSize.medium,
   },
 
   detailContainer: {
-    justifyContent: 'center',
     flex: 1,
   },
 
   detailText: {
-    fontSize: TextStyle.fontSize.small,
+    fontSize: CustomTextStyle.fontSize.small,
   },
 });
 

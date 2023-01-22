@@ -203,9 +203,10 @@ With the firebase emulators still running in one terminal, open a new one and st
 with `npm start`. Once it is ready you can open the app however you usually would \(i.e on your
 device or in an emulator on your computer\). Initially, there will be no authenticated users. You
 can either click Sign Up on the app Login screen to create a new user or add one using the web UI
-that you opened before. Now go to the web UI and click on the three dots next to the user. Click
-Edit User and change the slider so that the email is verified. Now you should be able to Login to
-the app normally.
+that you opened before. The firebase emulator terminal should display a link that you can click to
+verify the email address. Alternatively, go to the web UI and click on the three dots next to the
+user. Click Edit User and change the slider so that the email is verified. Now you should be able to
+Login to the app normally.
 
 Note: For now, every time you restart the emulators the database and users will be cleared. I
 believe there is a way to enable persistence for this which I will look into for the future.
