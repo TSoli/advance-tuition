@@ -1,18 +1,21 @@
-import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import type { StackNavigationOptions } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
+import { Colors, Spacing } from '../../styles';
+import { StudentData } from '../../types/UserData';
 import HomeScreen from '../homeStack/HomeScreen';
+import AddTimesheetScreen from '../payrollStack/AddTimesheetScreen';
 import TimesheetListScreen from '../payrollStack/TimesheetListScreen';
 import TimesheetScreen from '../payrollStack/TimesheetScreen';
-import AddTimesheetScreen from '../payrollStack/AddTimesheetScreen';
-import StudentListScreen from '../studentStack/StudentListScreen';
-import StudentDetailsScreen from '../studentStack/StudentDetailsScreen';
-import { Colors, Spacing } from '../../styles';
+import StudentDetailsScreen from '../studentStack/studentDetails/StudentDetailsScreen';
+import StudentListScreen from '../studentStack/studentList/StudentListScreen';
 
-const screenOptions = {
+type IconName = keyof typeof Ionicons.glyphMap;
+
+const screenOptions: StackNavigationOptions = {
   headerStyle: {
     backgroundColor: Colors.primary,
   },
@@ -23,6 +26,10 @@ const screenOptions = {
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
+type HomeStackParamList = {
+  HomeScreen: undefined;
+};
+
 // The screens that can be navigated to from the Home tab
 function HomeStackScreen() {
   return (
@@ -32,8 +39,14 @@ function HomeStackScreen() {
   );
 }
 
+type PayrollStackParamList = {
+  TimesheetListScreen: undefined;
+  TimesheetScreen: undefined;
+  AddTimesheetScreen: undefined;
+};
+
 // The screens that can be navigated to from the Payroll tab
-function PayrollStackScreen({ navigation }) {
+function PayrollStackScreen() {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen
@@ -55,8 +68,13 @@ function PayrollStackScreen({ navigation }) {
   );
 }
 
+type StudentStackParamList = {
+  StudentListScreen: undefined;
+  StudentDetailsScreen: StudentData;
+};
+
 // The screens that can be navigated to from the Students tab
-function StudentStackScreen({ navigation }) {
+function StudentStackScreen() {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen
@@ -73,20 +91,21 @@ function StudentStackScreen({ navigation }) {
   );
 }
 
-export default function MainNavigation() {
+function MainNavigation() {
   const insets = useSafeAreaInsets();
   return (
     <Tab.Navigator
       initialRouteName="Home"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
+          let iconName: IconName;
 
           if (route.name === 'Home') {
             iconName = focused ? 'home' : 'home-outline';
           } else if (route.name === 'Students') {
             iconName = focused ? 'people' : 'people-outline';
-          } else if (route.name === 'Payroll') {
+          } else {
+            // route.name === 'Payroll'
             iconName = focused ? 'list' : 'list-outline';
           }
 
@@ -104,3 +123,6 @@ export default function MainNavigation() {
     </Tab.Navigator>
   );
 }
+
+export default MainNavigation;
+export { HomeStackParamList, PayrollStackParamList, StudentStackParamList };

@@ -1,13 +1,19 @@
-import { createStackNavigator } from '@react-navigation/stack';
-
+import { createStackNavigator, StackNavigationOptions } from '@react-navigation/stack';
+import React from 'react';
+import { Colors } from '../../styles';
+import ForgotPasswordScreen from '../loginStack/ForgotPasswordScreen';
 import LoginScreen from '../loginStack/LoginScreen';
 import SignupScreen from '../loginStack/signup/SignupScreen';
-import ForgotPasswordScreen from '../loginStack/ForgotPasswordScreen';
-import { Colors } from '../../styles';
 
 const LoginStack = createStackNavigator();
 
-const screenOptions = {
+type LoginStackParamList = {
+  LoginScreen: undefined;
+  SignupScreen: undefined;
+  ForgotPasswordScreen: undefined;
+};
+
+const screenOptions: StackNavigationOptions = {
   headerStyle: {
     backgroundColor: Colors.primaryDark,
   },
@@ -15,7 +21,7 @@ const screenOptions = {
   headerTitleAlign: 'center',
 };
 
-export default function LoginStackNavigator({ navigation }) {
+const LoginStackNavigator = () => {
   return (
     <LoginStack.Navigator screenOptions={screenOptions}>
       <LoginStack.Screen name="LoginScreen" component={LoginScreen} options={{ title: 'Login' }} />
@@ -31,4 +37,7 @@ export default function LoginStackNavigator({ navigation }) {
       />
     </LoginStack.Navigator>
   );
-}
+};
+
+export default LoginStackNavigator;
+export { LoginStackParamList };

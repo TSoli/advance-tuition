@@ -1,28 +1,31 @@
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import UserAvatar from 'react-native-user-avatar';
-import { DetailsRow } from '../../components/CustomList';
-import { CustomTextStyle, ListStyle, Spacing, ViewContainer } from '../../styles';
+import { DetailsRow } from '../../../components/CustomList';
+import { CustomTextStyle, ListStyle, Spacing, ViewContainer } from '../../../styles';
+import useStudentDetails from './useStudentDetails';
 
 export default function StudentDetailsScreen({ route }) {
-  const { first_name, last_name, email, phone_number, street_address, subject, year_level } =
-    route.params;
+  const { name, contact, year } = route.params;
+  const { formattedAddress, formattedSubjects } = useStudentDetails(route);
+
   return (
     <SafeAreaView style={styles.viewContainer}>
       <View style={styles.topContainer}>
-        <UserAvatar size={100} name={first_name + ' ' + last_name} />
+        <UserAvatar size={100} name={`${name.first} ${name.last}`} />
         <Text style={styles.name}>
-          {first_name} {last_name}
+          {name.first} {name.last}
         </Text>
       </View>
 
       <View style={styles.bottomContainer}>
         <ScrollView style={styles.list}>
-          <DetailsRow category="Phone Number" details={phone_number} />
-          <DetailsRow category="Email Address" details={email} />
-          <DetailsRow category="Address" details={street_address} />
-          <DetailsRow category="Subject" details={subject} />
-          <DetailsRow category="Year Level" details={year_level} />
+          <DetailsRow category="Phone Number" details={contact.phone} />
+          <DetailsRow category="Email Address" details={contact.email} />
+          <DetailsRow category="Address" details={formattedAddress} />
+          {/* TODO: Change this to render ou the subject names in a list */}
+          <DetailsRow category="Subject" details={formattedSubjects} />
+          <DetailsRow category="Year Level" details={year} />
         </ScrollView>
       </View>
     </SafeAreaView>

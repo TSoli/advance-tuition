@@ -71,24 +71,26 @@ export default function SignupScreen({ navigation }) {
 
         <UserInput
           title="Street"
-          placeholder="1234 Waterworks Rd, The Gap"
+          placeholder="1234 Waterworks Rd"
           error={errorMessages.street}
           onChangeText={(text) => updateUserData('address.street', text)}
           textContentType="streetAddressLine1"
+          autoCapitalize="words"
         />
 
         <UserInput
           title="Address Line 2"
-          placeholder="Optional (i.e unit)"
+          placeholder="Optional"
           onChangeText={(text) => updateUserData('address.line2', text)}
           textContentType="streetAddressLine2"
+          autoCapitalize="words"
         />
 
         <UserInput
-          title="City"
-          placeholder="Brisbane"
-          error={errorMessages.city}
-          onChangeText={(text) => updateUserData('address.city', text)}
+          title="City/Suburb"
+          placeholder="The Gap"
+          error={errorMessages.suburb}
+          onChangeText={(text) => updateUserData('address.suburb', text)}
           textContentType="addressCity"
           autoCapitalize="words"
         />

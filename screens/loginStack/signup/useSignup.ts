@@ -5,6 +5,7 @@ import { Alert } from 'react-native';
 import { addTutor } from '../../../backend/firestore';
 import { useAuth } from '../../../context/AuthContext';
 import UserData from '../../../types/UserData';
+import { LoginStackParamList } from '../../navigation/LoginStackNavigator';
 
 interface ErrorMessages {
   /** The error message for the name */
@@ -19,8 +20,8 @@ interface ErrorMessages {
   confirmPassword: string;
   /** The error message for the street address */
   street: string;
-  /** The error message for the city */
-  city: string;
+  /** The error message for the city/suburb */
+  suburb: string;
   /** The error message for the postcode */
   postcode: string;
   /** The error message for the state */
@@ -41,7 +42,7 @@ const initialUserData: UserData = {
   address: {
     street: '',
     line2: '',
-    city: '',
+    suburb: '',
     postcode: '',
     state: '',
     country: 'Australia',
@@ -55,7 +56,7 @@ const initialErrors: ErrorMessages = {
   password: '',
   confirmPassword: '',
   street: '',
-  city: '',
+  suburb: '',
   postcode: '',
   state: '',
 };
@@ -77,7 +78,7 @@ const useSignup = (navigation: NavigationProp<LoginStackParamList, 'SignupScreen
   const [errorMessages, setErrorMessages] = useState(cloneDeep(initialErrors));
   const [loading, setLoading] = useState(false);
 
-  const { signup, user, updateDisplayName, verifyEmail, logout } = useAuth();
+  const { signup, updateDisplayName, verifyEmail, logout } = useAuth();
 
   /** Updates the user user info based on the provided path.
    *
@@ -99,7 +100,7 @@ const useSignup = (navigation: NavigationProp<LoginStackParamList, 'SignupScreen
   const isValidAddress = (updatedErrors: ErrorMessages) => {
     if (!userData.address.street) updatedErrors.street = 'Street address is required';
 
-    if (!userData.address.city) updatedErrors.city = 'City is required';
+    if (!userData.address.suburb) updatedErrors.suburb = 'City/Suburb is required';
 
     if (userData.address.postcode.length != POSTCODE_LENGTH) {
       updatedErrors.postcode = 'Invalid postcode';

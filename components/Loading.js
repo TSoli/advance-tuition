@@ -1,13 +1,13 @@
 // An overlay for loading
 
-import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import React from 'react';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { Colors } from '../styles';
 
 function Loading() {
   return (
     <View style={styles.loadingView}>
-      <ActivityIndicator size="large" />
+      <ActivityIndicator size="large" color={Colors.primaryDark} />
     </View>
   );
 }
@@ -15,8 +15,7 @@ function Loading() {
 const styles = StyleSheet.create({
   loadingView: {
     ...StyleSheet.absoluteFill,
-    opacity: 0.5,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.white50,
     justifyContent: 'center',
     alignItems: 'center',
   },

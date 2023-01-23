@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import { useAuth } from '../../context/AuthContext';
-import LoginStackNavigator from './LoginStackNavigator.js';
+import LoginStackNavigator from './LoginStackNavigator';
 import MainNavigation from './MainNavigation';
 
 export default function MainNavigationContainer() {

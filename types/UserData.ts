@@ -1,18 +1,18 @@
 // Object interfaces for storing user information
-export interface Name {
+interface Name {
   /** The first name */
   first: string;
   /** The surname */
   last: string;
 }
 
-export interface Address {
+interface Address {
   /** The street address. */
   street: string;
   /** The second line of address (i.e unit number) - can be left as an empty string if not applicable */
   line2: string;
-  /** The city - user may enter a suburb instead but there is also a postcode */
-  city: string;
+  /** The city/suburb */
+  suburb: string;
   /** The postcode */
   postcode: string;
   /** The state - i.e QLD */ // TODO: Change this to a more specific type.
@@ -21,14 +21,14 @@ export interface Address {
   country: string;
 }
 
-export interface Contact {
+interface Contact {
   /** The phone number */
   phone: string;
   /** The email address */
   email: string;
 }
 
-export default interface UserData {
+interface UserData {
   /** The user's name */
   name: Name;
   /** The user's contact details */
@@ -36,3 +36,24 @@ export default interface UserData {
   /** The user's address */
   address: Address;
 }
+
+interface Subject {
+  /** The subject */
+  subject: string;
+  /** The tutor ID for the subject */
+  tutor: string;
+}
+
+interface StudentData extends UserData {
+  /** The parent's UID */
+  parent: string;
+  /** The student's year level */
+  year: string;
+  /** An array of the subjects for a student */
+  subjects: Subject[];
+  /** The IDs of the tutors for this student */
+  tutors: string[];
+}
+
+export default UserData;
+export { Name, Address, Contact, StudentData, Subject };

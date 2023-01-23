@@ -57,21 +57,15 @@ export default function LoginScreen({ navigation }) {
     }
 
     setLoading(true);
-    let user;
     try {
-      const userCredentials = await login(email, password);
-      user = userCredentials.user;
-      // Add code to execute once logged in
+      await login(email, password);
     } catch (error) {
       Alert.alert('Unable to login', 'Please check your email and password.');
-      console.log(error.code);
-      console.log(error.message);
+      console.error(error.code);
+      console.error(error.message);
       setLoading(false);
       return;
     }
-
-    console.log(user.email);
-    console.log(`name=${user.displayName}`);
 
     if (!isVerified()) {
       setLoading(false);
