@@ -6,14 +6,12 @@ import { UserInput } from './UserInput';
 
 interface SecureTextInputProps {
   /** The title displayed above the input */
-  title?: string | null;
+  title?: string;
   /** The error message displayed below the input */
-  error?: string | null;
-  /** Shows the icon to toggle the secure text entry mode */
-  showIcon?: boolean;
+  error?: string;
 }
 
-/** A text input that hides the text as it is typed
+/** A text input that hides the text as it is typed.
  *
  * @remarks
  *
@@ -21,11 +19,7 @@ interface SecureTextInputProps {
  * for a TextInput can be passed. By default, the placeholder is the same as the
  * title and the textContentType is "password".
  */
-const SecureTextInput = ({
-  title = null,
-  error = null,
-  ...rest
-}: SecureTextInputProps & TextInputProps) => {
+const SecureTextInput = ({ title, error, ...rest }: SecureTextInputProps & TextInputProps) => {
   const [secureText, setSecureText] = useState(true);
   const toggleSecureText = () => {
     setSecureText((prev) => !prev);
@@ -46,11 +40,6 @@ const SecureTextInput = ({
       textContentType="password"
       icon={icon}
       {...rest}
-      // These can be removed once UserInput is properly converted to tsx
-      titleProps={undefined}
-      errorProps={undefined}
-      inputContainerProps={undefined}
-      mainContainerProps={undefined}
     />
   );
 };

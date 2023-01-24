@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Alert, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Alert, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { LargeButton } from '../../components/Buttons';
 import { Loading } from '../../components/Loading';
@@ -77,13 +77,14 @@ export default function LoginScreen({ navigation }) {
     <SafeAreaView style={ViewContainer.base}>
       <Image style={styles.image} source={require('../../assets//logo.jpg')} />
 
-      <UserInput
-        placeholder="Email"
-        keyboardType="email-address"
-        onChangeText={(text) => setEmail(text)}
-        textContentType="emailAddress" // Or should it be username?
-        mainContainerProps={{ style: styles.inputMainContainer }}
-      />
+      <View style={styles.inputMainContainer}>
+        <UserInput
+          placeholder="Email"
+          keyboardType="email-address"
+          onChangeText={(text) => setEmail(text)}
+          textContentType="emailAddress" // Or should it be username?
+        />
+      </View>
 
       <SecureTextInput placeholder="Password" onChangeText={(text) => setPassword(text)} />
 
@@ -125,6 +126,8 @@ const styles = StyleSheet.create({
 
   inputMainContainer: {
     marginBottom: Spacing.margin.base,
+    width: '100%',
+    alignItems: 'center',
   },
 
   loginBtn: {

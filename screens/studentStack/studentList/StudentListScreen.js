@@ -23,10 +23,10 @@ export default function StudentListScreen({ navigation }) {
           <UserAvatar
             style={styles.avatar}
             size={40}
-            name={`${student.name.first} ${student.name.last}`}
+            name={`${student.data.name.first} ${student.data.name.last}`}
           />
           <Text style={styles.text}>
-            {student.name.first} {student.name.last}
+            {student.data.name.first} {student.data.name.last}
           </Text>
         </View>
       </TouchableOpacity>
@@ -38,7 +38,7 @@ export default function StudentListScreen({ navigation }) {
       <FlatList
         style={styles.list}
         data={students}
-        keyExtractor={(student) => student.contact.phone}
+        keyExtractor={(student) => student.id}
         refreshControl={refreshControl}
         renderItem={({ item: student }) => listItem(student)}
       />

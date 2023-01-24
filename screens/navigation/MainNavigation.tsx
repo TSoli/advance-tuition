@@ -7,7 +7,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Spacing } from '../../styles';
 import { StudentData } from '../../types/UserData';
 import HomeScreen from '../homeStack/HomeScreen';
-import AddTimesheetScreen from '../payrollStack/AddTimesheetScreen';
+import AddTimesheetScreen from '../payrollStack/addTimesheet/AddTimesheetScreen';
 import TimesheetListScreen from '../payrollStack/TimesheetListScreen';
 import TimesheetScreen from '../payrollStack/TimesheetScreen';
 import StudentDetailsScreen from '../studentStack/studentDetails/StudentDetailsScreen';

@@ -55,5 +55,12 @@ interface StudentData extends UserData {
   tutors: string[];
 }
 
+interface Student {
+  /** The document ID for the student */
+  id: string;
+  /** The document data for the student */
+  data: StudentData;
+}
+
 export default UserData;
-export { Name, Address, Contact, StudentData, Subject };
+export { Name, Address, Contact, StudentData, Student, Subject };

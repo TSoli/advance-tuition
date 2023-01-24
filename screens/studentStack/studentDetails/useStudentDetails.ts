@@ -1,13 +1,13 @@
 import type { RouteProp } from '@react-navigation/native';
 import { useAuth } from '../../../context/AuthContext';
-import { Address, Subject } from '../../../types/UserData';
+import { Address, StudentData, Subject } from '../../../types/UserData';
 import { StudentStackParamList } from '../../navigation/MainNavigation';
 
 type StudentDetailsRouteProp = RouteProp<StudentStackParamList, 'StudentDetailsScreen'>;
 
-const useStudentDetails = (route: StudentDetailsRouteProp) => {
+const useStudentDetails = (data: StudentData) => {
   const { user } = useAuth();
-  const { address, subjects } = route.params;
+  const { address, subjects } = data;
 
   /** Returns the the address formatted as a string.
    *

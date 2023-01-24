@@ -11,6 +11,8 @@ mobile applications. In order to get started you will need to install a few tool
 [this](https://reactnative.dev/docs/environment-setup) guide on the React Native website or follow
 along with this README.
 
+The project is currently converting from JavaScript to TypeScript so for now there is a mix of both.
+
 # Preparation
 
 To get started you will need to [install git](https://github.com/git-guides/install-git) and
@@ -195,7 +197,16 @@ firebase emulators:start
 
 Now you should be able to access UI for interacting with these emulators by visiting the links
 presented in a web browser. Here you can manipulated the authentication and users or the firestore
-database.
+database. To keep the authentication and database details available between sessions, you can use
+the `--import localDir` flag to import the data from a local directory and the
+`--export-on-exit localDir` flag to export the data to the `localDir` on exit. Alternatively, you
+can use the `firebase emulators:export fileDir` command to export the current state. In our case,
+the local directory used to store the firebase files is `localFirebase`. For example, if you would
+like to use the local firebase files for testing but not save any changes you make you could run:
+
+```
+firebase emulators:start --import localFirebase
+```
 
 ### Authentication Example
 
@@ -207,6 +218,3 @@ that you opened before. The firebase emulator terminal should display a link tha
 verify the email address. Alternatively, go to the web UI and click on the three dots next to the
 user. Click Edit User and change the slider so that the email is verified. Now you should be able to
 Login to the app normally.
-
-Note: For now, every time you restart the emulators the database and users will be cleared. I
-believe there is a way to enable persistence for this which I will look into for the future.

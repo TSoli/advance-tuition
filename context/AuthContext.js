@@ -9,10 +9,10 @@ import {
   signOut,
   updateProfile,
 } from 'firebase/auth';
-import React, { useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { auth } from '../backend/firebase';
 
-const AuthContext = React.createContext();
+const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState();

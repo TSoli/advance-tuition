@@ -6,8 +6,9 @@ import { CustomTextStyle, ListStyle, Spacing, ViewContainer } from '../../../sty
 import useStudentDetails from './useStudentDetails';
 
 export default function StudentDetailsScreen({ route }) {
-  const { name, contact, year } = route.params;
-  const { formattedAddress, formattedSubjects } = useStudentDetails(route);
+  const { data } = route.params;
+  const { name, year, contact } = data;
+  const { formattedAddress, formattedSubjects } = useStudentDetails(data);
 
   return (
     <SafeAreaView style={styles.viewContainer}>

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { getTutorStudents } from '../../../backend/firestore';
 import { useAuth } from '../../../context/AuthContext';
-import { StudentData } from '../../../types/UserData';
+import { Student } from '../../../types/UserData';
 
 const useStudentList = () => {
-  const [students, setStudents] = useState<StudentData[]>([]);
+  const [students, setStudents] = useState<Student[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -17,15 +17,15 @@ const useStudentList = () => {
     setLoading(false);
   };
 
+  useEffect(() => {
+    getStudents();
+  }, []);
+
   const onRefresh = () => {
     setRefreshing(true);
     getStudents();
     setRefreshing(false);
   };
-
-  useEffect(() => {
-    getStudents();
-  }, []);
 
   return { students, loading, refreshing, onRefresh };
 };
