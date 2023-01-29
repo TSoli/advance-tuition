@@ -1,10 +1,13 @@
 // Defines some useful button components
 
-import React from 'react';
-import { TouchableOpacity, StyleSheet, Text } from 'react-native';
-import PropTypes from 'prop-types';
+import React, { ReactNode } from 'react';
+import { StyleSheet, Text, TextProps, TouchableOpacity, TouchableOpacityProps } from 'react-native';
+import { Buttons, Colors, Spacing } from '../styles';
 
-import { Colors, Spacing, Buttons } from '../styles';
+interface ButtonProps extends TouchableOpacityProps {
+  text?: ReactNode;
+  textProps?: TextProps;
+}
 
 /* A standard large button component.
   Props:
@@ -13,49 +16,33 @@ import { Colors, Spacing, Buttons } from '../styles';
     rest: The rest of the props will be passed as the TouchableOpacity props (e.g. the style prop
       will be applied to the TouchableOpacity).
 */
-function LargeButton({ text, textProps, ...rest }) {
+const LargeButton = ({ text, textProps, ...rest }: ButtonProps) => {
   const { style: textStyle, ...restText } = textProps || {};
   const { style: pressStyle, ...restPress } = { ...rest } || {};
   return (
-    <TouchableOpacity style={[styles.largeButton, { ...pressStyle }]} {...restPress}>
+    <TouchableOpacity style={[styles.largeButton, pressStyle]} {...restPress}>
       <Text style={[styles.buttonText, textStyle]} {...restText}>
         {text}
       </Text>
     </TouchableOpacity>
   );
-}
-
-LargeButton.propTypes = {
-  text: PropTypes.string,
-  textProps: PropTypes.objectOf(PropTypes.object),
 };
 
-LargeButton.defaultProps = {
-  text: null,
-  textProps: null,
-};
-
-function MediumButton({ text, textProps, ...rest }) {
+const MediumButton = ({ text, textProps, ...rest }: ButtonProps) => {
   const { style: textStyle, ...restText } = textProps || {};
   const { style: pressStyle, ...restPress } = { ...rest } || {};
   return (
-    <TouchableOpacity style={[styles.mediumButton, { ...pressStyle }]} {...restPress}>
+    <TouchableOpacity style={[styles.mediumButton, pressStyle]} {...restPress}>
       <Text style={[styles.buttonText, textStyle]} {...restText}>
         {text}
       </Text>
     </TouchableOpacity>
   );
+};
+
+interface ActionButtonProps extends ButtonProps {
+  component?: JSX.Element;
 }
-
-MediumButton.propTypes = {
-  text: PropTypes.string,
-  textProps: PropTypes.objectOf(PropTypes.object),
-};
-
-MediumButton.defaultProps = {
-  text: null,
-  textProps: null,
-};
 
 /* A rounded action button (i.e with a plus sign in it)
   Props:
@@ -65,7 +52,7 @@ MediumButton.defaultProps = {
       the text will not be rendered.
     rest: The rest of the props will be passed as the TouchableOpacity props.
 */
-function ActionButton({ text, textProps, component, ...rest }) {
+const ActionButton = ({ text, textProps, component, ...rest }: ActionButtonProps) => {
   const { style: textStyle, ...restText } = textProps || {};
   const { style: pressStyle, ...restPress } = { ...rest } || {};
   return (
@@ -77,49 +64,18 @@ function ActionButton({ text, textProps, component, ...rest }) {
       )}
     </TouchableOpacity>
   );
-}
-
-ActionButton.propTypes = {
-  text: PropTypes.string,
-  textProps: PropTypes.objectOf(PropTypes.object),
-  component: PropTypes.element,
-};
-
-ActionButton.defaultProps = {
-  text: null,
-  textProps: null,
-  component: null,
 };
 
 /* A floating action button. It is positioned in the bottom right of the screen. The position may
   adjusted using the style prop.
   Props:
-    text: The text to go on the button.
-    textProps: Any additional props for the text.
-    rest: The rest of the props will be passed as the ActionButton props (e.g a component can be
-      passed to render the component instead of the text).
+    Props will be passed as the ActionButton props (e.g a component can be
+    passed to render the component instead of the text).
 */
-function FloatingActionButton({ text, textProps, ...rest }) {
-  const { style: pressStyle, ...restPress } = { ...rest } || {};
-  return (
-    <ActionButton
-      text={text}
-      textProps={textProps}
-      style={[styles.floating, { ...pressStyle }]}
-      {...restPress}
-    />
-  );
+function FloatingActionButton(props: ActionButtonProps) {
+  const { style: pressStyle, ...rest } = { ...props } || {};
+  return <ActionButton style={[styles.floating, pressStyle]} {...rest} />;
 }
-
-FloatingActionButton.propTypes = {
-  text: PropTypes.string,
-  textProps: PropTypes.objectOf(PropTypes.object),
-};
-
-FloatingActionButton.defaultProps = {
-  text: null,
-  textProps: null,
-};
 
 const styles = StyleSheet.create({
   largeButton: {

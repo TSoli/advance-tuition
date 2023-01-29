@@ -1,13 +1,27 @@
-import PropTypes from 'prop-types';
-import { Image, SafeAreaView, ScrollView, StyleSheet, Text } from 'react-native';
+import { NavigationProp } from '@react-navigation/native';
+import {
+  Image,
+  ImageStyle,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextStyle,
+  ViewStyle,
+} from 'react-native';
 import { LargeButton } from '../../../components/Buttons';
 import { Loading } from '../../../components/Loading';
 import SecureTextInput from '../../../components/UserInput/SecureTextInput';
 import { DoubleUserInput, UserInput } from '../../../components/UserInput/UserInput';
 import { Spacing, ViewContainer } from '../../../styles';
+import { LoginStackParamList } from '../../navigation/LoginStackNavigator';
 import useSignup, { MAX_PHONE_LENGTH, MAX_STATE_LENGTH, POSTCODE_LENGTH } from './useSignup';
 
-export default function SignupScreen({ navigation }) {
+interface SignupScreenProps {
+  navigation: NavigationProp<LoginStackParamList, 'SignupScreen'>;
+}
+
+const SignupScreen = ({ navigation }: SignupScreenProps) => {
   const {
     logoPath,
     errorMessages,
@@ -26,6 +40,7 @@ export default function SignupScreen({ navigation }) {
         <DoubleUserInput>
           <UserInput
             title="First Name"
+            size="half-line"
             placeholder="First Name"
             error={errorMessages.name}
             autoCapitalize="words"
@@ -33,6 +48,7 @@ export default function SignupScreen({ navigation }) {
           />
           <UserInput
             title="Surname"
+            size="half-line"
             placeholder="Surname"
             autoCapitalize="words"
             onChangeText={(text) => updateUserData('name.last', text)}
@@ -98,6 +114,7 @@ export default function SignupScreen({ navigation }) {
         <DoubleUserInput>
           <UserInput
             title="Postcode"
+            size="half-line"
             placeholder="4061"
             error={errorMessages.postcode}
             keyboardType="number-pad"
@@ -109,6 +126,7 @@ export default function SignupScreen({ navigation }) {
           <UserInput
             title="State"
             placeholder="QLD"
+            size="half-line"
             error={errorMessages.state}
             onChangeText={(text) => updateUserData('address.state', text.toUpperCase())}
             textContentType="addressState"
@@ -129,13 +147,17 @@ export default function SignupScreen({ navigation }) {
       {loading && <Loading />}
     </SafeAreaView>
   );
-}
-
-SignupScreen.propTypes = {
-  navigation: PropTypes.shape({ navigate: PropTypes.func.isRequired }).isRequired,
 };
 
-const styles = StyleSheet.create({
+interface Styles {
+  mainContainer: ViewStyle;
+  scrollContentContainer: ViewStyle;
+  image: ImageStyle;
+  warningText: TextStyle;
+  signupBtn: ViewStyle;
+}
+
+const styles = StyleSheet.create<Styles>({
   mainContainer: {
     ...ViewContainer.base,
     alignItems: 'stretch',
@@ -163,3 +185,5 @@ const styles = StyleSheet.create({
     marginTop: Spacing.margin.base,
   },
 });
+
+export default SignupScreen;

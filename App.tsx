@@ -4,7 +4,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthProvider } from './context/AuthContext';
 import MainNavigationContainer from './screens/navigation/MainNavigationContainer';
 
-export default function App() {
+const App = () => {
   return (
     <SafeAreaProvider>
       <AuthProvider>
@@ -12,4 +12,6 @@ export default function App() {
       </AuthProvider>
     </SafeAreaProvider>
   );
-}
+};
+
+export default App;

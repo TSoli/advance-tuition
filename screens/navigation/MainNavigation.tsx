@@ -5,10 +5,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Spacing } from '../../styles';
+import { Timesheet } from '../../types/Timesheet';
 import { StudentData } from '../../types/UserData';
 import HomeScreen from '../homeStack/HomeScreen';
 import AddTimesheetScreen from '../payrollStack/addTimesheet/AddTimesheetScreen';
-import TimesheetListScreen from '../payrollStack/TimesheetListScreen';
+import TimesheetListScreen from '../payrollStack/timesheetList/TimesheetListScreen';
 import TimesheetScreen from '../payrollStack/TimesheetScreen';
 import StudentDetailsScreen from '../studentStack/studentDetails/StudentDetailsScreen';
 import StudentListScreen from '../studentStack/studentList/StudentListScreen';
@@ -41,7 +42,7 @@ function HomeStackScreen() {
 
 type PayrollStackParamList = {
   TimesheetListScreen: undefined;
-  TimesheetScreen: undefined;
+  TimesheetScreen: Timesheet;
   AddTimesheetScreen: undefined;
 };
 

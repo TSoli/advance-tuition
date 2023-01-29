@@ -3,8 +3,9 @@ import { useEffect, useState } from 'react';
 import { Alert, Platform } from 'react-native';
 import { addTimesheet, getTutorStudents } from '../../../backend/firestore';
 import { useAuth } from '../../../context/AuthContext';
-import Timesheet from '../../../types/Timesheet';
+import TimesheetData from '../../../types/Timesheet';
 import { Student } from '../../../types/UserData';
+import { getFormattedDate, getFormattedTime } from '../../../utils/formatDate';
 
 interface Errors {
   date: string;
@@ -13,12 +14,15 @@ interface Errors {
   notes: string;
 }
 
-const initialTimesheet: Timesheet = {
-  datetime: null,
+const initialTimesheet: TimesheetData = {
+  datetime: undefined,
   tutor: '',
   student: '',
   duration: 0,
-  notes: null,
+  notes: undefined,
+  subject: '',
+  status: 'PENDING',
+  isPaid: false,
 };
 
 const initialErrors: Errors = {
@@ -44,9 +48,18 @@ const useAddTimesheet = () => {
 
   const getStudents = async () => {
     setLoading(true);
-    const newStudents = await getTutorStudents(user.uid);
-    setStudents(newStudents);
-    setLoading(false);
+    try {
+      const newStudents = await getTutorStudents(user.uid);
+      setStudents(newStudents);
+    } catch (error: any) {
+      Alert.alert(
+        'Failed to get students',
+        `Failed to get students: ${error.message}.\nPlease try closing the page and reopening it.`
+      );
+      console.log(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -56,34 +69,8 @@ const useAddTimesheet = () => {
     });
   }, []);
 
-  // Take a Date object and return it formatted as a string.
-  const getFormattedDate = (selectedDate: Date | null) => {
-    if (!selectedDate) {
-      return null;
-    }
-    // month is zero based?
-    return `${selectedDate.getDate()}/${selectedDate.getMonth() + 1}/${selectedDate.getFullYear()}`;
-  };
-
-  // Take a Date object and return the time formatted as a string.
-  const getFormattedTime = (selectedTime: Date | null) => {
-    if (!selectedTime) {
-      return null;
-    }
-    // minutes/hours are two digits
-    const minutes =
-      selectedTime.getMinutes() > 9
-        ? selectedTime.getMinutes().toString()
-        : `0${selectedTime.getMinutes().toString()}`;
-    const hours =
-      selectedTime.getHours() > 9
-        ? selectedTime.getHours().toString()
-        : `0${selectedTime.getHours().toString()}`;
-    return `${hours}:${minutes}`;
-  };
-
   // handle change date/time
-  const onChangeDate = (event: DateTimePickerEvent, selectedDate: Date | null) => {
+  const onChangeDate = (event: DateTimePickerEvent, selectedDate: Date | undefined) => {
     const newDate = selectedDate || timesheet.datetime;
     setShow(Platform.OS === 'ios'); // Why did I do this?
     setTimesheet((prevState) => {

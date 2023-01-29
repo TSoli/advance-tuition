@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import UserAvatar from 'react-native-user-avatar';
 import { Loading } from '../../../components/Loading';
-import { CustomTextStyle, ListStyle, Spacing, ViewContainer } from '../../../styles';
+import { FontSize, ListStyle, Spacing, ViewContainer } from '../../../styles';
 import useStudentList from './useStudentList';
 
 export default function StudentListScreen({ navigation }) {
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: CustomTextStyle.fontSize.medium,
+    fontSize: FontSize.medium,
     fontWeight: 'bold',
   },
 

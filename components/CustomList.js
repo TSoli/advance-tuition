@@ -3,7 +3,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { CustomTextStyle, ListStyle } from '../styles';
+import { FontSize, ListStyle } from '../styles';
 
 function DetailsRow({ category, details }) {
   return (
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 
   categoryText: {
     fontWeight: 'bold',
-    fontSize: CustomTextStyle.fontSize.medium,
+    fontSize: FontSize.medium,
   },
 
   detailContainer: {
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
 
   detailText: {
-    fontSize: CustomTextStyle.fontSize.small,
+    fontSize: FontSize.small,
   },
 });
 

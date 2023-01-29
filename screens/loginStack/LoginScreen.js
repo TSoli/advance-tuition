@@ -6,7 +6,7 @@ import { Loading } from '../../components/Loading';
 import SecureTextInput from '../../components/UserInput/SecureTextInput';
 import { UserInput } from '../../components/UserInput/UserInput';
 import { useAuth } from '../../context/AuthContext';
-import { Buttons, Colors, CustomTextStyle, Spacing, ViewContainer } from '../../styles';
+import { Buttons, Colors, FontSize, Spacing, ViewContainer } from '../../styles';
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   },
 
   forgotText: {
-    fontSize: CustomTextStyle.fontSize.medium,
+    fontSize: FontSize.medium,
     fontWeight: '500',
   },
 

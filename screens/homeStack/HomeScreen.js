@@ -13,7 +13,7 @@ export default function HomeScreen({ navigation }) {
     try {
       await logout();
     } catch (e) {
-      Alert.alert('Logout Failed', `{e}\nLogout failed unexpectedly`);
+      Alert.alert('Logout Failed', `${e}\nLogout failed unexpectedly`);
       console.log(e);
     }
   };

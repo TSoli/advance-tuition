@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { ReactElement } from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -12,11 +12,11 @@ import {
 } from 'react-native';
 import { Colors, Spacing, UserInputStyle } from '../../styles';
 
-interface UserInputProps {
+interface UserInputProps extends TextInputProps {
   title?: string;
   icon?: JSX.Element; // Might be a better type here
   error?: string;
-  size?: 'line' | 'medium';
+  size?: 'line' | 'half-line' | 'medium';
 }
 
 /* The default component for user text input.
@@ -27,9 +27,20 @@ interface UserInputProps {
     rest: The rest of the props are passed as additional props for the TextInput
       component.
 */
-function UserInput({ title, icon, error, size, ...rest }: UserInputProps & TextInputProps) {
+const UserInput = ({ title, icon, error, size, ...rest }: UserInputProps) => {
   const { style: inputStyle, ...restInput } = { ...rest };
-  const viewStyle = size === 'medium' ? UserInputStyle.mediumView : UserInputStyle.view;
+
+  let viewStyle;
+  switch (size) {
+    case 'medium':
+      viewStyle = UserInputStyle.mediumView;
+      break;
+    case 'half-line':
+      viewStyle = [UserInputStyle.view, styles.smallInputContainer];
+      break;
+    default:
+      viewStyle = UserInputStyle.view;
+  }
 
   return (
     <KeyboardAvoidingView
@@ -50,10 +61,10 @@ function UserInput({ title, icon, error, size, ...rest }: UserInputProps & TextI
       {!!error && <Text style={styles.error}>{error}</Text>}
     </KeyboardAvoidingView>
   );
-}
+};
 
 interface DoubleUserInputProps {
-  children: [FC<UserInputProps>, FC<UserInputProps>];
+  children: [ReactElement<UserInputProps>, ReactElement<UserInputProps>];
 }
 
 /* Renders the two child UserInput components in the same row. They collectively take up the same
@@ -113,11 +124,13 @@ const styles = StyleSheet.create<Styles>({
   leftContainer: {
     flex: 1,
     alignItems: 'flex-start',
+    marginRight: Spacing.margin.base / 2,
   },
 
   rightContainer: {
     flex: 1,
     alignItems: 'flex-end',
+    marginLeft: Spacing.margin.base / 2,
   },
 
   smallLeftMainContainer: {
