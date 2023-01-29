@@ -7,7 +7,7 @@ import { UserInput } from '../../components/UserInput/UserInput';
 import { useAuth } from '../../context/AuthContext';
 import { ViewContainer } from '../../styles';
 
-export default function ForgotPasswordScreen({ navigation }) {
+const ForgotPasswordScreen = () => {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -24,7 +24,7 @@ export default function ForgotPasswordScreen({ navigation }) {
 
     try {
       await resetPassword(email);
-    } catch (error) {
+    } catch (error: any) {
       let errorMessage = error.message;
       if (error.code == 'auth/user-not-found') {
         errorMessage = 'Account does not exist.';
@@ -55,7 +55,7 @@ export default function ForgotPasswordScreen({ navigation }) {
       {loading && <Loading />}
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   image: {
@@ -68,3 +68,5 @@ const styles = StyleSheet.create({
     height: 30,
   },
 });
+
+export default ForgotPasswordScreen;

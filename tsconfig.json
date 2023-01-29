@@ -1,5 +1,6 @@
 {
   "extends": "expo/tsconfig.base",
+  "include": ["types/react-native-user-avatar.d.ts"],
   "compilerOptions": {
     "strict": true,
     "noImplicitAny": true,

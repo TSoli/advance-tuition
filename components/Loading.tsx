@@ -1,5 +1,4 @@
 // An overlay for loading
-
 import React from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { Colors } from '../styles';
@@ -14,7 +13,7 @@ function Loading() {
 
 const styles = StyleSheet.create({
   loadingView: {
-    ...StyleSheet.absoluteFill,
+    ...StyleSheet.absoluteFillObject,
     backgroundColor: Colors.white50,
     justifyContent: 'center',
     alignItems: 'center',

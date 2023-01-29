@@ -38,7 +38,8 @@ interface TimesheetListScreenProps {
 }
 
 const TimesheetListScreen = ({ navigation }: TimesheetListScreenProps) => {
-  const { onRefresh, timesheets, loading, refreshing } = useTimesheetList();
+  const { onRefresh, getStudentName, getStudent, timesheets, loading, refreshing } =
+    useTimesheetList();
   const plusIcon = <AntDesign name="plus" size={42} color={Colors.white} />;
   const refreshControl = <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />;
 
@@ -50,15 +51,17 @@ const TimesheetListScreen = ({ navigation }: TimesheetListScreenProps) => {
         refreshControl={refreshControl}
         keyExtractor={(item) => item.id}
         renderItem={({ item: timesheet }) => (
-          <TouchableOpacity onPress={() => navigation.navigate('TimesheetScreen', timesheet)}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('TimesheetScreen', {
+                timesheet: timesheet,
+                student: getStudent(timesheet.data.student),
+              })
+            }>
             <View style={styles.rowContainer}>
               <View>
                 <Text style={styles.text}>{getFormattedDate(timesheet.data.datetime)}</Text>
-
-                <Text>
-                  Name:
-                  {timesheet.id}
-                </Text>
+                <Text>{getStudentName(timesheet.data.student)}</Text>
               </View>
 
               <View style={{ justifyContent: 'center' }}>

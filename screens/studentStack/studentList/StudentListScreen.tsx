@@ -1,3 +1,5 @@
+import { NavigationProp } from '@react-navigation/native';
+import React from 'react';
 import {
   FlatList,
   RefreshControl,
@@ -10,13 +12,19 @@ import {
 import UserAvatar from 'react-native-user-avatar';
 import { Loading } from '../../../components/Loading';
 import { FontSize, ListStyle, Spacing, ViewContainer } from '../../../styles';
+import { Student } from '../../../types/UserData';
+import { StudentStackParamList } from '../../navigation/MainNavigation';
 import useStudentList from './useStudentList';
 
-export default function StudentListScreen({ navigation }) {
+interface StudentDetailsScreenProps {
+  navigation: NavigationProp<StudentStackParamList, 'StudentListScreen'>;
+}
+
+const StudentListScreen = ({ navigation }: StudentDetailsScreenProps) => {
   const { students, loading, refreshing, onRefresh } = useStudentList();
   const refreshControl = <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />;
 
-  const listItem = (student) => {
+  const listItem = (student: Student) => {
     return (
       <TouchableOpacity onPress={() => navigation.navigate('StudentDetailsScreen', student)}>
         <View style={styles.rowContainer}>
@@ -45,7 +53,7 @@ export default function StudentListScreen({ navigation }) {
       {loading && <Loading />}
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   list: {
@@ -66,3 +74,5 @@ const styles = StyleSheet.create({
     marginRight: Spacing.margin.base,
   },
 });
+
+export default StudentListScreen;

@@ -1,14 +1,19 @@
+import { NavigationProp } from '@react-navigation/native';
 import { useState } from 'react';
 import { Alert, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-
 import { LargeButton } from '../../components/Buttons';
 import { Loading } from '../../components/Loading';
 import SecureTextInput from '../../components/UserInput/SecureTextInput';
 import { UserInput } from '../../components/UserInput/UserInput';
 import { useAuth } from '../../context/AuthContext';
 import { Buttons, Colors, FontSize, Spacing, ViewContainer } from '../../styles';
+import { LoginStackParamList } from '../navigation/LoginStackNavigator';
 
-export default function LoginScreen({ navigation }) {
+interface LoginScreenProps {
+  navigation: NavigationProp<LoginStackParamList, 'LoginScreen'>;
+}
+
+const LoginScreen = ({ navigation }: LoginScreenProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -31,7 +36,7 @@ export default function LoginScreen({ navigation }) {
 
           try {
             await logout();
-          } catch (error) {
+          } catch (error: any) {
             console.log(error.code);
             console.log(error.message);
           }
@@ -42,7 +47,7 @@ export default function LoginScreen({ navigation }) {
         onPress: async () => {
           try {
             await logout();
-          } catch (error) {
+          } catch (error: any) {
             console.log(error.code);
             console.log(error.message);
           }
@@ -59,7 +64,7 @@ export default function LoginScreen({ navigation }) {
     setLoading(true);
     try {
       await login(email, password);
-    } catch (error) {
+    } catch (error: any) {
       Alert.alert('Unable to login', 'Please check your email and password.');
       console.error(error.code);
       console.error(error.message);
@@ -106,7 +111,7 @@ export default function LoginScreen({ navigation }) {
       {loading && <Loading />}
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   image: {
@@ -146,3 +151,5 @@ const styles = StyleSheet.create({
     color: Colors.primaryDark,
   },
 });
+
+export default LoginScreen;

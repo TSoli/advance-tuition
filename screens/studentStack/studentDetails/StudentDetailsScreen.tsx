@@ -1,3 +1,4 @@
+import React from 'react';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import UserAvatar from 'react-native-user-avatar';
@@ -5,7 +6,7 @@ import { DetailsRow } from '../../../components/CustomList';
 import { CustomTextStyle, ListStyle, Spacing, ViewContainer } from '../../../styles';
 import useStudentDetails from './useStudentDetails';
 
-export default function StudentDetailsScreen({ route }) {
+const StudentDetailsScreen = ({ route }) => {
   const { data } = route.params;
   const { name, year, contact } = data;
   const { formattedAddress, formattedSubjects } = useStudentDetails(data);
@@ -31,7 +32,7 @@ export default function StudentDetailsScreen({ route }) {
       </View>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   viewContainer: {
@@ -62,3 +63,5 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.padding.large,
   },
 });
+
+export default StudentDetailsScreen;

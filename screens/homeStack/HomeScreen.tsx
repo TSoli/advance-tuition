@@ -1,12 +1,18 @@
-import PropTypes from 'prop-types';
+import { NavigationProp } from '@react-navigation/native';
+import React from 'react';
 import { Alert, Image, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { MediumButton } from '../../components/Buttons';
 import { useAuth } from '../../context/AuthContext';
 import { Buttons, Colors, CustomTextStyle, Spacing, ViewContainer } from '../../styles';
+import { HomeStackParamList } from '../navigation/MainNavigation';
+
+interface HomeScreenProps {
+  navigation: NavigationProp<HomeStackParamList, 'HomeScreen'>;
+}
 
 const logoPath = require('../../assets/logo.jpg');
 
-export default function HomeScreen({ navigation }) {
+const HomeScreen = ({ navigation }: HomeScreenProps) => {
   const { user, logout } = useAuth();
 
   const handleLogout = async () => {
@@ -52,10 +58,6 @@ export default function HomeScreen({ navigation }) {
       </View>
     </SafeAreaView>
   );
-}
-
-HomeScreen.propTypes = {
-  navigation: PropTypes.shape({ navigate: PropTypes.func.isRequired }).isRequired,
 };
 
 const styles = StyleSheet.create({
@@ -97,3 +99,5 @@ const styles = StyleSheet.create({
     color: Colors.primaryDark,
   },
 });
+
+export default HomeScreen;

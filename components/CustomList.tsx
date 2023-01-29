@@ -1,11 +1,14 @@
 // Some useful components for a list
-
-import PropTypes from 'prop-types';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { FontSize, ListStyle } from '../styles';
 
-function DetailsRow({ category, details }) {
+interface DetailsRowProps {
+  category: string | undefined;
+  details: string | number | undefined;
+}
+
+const DetailsRow = ({ category, details }: DetailsRowProps) => {
   return (
     <View style={styles.rowContainer}>
       <View style={styles.categoryContainer}>
@@ -17,16 +20,6 @@ function DetailsRow({ category, details }) {
       </View>
     </View>
   );
-}
-
-DetailsRow.propTypes = {
-  category: PropTypes.string,
-  details: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-};
-
-DetailsRow.defaultProps = {
-  category: null,
-  details: null,
 };
 
 const styles = StyleSheet.create({

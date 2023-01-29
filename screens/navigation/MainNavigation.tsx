@@ -6,7 +6,7 @@ import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Spacing } from '../../styles';
 import { Timesheet } from '../../types/Timesheet';
-import { StudentData } from '../../types/UserData';
+import { Student } from '../../types/UserData';
 import HomeScreen from '../homeStack/HomeScreen';
 import AddTimesheetScreen from '../payrollStack/addTimesheet/AddTimesheetScreen';
 import TimesheetListScreen from '../payrollStack/timesheetList/TimesheetListScreen';
@@ -29,6 +29,7 @@ const Stack = createStackNavigator();
 
 type HomeStackParamList = {
   HomeScreen: undefined;
+  Payroll: { screen: string; initial: boolean };
 };
 
 // The screens that can be navigated to from the Home tab
@@ -42,7 +43,7 @@ function HomeStackScreen() {
 
 type PayrollStackParamList = {
   TimesheetListScreen: undefined;
-  TimesheetScreen: Timesheet;
+  TimesheetScreen: { timesheet: Timesheet; student: Student | undefined };
   AddTimesheetScreen: undefined;
 };
 
@@ -71,7 +72,7 @@ function PayrollStackScreen() {
 
 type StudentStackParamList = {
   StudentListScreen: undefined;
-  StudentDetailsScreen: StudentData;
+  StudentDetailsScreen: Student;
 };
 
 // The screens that can be navigated to from the Students tab

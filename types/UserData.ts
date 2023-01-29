@@ -62,5 +62,17 @@ interface Student {
   data: StudentData;
 }
 
+/** Get the student name from their ID.
+ *
+ * @param uid - The UID of the student.
+ * @param students - The students to search.
+ *
+ * @returns The student's Name.
+ */
+const getStudentNameFromID = (uid: string, students: Student[]) => {
+  const thisStudent = students.filter((student) => student.id === uid);
+  return thisStudent.length ? thisStudent[0].data.name : undefined;
+};
+
 export default UserData;
-export { Name, Address, Contact, StudentData, Student, Subject };
+export { Name, Address, Contact, StudentData, Student, Subject, getStudentNameFromID };

@@ -1,6 +1,15 @@
 // Some useful database functions
 
-import { addDoc, collection, doc, getDocs, query, setDoc, where } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from 'firebase/firestore';
 import TimesheetData, { Timesheet } from '../types/Timesheet';
 import UserData, { Student, StudentData } from '../types/UserData';
 import { db } from './firebase';
@@ -41,6 +50,14 @@ const addTimesheet = async (timesheet: TimesheetData) => {
   await addDoc(collection(db, 'timesheets'), timesheet);
 };
 
+/** Deletes the timesheet document
+ *
+ * @param id - The document ID for the timesheet to delete.
+ */
+const deleteTimesheet = async (id: string) => {
+  await deleteDoc(doc(db, 'timesheets', id));
+};
+
 /** Get the timesheets for a tutor.
  *
  * @param uid - The tutor's UID.
@@ -62,4 +79,4 @@ const getTutorTimesheets = async (uid: string): Promise<Timesheet[]> => {
   });
 };
 
-export { addTutor, addTimesheet, getTutorStudents, getTutorTimesheets };
+export { addTutor, addTimesheet, deleteTimesheet, getTutorStudents, getTutorTimesheets };

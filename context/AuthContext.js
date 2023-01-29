@@ -1,5 +1,4 @@
 // For user authentication
-
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
