@@ -3,6 +3,7 @@
     "name": "AdvanceTuition",
     "slug": "AdvanceTuition",
     "version": "1.0.0",
+    "sdkVersion": "46.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {

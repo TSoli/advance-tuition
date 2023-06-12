@@ -17,12 +17,13 @@ The project is currently converting from JavaScript to TypeScript so for now the
 
 To get started you will need to [install git](https://github.com/git-guides/install-git) and
 [install expo](https://docs.expo.dev/get-started/installation/) which requires
-[Node.js](https://nodejs.org/en/). It is also recommended to
-[install yarn](https://classic.yarnpkg.com/en/docs/install#windows-stable) as a package manager for
-the project \(although you can use npm which comes with Node.js\) and a text editor such as
-[VSCode](https://code.visualstudio.com/download). Finally, it is a good idea to download the
-[Expo Go](https://expo.dev/client) app on your smartphone to make it easy to test the app on your
-own device.
+[Node.js](https://nodejs.org/en/) \(currently expo does not support Node 17+ so after installing
+nvm, install Node 16 with `nvm install 16`\). It is also recommended to [install
+yarn](https://classic.yarnpkg.com/en/docs/install#windows-stable) as a package manager for the
+project \(although you can use npm which comes with Node.js\) and a text editor such as
+[VSCode](https://code.visualstudio.com/download). Finally, it is a good idea to download the [Expo
+Go](https://expo.dev/client) app on your smartphone to make it easy to test the app on your own
+device.
 
 # Opening the Project
 
@@ -38,7 +39,7 @@ directory in your text editor. If you are using VSCode, simply `cd` into the pro
 run `code .`. Now, still inside the project directory in your terminal, run `yarn install` to
 install all the packages for the project \(if you didn't install yarn use `npm install` instead\).
 
-After the packages have finished installing you can run `npm start` in order to test the app.
+After the packages have finished installing you can run `npx expo start` in order to test the app.
 You will see some options for viewing the app in emulators if you have them installed or you can
 scan the QR code that appears in order to open the app on your smartphone. \(You may see an error
 about a missing import file. See [Firebase](#firebase) if this happens.\)
