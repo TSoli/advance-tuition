@@ -21,7 +21,7 @@ interface TimesheetScreenProps {
 
 const TimesheetScreen = ({ navigation, route }: TimesheetScreenProps) => {
   const { timesheet, student } = route.params;
-  const { status, datetime, duration, notes } = timesheet.data;
+  const { status, datetime, duration, owed, notes } = timesheet.data;
   const [loading, setLoading] = useState(false);
   const statusColor = getStatusColor(status);
   const deleteIcon = <AntDesign name="delete" size={36} color={Colors.white} />;
@@ -51,7 +51,7 @@ const TimesheetScreen = ({ navigation, route }: TimesheetScreenProps) => {
         <DetailsRow category="Date" details={getFormattedDate(datetime)} />
         <DetailsRow category="Start Time" details={getFormattedTime(datetime)} />
         <DetailsRow category="Duration (min)" details={duration} />
-        <DetailsRow category="Amount Owed ($)" details={(duration * 40) / 60} />
+        <DetailsRow category="Amount Owed ($)" details={owed} />
         <DetailsRow category="Additional Notes" details={notes} />
       </ScrollView>
 

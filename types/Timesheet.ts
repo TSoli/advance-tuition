@@ -2,13 +2,15 @@ type TimesheetStatus = 'APPROVED' | 'PENDING' | 'DENIED';
 
 interface TimesheetData {
   /** The date/time of the start of the tutoring session */
-  datetime: Date | undefined;
+  datetime: Date;
   /** The tutor's ID */
   tutor: string;
   /** The student's ID */
   student: string;
   /** The duration of the tutoring session in minutes */
   duration: number;
+  /** Amount owed to the tutor in $ */
+  owed: number;
   /** Any additional notes about the timesheet */
   notes: string | undefined;
   /** The subject the tutoring session was for */

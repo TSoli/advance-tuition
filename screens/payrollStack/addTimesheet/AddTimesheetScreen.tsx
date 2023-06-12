@@ -11,6 +11,7 @@ export default function AddTimesheetScreen() {
   const {
     showMode,
     onChangeDate,
+    onChangeDuration,
     submitDetails,
     setTimesheet,
     students,
@@ -68,9 +69,7 @@ export default function AddTimesheetScreen() {
           keyboardType="numeric"
           maxLength={3}
           onChangeText={(duration) => {
-            setTimesheet((prevState) => {
-              return { ...prevState, duration: parseInt(duration, 10) };
-            });
+            onChangeDuration(parseInt(duration, 10));
           }}
         />
 

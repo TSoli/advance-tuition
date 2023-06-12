@@ -10,11 +10,13 @@ import {
 } from 'firebase/auth';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { auth } from '../backend/firebase';
+import { getTutor } from '../backend/firestore';
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState();
+  const [tutorData, setTutorData] = useState();
 
   const signup = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -47,9 +49,15 @@ export function AuthProvider({ children }) {
     });
   };
 
+  const updateTutorDataOnMount = async (uid: string) => {
+    const tutorData = await getTutor(uid);
+    setTutorData(tutorData);
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
+      updateTutorDataOnMount(user.uid);
     });
 
     return unsubscribe;
@@ -57,6 +65,7 @@ export function AuthProvider({ children }) {
 
   const value = {
     user,
+    tutorData,
     signup,
     isVerified,
     login,

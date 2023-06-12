@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Alert } from 'react-native';
 import { addTutor } from '../../../backend/firestore';
 import { useAuth } from '../../../context/AuthContext';
-import UserData from '../../../types/UserData';
+import { TutorData } from '../../../types/UserData';
 import { LoginStackParamList } from '../../navigation/LoginStackNavigator';
 
 interface ErrorMessages {
@@ -30,7 +30,7 @@ interface ErrorMessages {
 
 const logoPath = require('../../../assets/logo.jpg');
 
-const initialUserData: UserData = {
+const initialUserData: TutorData = {
   name: {
     first: '',
     last: '',
@@ -47,6 +47,8 @@ const initialUserData: UserData = {
     state: '',
     country: 'Australia',
   },
+  level: 1,
+  rate: -1,
 };
 
 const initialErrors: ErrorMessages = {

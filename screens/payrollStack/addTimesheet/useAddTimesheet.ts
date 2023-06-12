@@ -15,10 +15,11 @@ interface Errors {
 }
 
 const initialTimesheet: TimesheetData = {
-  datetime: undefined,
+  datetime: new Date(),
   tutor: '',
   student: '',
   duration: 0,
+  owed: 0,
   notes: undefined,
   subject: '',
   status: 'PENDING',
@@ -32,6 +33,7 @@ const initialErrors: Errors = {
   notes: '',
 };
 
+const HOUR_TO_MIN = 60;
 const MIN_DURATION = 30; // Minutes
 const MAX_DURATION = 360; // Minutes - I can't imagine any tutoring session being more than 6hrs
 const MAX_NOTES = 1000;
@@ -44,7 +46,7 @@ const useAddTimesheet = () => {
   const [show, setShow] = useState(false);
   const [errors, setErrors] = useState({ ...initialErrors });
 
-  const { user } = useAuth();
+  const { user, tutorData } = useAuth();
 
   const getStudents = async () => {
     setLoading(true);
@@ -75,6 +77,16 @@ const useAddTimesheet = () => {
     setShow(Platform.OS === 'ios'); // Why did I do this?
     setTimesheet((prevState) => {
       return { ...prevState, datetime: newDate };
+    });
+  };
+
+  const onChangeDuration = (duration: number) => {
+    setTimesheet((prevState) => {
+      return {
+        ...prevState,
+        duration: duration,
+        owed: (duration * tutorData.rate) / HOUR_TO_MIN,
+      };
     });
   };
 
@@ -144,6 +156,7 @@ const useAddTimesheet = () => {
 
   return {
     onChangeDate,
+    onChangeDuration,
     showMode,
     submitDetails,
     setTimesheet,

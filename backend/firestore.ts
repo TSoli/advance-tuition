@@ -5,27 +5,43 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
+  limit,
+  orderBy,
   query,
   setDoc,
   where,
 } from 'firebase/firestore';
 import TimesheetData, { Timesheet } from '../types/Timesheet';
-import UserData, { Student, StudentData } from '../types/UserData';
+import { Student, StudentData, TutorData } from '../types/UserData';
 import { db } from './firebase';
+
+// Default max number of timesheets to query at a time.
+const DEFAULT_TIMESHEET_LIMIT = 15;
 
 /** Adds the tutor's user data to the database.
  *
  * @remarks
  *
  * Any extra fields will also be added to the database so make sure they are
- * removed before passing in the USerData object.
+ * removed before passing in the UserData object.
  *
  * @param uid - The tutor's unique user id.
  * @param userData - The tutor's user data.
  */
-const addTutor = async (uid: string, userData: UserData) => {
+const addTutor = async (uid: string, userData: TutorData) => {
   await setDoc(doc(db, 'tutors', uid), userData);
+};
+
+/** Get the tutor data from the database.
+ *
+ * @param uid - The user's UID.
+ * @returns The user's TutorData.
+ */
+const getTutor = async (uid: string): Promise<TutorData> => {
+  const tutorData = await getDoc(doc(db, 'tutors', uid));
+  return tutorData.data() as TutorData;
 };
 
 /** Get the students data for a particular tutor.
@@ -61,11 +77,23 @@ const deleteTimesheet = async (id: string) => {
 /** Get the timesheets for a tutor.
  *
  * @param uid - The tutor's UID.
+ * @param date - The date to query up to (not including).
+ * @param maxNum - The maximum number of timesheets to query.
  *
- * @returns An array of the timesheets for the tutor.
+ * @returns An array of the timesheets for the tutor ordered by date (latest first).
  */
-const getTutorTimesheets = async (uid: string): Promise<Timesheet[]> => {
-  const q = query(collection(db, 'timesheets'), where('tutor', '==', uid));
+const getTutorTimesheets = async (
+  uid: string,
+  date: Date,
+  maxNum: number = DEFAULT_TIMESHEET_LIMIT
+): Promise<Timesheet[]> => {
+  const q = query(
+    collection(db, 'timesheets'),
+    where('tutor', '==', uid),
+    where('datetime', '<', date),
+    orderBy('datetime', 'desc'),
+    limit(maxNum)
+  );
   const timesheetSnapshot = await getDocs(q);
   const timesheets = timesheetSnapshot.docs.map((doc) => {
     return { id: <string>doc.id, data: doc.data() };
@@ -79,4 +107,4 @@ const getTutorTimesheets = async (uid: string): Promise<Timesheet[]> => {
   });
 };
 
-export { addTutor, addTimesheet, deleteTimesheet, getTutorStudents, getTutorTimesheets };
+export { addTutor, getTutor, addTimesheet, deleteTimesheet, getTutorStudents, getTutorTimesheets };

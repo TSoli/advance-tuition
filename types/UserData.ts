@@ -37,6 +37,13 @@ interface UserData {
   address: Address;
 }
 
+interface TutorData extends UserData {
+  /** The tutor's level */
+  level: number;
+  /** The tutor's hourly rate */
+  rate: number;
+}
+
 interface Subject {
   /** The subject */
   subject: string;
@@ -75,4 +82,4 @@ const getStudentNameFromID = (uid: string, students: Student[]) => {
 };
 
 export default UserData;
-export { Name, Address, Contact, StudentData, Student, Subject, getStudentNameFromID };
+export { Name, Address, Contact, StudentData, TutorData, Student, Subject, getStudentNameFromID };
