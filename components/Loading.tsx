@@ -1,5 +1,4 @@
 // An overlay for loading
-import React from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { Colors } from '../styles';
 

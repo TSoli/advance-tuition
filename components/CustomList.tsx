@@ -1,5 +1,4 @@
 // Some useful components for a list
-import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { FontSize, ListStyle } from '../styles';
 

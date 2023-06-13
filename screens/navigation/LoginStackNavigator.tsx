@@ -1,5 +1,4 @@
 import { createStackNavigator, StackNavigationOptions } from '@react-navigation/stack';
-import React from 'react';
 import { Colors } from '../../styles';
 import ForgotPasswordScreen from '../loginStack/ForgotPasswordScreen';
 import LoginScreen from '../loginStack/LoginScreen';

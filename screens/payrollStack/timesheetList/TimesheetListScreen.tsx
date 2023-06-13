@@ -12,10 +12,10 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
+import { TimesheetStatus } from '../../../advance-tuition-backend';
 import { FloatingActionButton } from '../../../components/Buttons';
 import { Loading } from '../../../components/Loading';
 import { Colors, FontSize, ListStyle, ViewContainer } from '../../../styles';
-import { TimesheetStatus } from '../../../types/Timesheet';
 import { getFormattedDate } from '../../../utils/formatDate';
 import { PayrollStackParamList } from '../../navigation/MainNavigation';
 import useTimesheetList from './useTimesheetList';

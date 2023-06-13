@@ -13,8 +13,5 @@ web-build/
 # macOS
 .DS_Store
 
-# Some local constants that may change frequently
-model/localConfig.*
-
 # ignore log files
 *.log

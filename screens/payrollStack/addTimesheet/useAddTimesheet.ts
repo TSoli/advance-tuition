@@ -1,10 +1,13 @@
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { useEffect, useState } from 'react';
 import { Alert, Platform } from 'react-native';
-import { addTimesheet, getTutorStudents } from '../../../backend/firestore';
+import {
+  Student,
+  TimesheetData,
+  addTimesheet,
+  getTutorStudents,
+} from '../../../advance-tuition-backend';
 import { useAuth } from '../../../context/AuthContext';
-import TimesheetData from '../../../types/Timesheet';
-import { Student } from '../../../types/UserData';
 import { getFormattedDate, getFormattedTime } from '../../../utils/formatDate';
 
 interface Errors {

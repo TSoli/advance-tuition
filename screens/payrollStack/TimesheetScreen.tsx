@@ -2,7 +2,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 import { useState } from 'react';
 import { Alert, LogBox, SafeAreaView, ScrollView, StyleSheet, Text } from 'react-native';
-import { deleteTimesheet } from '../../backend/firestore';
+import { deleteTimesheet } from '../../advance-tuition-backend/firestore';
 import { FloatingActionButton } from '../../components/Buttons';
 import { DetailsRow } from '../../components/CustomList';
 import { Loading } from '../../components/Loading';

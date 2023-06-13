@@ -1,5 +1,4 @@
 import { NavigationProp } from '@react-navigation/native';
-import React from 'react';
 import {
   FlatList,
   RefreshControl,

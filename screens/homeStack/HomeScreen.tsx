@@ -1,5 +1,4 @@
 import { NavigationProp } from '@react-navigation/native';
-import React from 'react';
 import { Alert, Image, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { MediumButton } from '../../components/Buttons';
 import { useAuth } from '../../context/AuthContext';

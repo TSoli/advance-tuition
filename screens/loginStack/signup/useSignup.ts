@@ -2,9 +2,8 @@ import { NavigationProp } from '@react-navigation/native';
 import { cloneDeep, set } from 'lodash';
 import { useState } from 'react';
 import { Alert } from 'react-native';
-import { addTutor } from '../../../backend/firestore';
+import { TutorData, addTutor } from '../../../advance-tuition-backend';
 import { useAuth } from '../../../context/AuthContext';
-import { TutorData } from '../../../types/UserData';
 import { LoginStackParamList } from '../../navigation/LoginStackNavigator';
 
 interface ErrorMessages {

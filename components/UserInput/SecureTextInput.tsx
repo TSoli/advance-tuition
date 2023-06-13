@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { TextInputProps, TouchableOpacity } from 'react-native';
 import { UserInputStyle } from '../../styles';
 import SecureTextIcon from '../SecureTextIcon';

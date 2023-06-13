@@ -1,6 +1,6 @@
 // Defines some useful button components
 
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { StyleSheet, Text, TextProps, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 import { Buttons, Colors, Spacing } from '../styles';
 
@@ -111,4 +111,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export { LargeButton, MediumButton, ActionButton, FloatingActionButton };
+export { ActionButton, FloatingActionButton, LargeButton, MediumButton };

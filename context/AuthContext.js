@@ -9,8 +9,7 @@ import {
   updateProfile,
 } from 'firebase/auth';
 import { createContext, useContext, useEffect, useState } from 'react';
-import { auth } from '../backend/firebase';
-import { getTutor } from '../backend/firestore';
+import { auth, getTutor } from '../advance-tuition-backend';
 
 const AuthContext = createContext();
 
@@ -49,7 +48,7 @@ export function AuthProvider({ children }) {
     });
   };
 
-  const updateTutorDataOnMount = async (uid: string) => {
+  const updateTutorDataOnMount = async (uid) => {
     const tutorData = await getTutor(uid);
     setTutorData(tutorData);
   };
@@ -57,7 +56,8 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
-      updateTutorDataOnMount(user.uid);
+      if (user) updateTutorDataOnMount(user.uid);
+      else setTutorData(null);
     });
 
     return unsubscribe;

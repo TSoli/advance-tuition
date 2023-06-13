@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
-import { getTutorStudents } from '../../../backend/firestore';
+import { getTutorStudents } from '../../../advance-tuition-backend/firestore';
 import { useAuth } from '../../../context/AuthContext';
 import { Student } from '../../../types/UserData';
 

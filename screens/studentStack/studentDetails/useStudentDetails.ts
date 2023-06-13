@@ -1,9 +1,5 @@
-import type { RouteProp } from '@react-navigation/native';
+import { Address, StudentData, Subject } from '../../../advance-tuition-backend';
 import { useAuth } from '../../../context/AuthContext';
-import { Address, StudentData, Subject } from '../../../types/UserData';
-import { StudentStackParamList } from '../../navigation/MainNavigation';
-
-type StudentDetailsRouteProp = RouteProp<StudentStackParamList, 'StudentDetailsScreen'>;
 
 const useStudentDetails = (data: StudentData) => {
   const { user } = useAuth();
@@ -44,4 +40,3 @@ const useStudentDetails = (data: StudentData) => {
 };
 
 export default useStudentDetails;
-export { StudentDetailsRouteProp };

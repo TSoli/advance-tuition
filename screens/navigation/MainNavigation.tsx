@@ -2,15 +2,13 @@ import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import type { StackNavigationOptions } from '@react-navigation/stack';
 import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Student, Timesheet } from '../../advance-tuition-backend';
 import { Colors, Spacing } from '../../styles';
-import { Timesheet } from '../../types/Timesheet';
-import { Student } from '../../types/UserData';
 import HomeScreen from '../homeStack/HomeScreen';
+import TimesheetScreen from '../payrollStack/TimesheetScreen';
 import AddTimesheetScreen from '../payrollStack/addTimesheet/AddTimesheetScreen';
 import TimesheetListScreen from '../payrollStack/timesheetList/TimesheetListScreen';
-import TimesheetScreen from '../payrollStack/TimesheetScreen';
 import StudentDetailsScreen from '../studentStack/studentDetails/StudentDetailsScreen';
 import StudentListScreen from '../studentStack/studentList/StudentListScreen';
 

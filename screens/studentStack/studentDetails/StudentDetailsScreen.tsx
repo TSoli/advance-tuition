@@ -1,12 +1,17 @@
-import React from 'react';
+import type { RouteProp } from '@react-navigation/native';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import UserAvatar from 'react-native-user-avatar';
 import { DetailsRow } from '../../../components/CustomList';
 import { CustomTextStyle, ListStyle, Spacing, ViewContainer } from '../../../styles';
+import { StudentStackParamList } from '../../navigation/MainNavigation';
 import useStudentDetails from './useStudentDetails';
 
-const StudentDetailsScreen = ({ route }) => {
+interface StudentDetailsScreenProps {
+  route: RouteProp<StudentStackParamList, 'StudentDetailsScreen'>;
+}
+
+const StudentDetailsScreen = ({ route }: StudentDetailsScreenProps) => {
   const { data } = route.params;
   const { name, year, contact } = data;
   const { formattedAddress, formattedSubjects } = useStudentDetails(data);

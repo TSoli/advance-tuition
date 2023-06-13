@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
-import { getTutorStudents, getTutorTimesheets } from '../../../backend/firestore';
+import {
+  Student,
+  Timesheet,
+  getStudentNameFromID,
+  getTutorStudents,
+  getTutorTimesheets,
+} from '../../../advance-tuition-backend';
 import { useAuth } from '../../../context/AuthContext';
-import { Timesheet } from '../../../types/Timesheet';
-import { Student, getStudentNameFromID } from '../../../types/UserData';
 
 const useTimesheetList = () => {
   const [timesheets, setTimesheets] = useState<Timesheet[]>([]);
