@@ -7,13 +7,15 @@ import SecureTextInput from '../../components/UserInput/SecureTextInput';
 import { UserInput } from '../../components/UserInput/UserInput';
 import { useAuth } from '../../context/AuthContext';
 import { Buttons, Colors, FontSize, Spacing, ViewContainer } from '../../styles';
-import { LoginStackParamList } from '../navigation/LoginStackNavigator';
+import { LoginStackParamList } from '../navigation/StackParamLists';
+
+const logo = require('../../assets/logo.jpg');
 
 interface LoginScreenProps {
   navigation: NavigationProp<LoginStackParamList, 'LoginScreen'>;
 }
 
-const LoginScreen = ({ navigation }: LoginScreenProps) => {
+function LoginScreen({ navigation }: LoginScreenProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -56,7 +58,7 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
     ]);
 
   const loginHandle = async () => {
-    if (email.length == 0 || password.length == 0) {
+    if (email.length === 0 || password.length === 0) {
       Alert.alert('Invalid Input!', 'Email or password cannot be empty.');
       return;
     }
@@ -80,7 +82,7 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
 
   return (
     <SafeAreaView style={ViewContainer.base}>
-      <Image style={styles.image} source={require('../../assets//logo.jpg')} />
+      <Image style={styles.image} source={logo} />
 
       <View style={styles.inputMainContainer}>
         <UserInput
@@ -111,7 +113,7 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
       {loading && <Loading />}
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   image: {

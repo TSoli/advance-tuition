@@ -11,8 +11,8 @@ import {
 import UserAvatar from 'react-native-user-avatar';
 import { Loading } from '../../../components/Loading';
 import { FontSize, ListStyle, Spacing, ViewContainer } from '../../../styles';
-import { Student } from '../../../types/UserData';
-import { StudentStackParamList } from '../../navigation/MainNavigation';
+import { Student } from '../../../advance-tuition-backend/';
+import { StudentStackParamList } from '../../navigation/StackParamLists';
 import useStudentList from './useStudentList';
 
 interface StudentDetailsScreenProps {

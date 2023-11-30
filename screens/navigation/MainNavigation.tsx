@@ -3,7 +3,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import type { StackNavigationOptions } from '@react-navigation/stack';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Student, Timesheet } from '../../advance-tuition-backend';
 import { Colors, Spacing } from '../../styles';
 import HomeScreen from '../homeStack/HomeScreen';
 import TimesheetScreen from '../payrollStack/TimesheetScreen';
@@ -25,11 +24,6 @@ const screenOptions: StackNavigationOptions = {
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-type HomeStackParamList = {
-  HomeScreen: undefined;
-  Payroll: { screen: string; initial: boolean };
-};
-
 // The screens that can be navigated to from the Home tab
 function HomeStackScreen() {
   return (
@@ -38,12 +32,6 @@ function HomeStackScreen() {
     </Stack.Navigator>
   );
 }
-
-type PayrollStackParamList = {
-  TimesheetListScreen: undefined;
-  TimesheetScreen: { timesheet: Timesheet; student: Student | undefined };
-  AddTimesheetScreen: undefined;
-};
 
 // The screens that can be navigated to from the Payroll tab
 function PayrollStackScreen() {
@@ -67,11 +55,6 @@ function PayrollStackScreen() {
     </Stack.Navigator>
   );
 }
-
-type StudentStackParamList = {
-  StudentListScreen: undefined;
-  StudentDetailsScreen: Student;
-};
 
 // The screens that can be navigated to from the Students tab
 function StudentStackScreen() {
@@ -125,4 +108,3 @@ function MainNavigation() {
 }
 
 export default MainNavigation;
-export { HomeStackParamList, PayrollStackParamList, StudentStackParamList };

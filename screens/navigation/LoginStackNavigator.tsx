@@ -20,7 +20,7 @@ const screenOptions: StackNavigationOptions = {
   headerTitleAlign: 'center',
 };
 
-const LoginStackNavigator = () => {
+function LoginStackNavigator() {
   return (
     <LoginStack.Navigator screenOptions={screenOptions}>
       <LoginStack.Screen name="LoginScreen" component={LoginScreen} options={{ title: 'Login' }} />
@@ -36,7 +36,7 @@ const LoginStackNavigator = () => {
       />
     </LoginStack.Navigator>
   );
-};
+}
 
 export default LoginStackNavigator;
 export { LoginStackParamList };

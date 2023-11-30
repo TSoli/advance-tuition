@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Alert } from 'react-native';
 import { TutorData, addTutor } from '../../../advance-tuition-backend';
 import { useAuth } from '../../../context/AuthContext';
-import { LoginStackParamList } from '../../navigation/LoginStackNavigator';
+import { LoginStackParamList } from '../../navigation/StackParamLists';
 
 interface ErrorMessages {
   /** The error message for the name */

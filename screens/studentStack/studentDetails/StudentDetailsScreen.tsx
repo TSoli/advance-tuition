@@ -4,7 +4,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import UserAvatar from 'react-native-user-avatar';
 import { DetailsRow } from '../../../components/CustomList';
 import { CustomTextStyle, ListStyle, Spacing, ViewContainer } from '../../../styles';
-import { StudentStackParamList } from '../../navigation/MainNavigation';
+import { StudentStackParamList } from '../../navigation/StackParamLists';
 import useStudentDetails from './useStudentDetails';
 
 interface StudentDetailsScreenProps {

@@ -7,7 +7,9 @@ import { UserInput } from '../../components/UserInput/UserInput';
 import { useAuth } from '../../context/AuthContext';
 import { ViewContainer } from '../../styles';
 
-const ForgotPasswordScreen = () => {
+const logo = require('../../assets/logo.jpg');
+
+function ForgotPasswordScreen() {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -24,15 +26,15 @@ const ForgotPasswordScreen = () => {
 
     try {
       await resetPassword(email);
-    } catch (error: any) {
-      let errorMessage = error.message;
-      if (error.code == 'auth/user-not-found') {
+    } catch (e: any) {
+      let errorMessage = e.message;
+      if (e.code === 'auth/user-not-found') {
         errorMessage = 'Account does not exist.';
       }
 
       Alert.alert('Reset Password Failed', `${errorMessage}`);
-      console.log(error.code);
-      console.log(error.message);
+      console.log(e.code);
+      console.log(e.message);
     }
 
     setLoading(false);
@@ -40,7 +42,7 @@ const ForgotPasswordScreen = () => {
 
   return (
     <SafeAreaView style={ViewContainer.base}>
-      <Image style={styles.image} source={require('../../assets//logo.jpg')} />
+      <Image style={styles.image} source={logo} />
 
       <UserInput
         placeholder="Email"
@@ -55,7 +57,7 @@ const ForgotPasswordScreen = () => {
       {loading && <Loading />}
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   image: {

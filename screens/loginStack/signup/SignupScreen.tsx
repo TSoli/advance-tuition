@@ -14,7 +14,7 @@ import { Loading } from '../../../components/Loading';
 import SecureTextInput from '../../../components/UserInput/SecureTextInput';
 import { DoubleUserInput, UserInput } from '../../../components/UserInput/UserInput';
 import { Spacing, ViewContainer } from '../../../styles';
-import { LoginStackParamList } from '../../navigation/LoginStackNavigator';
+import { LoginStackParamList } from '../../navigation/StackParamLists';
 import useSignup, { MAX_PHONE_LENGTH, MAX_STATE_LENGTH, POSTCODE_LENGTH } from './useSignup';
 
 interface SignupScreenProps {

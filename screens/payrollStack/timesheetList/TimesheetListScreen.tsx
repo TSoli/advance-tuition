@@ -17,7 +17,7 @@ import { FloatingActionButton } from '../../../components/Buttons';
 import { Loading } from '../../../components/Loading';
 import { Colors, FontSize, ListStyle, ViewContainer } from '../../../styles';
 import { getFormattedDate } from '../../../utils/formatDate';
-import { PayrollStackParamList } from '../../navigation/MainNavigation';
+import { PayrollStackParamList } from '../../navigation/StackParamLists';
 import useTimesheetList from './useTimesheetList';
 
 export const getStatusColor = (status: TimesheetStatus) => {

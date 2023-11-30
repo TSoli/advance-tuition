@@ -1,10 +1,13 @@
 {
   "extends": "expo/tsconfig.base",
-  "include": ["types/react-native-user-avatar.d.ts", "**/*.tsx"],
+  "include": [
+    "types/react-native-user-avatar.d.ts",
+    "**/*.tsx"
+  ],
   "compilerOptions": {
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
-    "jsx": "react-jsx",
+    "jsx": "react-jsx"
   }
 }

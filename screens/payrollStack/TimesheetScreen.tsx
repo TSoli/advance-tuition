@@ -8,7 +8,7 @@ import { DetailsRow } from '../../components/CustomList';
 import { Loading } from '../../components/Loading';
 import { Colors, CustomTextStyle, ListStyle, Spacing, ViewContainer } from '../../styles';
 import { getFormattedDate, getFormattedTime } from '../../utils/formatDate';
-import { PayrollStackParamList } from '../navigation/MainNavigation';
+import { PayrollStackParamList } from '../navigation/StackParamLists';
 import { getStatusColor } from './timesheetList/TimesheetListScreen';
 
 // see https://reactnavigation.org/docs/troubleshooting/#i-get-the-warning-non-serializable-values-were-found-in-the-navigation-state

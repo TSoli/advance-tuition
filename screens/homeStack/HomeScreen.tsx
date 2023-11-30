@@ -3,7 +3,7 @@ import { Alert, Image, SafeAreaView, StyleSheet, Text, View } from 'react-native
 import { MediumButton } from '../../components/Buttons';
 import { useAuth } from '../../context/AuthContext';
 import { Buttons, Colors, CustomTextStyle, Spacing, ViewContainer } from '../../styles';
-import { HomeStackParamList } from '../navigation/MainNavigation';
+import { HomeStackParamList } from '../navigation/StackParamLists';
 
 interface HomeScreenProps {
   navigation: NavigationProp<HomeStackParamList, 'HomeScreen'>;
@@ -11,7 +11,7 @@ interface HomeScreenProps {
 
 const logoPath = require('../../assets/logo.jpg');
 
-const HomeScreen = ({ navigation }: HomeScreenProps) => {
+function HomeScreen({ navigation }: HomeScreenProps) {
   const { user, logout } = useAuth();
 
   const handleLogout = async () => {
@@ -57,7 +57,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
       </View>
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   image: {

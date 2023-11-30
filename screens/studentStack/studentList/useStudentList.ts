@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
-import { getTutorStudents } from '../../../advance-tuition-backend/firestore';
+import { Student, getTutorStudents } from '../../../advance-tuition-backend';
 import { useAuth } from '../../../context/AuthContext';
-import { Student } from '../../../types/UserData';
 
 const useStudentList = () => {
   const [students, setStudents] = useState<Student[]>([]);
