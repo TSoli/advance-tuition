@@ -31,7 +31,7 @@ Once you have all of these tools installed, open your terminal and navigate to t
 you would like to save the project with `cd`. Now you can run:
 
 ```
-git clone https://github.com/zo1nk3dd/advance-tuition.git
+git clone --recurse-submodules https://github.com/zo1nk3dd/advance-tuition.git
 ```
 
 in order to download the necessary project files onto your computer. Now you can open the project
@@ -42,7 +42,7 @@ install all the packages for the project \(if you didn't install yarn use `npm i
 After the packages have finished installing you can run `npx expo start` in order to test the app.
 You will see some options for viewing the app in emulators if you have them installed or you can
 scan the QR code that appears in order to open the app on your smartphone. \(You may see an error
-about a missing import file. See [Firebase](#firebase) if this happens.\)
+about a missing import file. See [Backend](#backend) if this happens.\)
 
 You will be presented with a log in screen. To see the rest of the app you can log in with:
 
@@ -119,5 +119,4 @@ the firestore database.
 
 # Backend
 
-This repo contains a submodule for the backend. See <https://github.com/TSoli/advance-tuition-backend> for details. 
-
+This repo contains a submodule for the backend. See <https://github.com/TSoli/advance-tuition-backend> for details.
