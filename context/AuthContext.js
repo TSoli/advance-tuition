@@ -17,6 +17,7 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState();
   const [tutorData, setTutorData] = useState();
 
+  // These functions should be in the backend...
   const signup = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
