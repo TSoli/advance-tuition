@@ -2,7 +2,7 @@ import { NavigationProp } from '@react-navigation/native';
 import { cloneDeep, set } from 'lodash';
 import { useState } from 'react';
 import { Alert } from 'react-native';
-import { TutorData, addTutor } from '../../../advance-tuition-backend';
+import { TutorData, addTutor } from 'advance-tuition-backend';
 import { useAuth } from '../../../context/AuthContext';
 import { LoginStackParamList } from '../../navigation/StackParamLists';
 

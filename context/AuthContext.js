@@ -9,7 +9,7 @@ import {
   updateProfile,
 } from 'firebase/auth';
 import { createContext, useContext, useEffect, useState } from 'react';
-import { auth, getTutor } from '../advance-tuition-backend';
+import { auth, getTutor } from 'advance-tuition-backend';
 
 const AuthContext = createContext();
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
-import { Student, getTutorStudents } from '../../../advance-tuition-backend';
+import { Student, getTutorStudents } from 'advance-tuition-backend';
 import { useAuth } from '../../../context/AuthContext';
 
 const useStudentList = () => {

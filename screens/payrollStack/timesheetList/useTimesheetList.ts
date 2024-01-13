@@ -6,7 +6,7 @@ import {
   getStudentNameFromID,
   getTutorStudents,
   getTutorTimesheets,
-} from '../../../advance-tuition-backend';
+} from 'advance-tuition-backend';
 import { useAuth } from '../../../context/AuthContext';
 
 const useTimesheetList = () => {

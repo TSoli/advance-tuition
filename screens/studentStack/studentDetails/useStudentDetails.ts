@@ -1,4 +1,4 @@
-import { Address, StudentData, Subject } from '../../../advance-tuition-backend';
+import { Address, StudentData, Subject } from 'advance-tuition-backend';
 import { useAuth } from '../../../context/AuthContext';
 
 const useStudentDetails = (data: StudentData) => {
