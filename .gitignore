@@ -15,3 +15,6 @@ web-build/
 
 # ignore log files
 *.log
+
+# ignore the local ip config
+**/localIp*

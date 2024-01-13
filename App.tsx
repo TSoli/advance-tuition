@@ -4,10 +4,11 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { connectEmulators } from 'advance-tuition-backend';
 import { AuthProvider } from './context/AuthContext';
 import MainNavigationContainer from './screens/navigation/MainNavigationContainer';
+import { LOCAL_IP } from './localIp';
 
-connectEmulators('192.168.20.13');
+connectEmulators(LOCAL_IP);
 
-const App = () => {
+function App() {
   return (
     <SafeAreaProvider>
       <AuthProvider>
@@ -15,6 +16,6 @@ const App = () => {
       </AuthProvider>
     </SafeAreaProvider>
   );
-};
+}
 
 export default App;
